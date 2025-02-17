@@ -1,0 +1,10 @@
+@swaggerexpert/arazzo-runtime-expression
+Copyright 2025, Vladimír Gorej
+@swaggerexpert/arazzo-runtime-expression is licensed under Apache 2.0 license.
+Copy of the Apache 2.0 license can be found in `LICENSE` file.
+
+Arazzo Specification 1.0.1
+Copyright The Linux Foundation
+Fragments of the specification text are embedded in `README.md`.
+ABNF grammar is taken directly from Arazzo Specification.
+Copy of the Apache 2.0 license can be found in `LICENSE` file.

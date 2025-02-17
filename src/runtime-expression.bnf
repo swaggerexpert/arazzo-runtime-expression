@@ -1,0 +1,40 @@
+; Arazzo runtime expression ABNF syntax
+expression       = ( "$url" / "$method" / "$statusCode" / "$request." source / "$response." source / "$inputs." name / "$outputs." name / "$steps." name / "$workflows." name / "$sourceDescriptions." name / "$components." name / "$components.parameters." parameter-name)
+parameter-name   = name ; Reuses 'name' rule for parameter names
+source           = ( header-reference / query-reference / path-reference / body-reference )
+header-reference = "header." token
+query-reference  = "query." name
+path-reference   = "path." name
+body-reference   = "body" ["#" json-pointer ]
+
+; https://datatracker.ietf.org/doc/html/rfc6901#section-3
+json-pointer     = *( "/" reference-token )
+reference-token  = *( unescaped / escaped )
+unescaped        = %x00-2E / %x30-7D / %x7F-10FFFF
+                 ; %x2F ('/') and %x7E ('~') are excluded from 'unescaped'
+escaped          = "~" ( "0" / "1" )
+                 ; representing '~' and '/', respectively
+name             = *( CHAR )
+token            = 1*tchar
+tchar            = "!" / "#" / "$" / "%" / "&" / "'" / "*" / "+" / "-" / "."
+                 / "^" /"_" / "`" / "|" / "~" / DIGIT / ALPHA
+
+; https://www.rfc-editor.org/rfc/rfc7159#section-7
+CHAR = unescape /
+    escape (
+        %x22 /          ; "    quotation mark  U+0022
+        %x5C /          ; \    reverse solidus U+005C
+        %x2F /          ; /    solidus         U+002F
+        %x62 /          ; b    backspace       U+0008
+        %x66 /          ; f    form feed       U+000C
+        %x6E /          ; n    line feed       U+000A
+        %x72 /          ; r    carriage return U+000D
+        %x74 /          ; t    tab             U+0009
+        %x75 4HEXDIG )  ; uXXXX                U+XXXX
+escape         = %x5C   ; \
+unescape       = %x20-21 / %x23-5B / %x5D-10FFFF
+
+; https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1
+HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+DIGIT          =  %x30-39   ; 0-9
+ALPHA          =  %x41-5A / %x61-7A   ; A-Z / a-z

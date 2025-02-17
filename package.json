@@ -1,0 +1,82 @@
+{
+  "name": "@swaggerexpert/arazzo-runtime-expression",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.0.0",
+  "description": "Arazzo Runtime expressions parser, validator and extractor.",
+  "main": "./cjs/index.cjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./es/index.mjs",
+      "require": "./cjs/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "watch": {
+    "test": "{src,test}/*.js"
+  },
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "grammar:compile": "node ./scripts/apg-js.js --lite --in=./src/runtime-expression.bnf --out=./src/runtime-expression.js && cd ./src",
+    "build": "npm run grammar:compile && npm run build:es && npm run build:cjs && npm run build:cjs:apg-lite",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.js' --out-file-extension '.mjs'",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.js' --out-file-extension '.cjs'",
+    "build:cjs:apg-lite": "cross-env BABEL_ENV=cjs babel node_modules/apg-lite/lib/parser.js --out-file ./cjs/apg-lite.cjs",
+    "test": "mocha",
+    "test:watch": "npm-watch test",
+    "watch": "npm-watch"
+  },
+  "engines": {
+    "node": ">=12.20.0"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swaggerexpert/arazzo-runtime-expression.git"
+  },
+  "keywords": [
+    "arazzo",
+    "runtime",
+    "expression",
+    "parser",
+    "validator",
+    "extractor"
+  ],
+  "author": "Vladimír Gorej <vladimir.gorej@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/swaggerexpert/arazzo-runtime-expression/issues"
+  },
+  "homepage": "https://github.com/swaggerexpert/arazzo-runtime-expression#readme",
+  "files": [
+    "es/",
+    "cjs/",
+    "types/",
+    "LICENSE",
+    "NOTICE",
+    "package.json",
+    "README.md",
+    "SECURITY.md"
+  ],
+  "dependencies": {
+    "apg-lite": "^1.0.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "=7.26.4",
+    "@babel/core": "=7.26.9",
+    "@babel/preset-env": "=7.26.9",
+    "@commitlint/cli": "=19.7.1",
+    "@commitlint/config-conventional": "=19.7.1",
+    "apg-js": "^4.4.0",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "chai": "=5.2.0",
+    "cross-env": "^7.0.3",
+    "husky": "=9.1.7",
+    "mocha": "=11.1.0",
+    "npm-watch": "^0.13.0",
+    "prettier": "^3.1.1"
+  }
+}
