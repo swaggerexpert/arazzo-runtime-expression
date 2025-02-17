@@ -34,11 +34,11 @@ export default function grammar(){
   this.rules[4] = { name: 'query-reference', lower: 'query-reference', index: 4, isBkr: false };
   this.rules[5] = { name: 'path-reference', lower: 'path-reference', index: 5, isBkr: false };
   this.rules[6] = { name: 'body-reference', lower: 'body-reference', index: 6, isBkr: false };
-  this.rules[7] = { name: 'json-pointer', lower: 'json-pointer', index: 7, isBkr: false };
-  this.rules[8] = { name: 'reference-token', lower: 'reference-token', index: 8, isBkr: false };
-  this.rules[9] = { name: 'unescaped', lower: 'unescaped', index: 9, isBkr: false };
-  this.rules[10] = { name: 'escaped', lower: 'escaped', index: 10, isBkr: false };
-  this.rules[11] = { name: 'name', lower: 'name', index: 11, isBkr: false };
+  this.rules[7] = { name: 'name', lower: 'name', index: 7, isBkr: false };
+  this.rules[8] = { name: 'json-pointer', lower: 'json-pointer', index: 8, isBkr: false };
+  this.rules[9] = { name: 'reference-token', lower: 'reference-token', index: 9, isBkr: false };
+  this.rules[10] = { name: 'unescaped', lower: 'unescaped', index: 10, isBkr: false };
+  this.rules[11] = { name: 'escaped', lower: 'escaped', index: 11, isBkr: false };
   this.rules[12] = { name: 'token', lower: 'token', index: 12, isBkr: false };
   this.rules[13] = { name: 'tchar', lower: 'tchar', index: 13, isBkr: false };
   this.rules[14] = { name: 'CHAR', lower: 'char', index: 14, isBkr: false };
@@ -66,29 +66,29 @@ export default function grammar(){
   this.rules[0].opcodes[9] = { type: 4, index: 2 };// RNM(source)
   this.rules[0].opcodes[10] = { type: 2, children: [11,12] };// CAT
   this.rules[0].opcodes[11] = { type: 7, string: [36,105,110,112,117,116,115,46] };// TLS
-  this.rules[0].opcodes[12] = { type: 4, index: 11 };// RNM(name)
+  this.rules[0].opcodes[12] = { type: 4, index: 7 };// RNM(name)
   this.rules[0].opcodes[13] = { type: 2, children: [14,15] };// CAT
   this.rules[0].opcodes[14] = { type: 7, string: [36,111,117,116,112,117,116,115,46] };// TLS
-  this.rules[0].opcodes[15] = { type: 4, index: 11 };// RNM(name)
+  this.rules[0].opcodes[15] = { type: 4, index: 7 };// RNM(name)
   this.rules[0].opcodes[16] = { type: 2, children: [17,18] };// CAT
   this.rules[0].opcodes[17] = { type: 7, string: [36,115,116,101,112,115,46] };// TLS
-  this.rules[0].opcodes[18] = { type: 4, index: 11 };// RNM(name)
+  this.rules[0].opcodes[18] = { type: 4, index: 7 };// RNM(name)
   this.rules[0].opcodes[19] = { type: 2, children: [20,21] };// CAT
   this.rules[0].opcodes[20] = { type: 7, string: [36,119,111,114,107,102,108,111,119,115,46] };// TLS
-  this.rules[0].opcodes[21] = { type: 4, index: 11 };// RNM(name)
+  this.rules[0].opcodes[21] = { type: 4, index: 7 };// RNM(name)
   this.rules[0].opcodes[22] = { type: 2, children: [23,24] };// CAT
   this.rules[0].opcodes[23] = { type: 7, string: [36,115,111,117,114,99,101,100,101,115,99,114,105,112,116,105,111,110,115,46] };// TLS
-  this.rules[0].opcodes[24] = { type: 4, index: 11 };// RNM(name)
+  this.rules[0].opcodes[24] = { type: 4, index: 7 };// RNM(name)
   this.rules[0].opcodes[25] = { type: 2, children: [26,27] };// CAT
   this.rules[0].opcodes[26] = { type: 7, string: [36,99,111,109,112,111,110,101,110,116,115,46] };// TLS
-  this.rules[0].opcodes[27] = { type: 4, index: 11 };// RNM(name)
+  this.rules[0].opcodes[27] = { type: 4, index: 7 };// RNM(name)
   this.rules[0].opcodes[28] = { type: 2, children: [29,30] };// CAT
   this.rules[0].opcodes[29] = { type: 7, string: [36,99,111,109,112,111,110,101,110,116,115,46,112,97,114,97,109,101,116,101,114,115,46] };// TLS
   this.rules[0].opcodes[30] = { type: 4, index: 1 };// RNM(parameter-name)
 
   /* parameter-name */
   this.rules[1].opcodes = [];
-  this.rules[1].opcodes[0] = { type: 4, index: 11 };// RNM(name)
+  this.rules[1].opcodes[0] = { type: 4, index: 7 };// RNM(name)
 
   /* source */
   this.rules[2].opcodes = [];
@@ -108,13 +108,13 @@ export default function grammar(){
   this.rules[4].opcodes = [];
   this.rules[4].opcodes[0] = { type: 2, children: [1,2] };// CAT
   this.rules[4].opcodes[1] = { type: 7, string: [113,117,101,114,121,46] };// TLS
-  this.rules[4].opcodes[2] = { type: 4, index: 11 };// RNM(name)
+  this.rules[4].opcodes[2] = { type: 4, index: 7 };// RNM(name)
 
   /* path-reference */
   this.rules[5].opcodes = [];
   this.rules[5].opcodes[0] = { type: 2, children: [1,2] };// CAT
   this.rules[5].opcodes[1] = { type: 7, string: [112,97,116,104,46] };// TLS
-  this.rules[5].opcodes[2] = { type: 4, index: 11 };// RNM(name)
+  this.rules[5].opcodes[2] = { type: 4, index: 7 };// RNM(name)
 
   /* body-reference */
   this.rules[6].opcodes = [];
@@ -123,41 +123,41 @@ export default function grammar(){
   this.rules[6].opcodes[2] = { type: 3, min: 0, max: 1 };// REP
   this.rules[6].opcodes[3] = { type: 2, children: [4,5] };// CAT
   this.rules[6].opcodes[4] = { type: 7, string: [35] };// TLS
-  this.rules[6].opcodes[5] = { type: 4, index: 7 };// RNM(json-pointer)
-
-  /* json-pointer */
-  this.rules[7].opcodes = [];
-  this.rules[7].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
-  this.rules[7].opcodes[1] = { type: 2, children: [2,3] };// CAT
-  this.rules[7].opcodes[2] = { type: 7, string: [47] };// TLS
-  this.rules[7].opcodes[3] = { type: 4, index: 8 };// RNM(reference-token)
-
-  /* reference-token */
-  this.rules[8].opcodes = [];
-  this.rules[8].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
-  this.rules[8].opcodes[1] = { type: 1, children: [2,3] };// ALT
-  this.rules[8].opcodes[2] = { type: 4, index: 9 };// RNM(unescaped)
-  this.rules[8].opcodes[3] = { type: 4, index: 10 };// RNM(escaped)
-
-  /* unescaped */
-  this.rules[9].opcodes = [];
-  this.rules[9].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
-  this.rules[9].opcodes[1] = { type: 5, min: 0, max: 46 };// TRG
-  this.rules[9].opcodes[2] = { type: 5, min: 48, max: 125 };// TRG
-  this.rules[9].opcodes[3] = { type: 5, min: 127, max: 1114111 };// TRG
-
-  /* escaped */
-  this.rules[10].opcodes = [];
-  this.rules[10].opcodes[0] = { type: 2, children: [1,2] };// CAT
-  this.rules[10].opcodes[1] = { type: 7, string: [126] };// TLS
-  this.rules[10].opcodes[2] = { type: 1, children: [3,4] };// ALT
-  this.rules[10].opcodes[3] = { type: 7, string: [48] };// TLS
-  this.rules[10].opcodes[4] = { type: 7, string: [49] };// TLS
+  this.rules[6].opcodes[5] = { type: 4, index: 8 };// RNM(json-pointer)
 
   /* name */
+  this.rules[7].opcodes = [];
+  this.rules[7].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
+  this.rules[7].opcodes[1] = { type: 4, index: 14 };// RNM(CHAR)
+
+  /* json-pointer */
+  this.rules[8].opcodes = [];
+  this.rules[8].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
+  this.rules[8].opcodes[1] = { type: 2, children: [2,3] };// CAT
+  this.rules[8].opcodes[2] = { type: 7, string: [47] };// TLS
+  this.rules[8].opcodes[3] = { type: 4, index: 9 };// RNM(reference-token)
+
+  /* reference-token */
+  this.rules[9].opcodes = [];
+  this.rules[9].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
+  this.rules[9].opcodes[1] = { type: 1, children: [2,3] };// ALT
+  this.rules[9].opcodes[2] = { type: 4, index: 10 };// RNM(unescaped)
+  this.rules[9].opcodes[3] = { type: 4, index: 11 };// RNM(escaped)
+
+  /* unescaped */
+  this.rules[10].opcodes = [];
+  this.rules[10].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
+  this.rules[10].opcodes[1] = { type: 5, min: 0, max: 46 };// TRG
+  this.rules[10].opcodes[2] = { type: 5, min: 48, max: 125 };// TRG
+  this.rules[10].opcodes[3] = { type: 5, min: 127, max: 1114111 };// TRG
+
+  /* escaped */
   this.rules[11].opcodes = [];
-  this.rules[11].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
-  this.rules[11].opcodes[1] = { type: 4, index: 14 };// RNM(CHAR)
+  this.rules[11].opcodes[0] = { type: 2, children: [1,2] };// CAT
+  this.rules[11].opcodes[1] = { type: 7, string: [126] };// TLS
+  this.rules[11].opcodes[2] = { type: 1, children: [3,4] };// ALT
+  this.rules[11].opcodes[3] = { type: 7, string: [48] };// TLS
+  this.rules[11].opcodes[4] = { type: 7, string: [49] };// TLS
 
   /* token */
   this.rules[12].opcodes = [];
@@ -248,6 +248,7 @@ export default function grammar(){
     str += "query-reference  = \"query.\" name\n";
     str += "path-reference   = \"path.\" name\n";
     str += "body-reference   = \"body\" [\"#\" json-pointer ]\n";
+    str += "name             = *( CHAR )\n";
     str += "\n";
     str += "; https://datatracker.ietf.org/doc/html/rfc6901#section-3\n";
     str += "json-pointer     = *( \"/\" reference-token )\n";
@@ -256,10 +257,13 @@ export default function grammar(){
     str += "                 ; %x2F ('/') and %x7E ('~') are excluded from 'unescaped'\n";
     str += "escaped          = \"~\" ( \"0\" / \"1\" )\n";
     str += "                 ; representing '~' and '/', respectively\n";
-    str += "name             = *( CHAR )\n";
-    str += "token            = 1*tchar\n";
-    str += "tchar            = \"!\" / \"#\" / \"$\" / \"%\" / \"&\" / \"'\" / \"*\" / \"+\" / \"-\" / \".\"\n";
-    str += "                 / \"^\" /\"_\" / \"`\" / \"|\" / \"~\" / DIGIT / ALPHA\n";
+    str += "\n";
+    str += "; https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.6\n";
+    str += "token          = 1*tchar\n";
+    str += "tchar          = \"!\" / \"#\" / \"$\" / \"%\" / \"&\" / \"'\" / \"*\"\n";
+    str += "               / \"+\" / \"-\" / \".\" / \"^\" / \"_\" / \"`\" / \"|\" / \"~\"\n";
+    str += "               / DIGIT / ALPHA\n";
+    str += "               ; any VCHAR, except delimiters\n";
     str += "\n";
     str += "; https://www.rfc-editor.org/rfc/rfc7159#section-7\n";
     str += "CHAR = unescape /\n";
