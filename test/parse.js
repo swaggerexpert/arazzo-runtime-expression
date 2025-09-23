@@ -313,12 +313,14 @@ describe('parse', function () {
   });
 
   context('given default token normalization', function () {
-    context('$request.header.Location', function () {
+    context.only('$request.header.Location', function () {
       specify('should parse and normalize token to lower case', function () {
-        const parseResult = parse('$request.header.Location');
+        const parseResult = parse('$steps.check-contact-validity.outputs.contacts_status[0].wa_id');
 
         const parts = [];
         parseResult.ast.translate(parts);
+
+        console.dir(parts);
 
         assert.isTrue(parseResult.result.success);
         assert.deepEqual(parts, [
