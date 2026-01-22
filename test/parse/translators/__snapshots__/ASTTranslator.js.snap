@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`parse translators ASTTranslator should translate $request.body#/user/id to an AST 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/user/id",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "user",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "id",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse translators ASTTranslator should translate $steps.login.outputs.token to an AST 1`] = `
+{
+  "type": "StepsExpression",
+  "stepId": "login",
+  "field": "outputs",
+  "outputName": "token",
+}
+`;
+
+exports[`parse translators ASTTranslator should translate $url to an AST 1`] = `
+{
+  "type": "UrlExpression",
+}
+`;

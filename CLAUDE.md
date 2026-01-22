@@ -20,20 +20,27 @@ This library parses, validates, and extracts [Arazzo Runtime Expressions](https:
 
 ### Core Components
 
-- **`src/runtime-expression.bnf`** - ABNF grammar definition for Arazzo runtime expressions. When modified, run `npm run grammar:compile` to regenerate `src/runtime-expression.js`.
+- **`src/grammar.bnf`** - ABNF grammar definition for Arazzo runtime expressions. When modified, run `npm run grammar:compile` to regenerate `src/grammar.js`.
 
-- **`src/runtime-expression.js`** - Auto-generated parser from the ABNF grammar. Do not edit directly.
+- **`src/grammar.js`** - Auto-generated parser from the ABNF grammar. Do not edit directly.
 
-- **`src/parse/index.js`** - Main parser that uses apg-lite's Parser and AST classes. Registers callbacks for each grammar rule to build the AST.
+- **`src/parse/index.js`** - Main parser function. Accepts `translator` option to customize output format. Returns `{ result, tree }`.
 
-- **`src/parse/callbacks/`** - AST callback functions for each grammar rule (expression, source, header-reference, body-reference, json-pointer, etc.). Each callback handles how its rule is represented in the parsed AST output.
+- **`src/parse/translators/`** - Translator classes that extend apg-lite's `Ast`:
+  - `CSTTranslator` - Produces Concrete Syntax Tree with `{ type, text, start, length, children }` nodes
+  - `XMLTranslator` - Produces XML string representation (extends CSTTranslator)
+
+- **`src/parse/callbacks/cst.js`** - Generic CST callback factory used by translators to build tree nodes.
 
 ### Public API (exported from `src/index.js`)
 
-- `parse(expression)` - Parse a runtime expression, returns `{ result, ast }`
+- `parse(expression, options?)` - Parse a runtime expression, returns `{ result, tree }`
+  - `options.translator` - CSTTranslator (default), XMLTranslator, or null for validation-only
 - `test(expression)` - Validate a runtime expression, returns boolean
 - `extract(string)` - Extract expression from `{expression}` notation, returns string or null
 - `Grammar` - Grammar class for accessing the ABNF definition
+- `CSTTranslator` - CST translator class
+- `XMLTranslator` - XML translator class
 
 ### Build Output
 

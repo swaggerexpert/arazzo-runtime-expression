@@ -1,4 +1,10 @@
 {
   "recursive": true,
-  "spec": "test/**/*.js"
+  "spec": "test/**/*.js",
+  "file": ["test/mocha-bootstrap.mjs"],
+  "require": ["mocha-expect-snapshot"],
+  "ignore": [
+    "test/fixtures/**/*.js",
+    "test/mocha-bootstrap.mjs"
+  ]
 }

@@ -20,12 +20,12 @@
   },
   "scripts": {
     "prepublishOnly": "npm run build",
-    "grammar:compile": "node ./scripts/apg-js.js --lite --in=./src/runtime-expression.bnf --out=./src/runtime-expression.js && cd ./src",
+    "grammar:compile": "node ./scripts/apg-js.js --lite --in=./src/grammar.bnf --out=./src/grammar.js && cd ./src",
     "build": "npm run grammar:compile && npm run build:es && npm run build:cjs && npm run build:cjs:apg-lite",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.js' --out-file-extension '.mjs'",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.js' --out-file-extension '.cjs'",
     "build:cjs:apg-lite": "cross-env BABEL_ENV=cjs babel node_modules/apg-lite/lib/parser.js --out-file ./cjs/apg-lite.cjs",
-    "test": "mocha",
+    "test": "cross-env UPDATE_SNAPSHOT=new mocha",
     "test:watch": "npm-watch test",
     "watch": "npm-watch"
   },
@@ -76,6 +76,7 @@
     "cross-env": "^10.0.0",
     "husky": "=9.1.7",
     "mocha": "=11.7.5",
+    "mocha-expect-snapshot": "^8.0.0",
     "npm-watch": "^0.13.0",
     "prettier": "^3.1.1"
   }

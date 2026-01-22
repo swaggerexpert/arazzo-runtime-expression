@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`parse translators XMLTranslator should translate $request.body#/user/id to XML 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<root nodes="6" characters="22">
+<!-- input string -->
+  $request.body#/user/id
+ <node name="expression" index="0" length="22">
+   $request.body#/user/id
+  <node name="source" index="9" length="13">
+    body#/user/id
+   <node name="body-reference" index="9" length="13">
+     body#/user/id
+    <node name="json-pointer" index="14" length="8">
+      /user/id
+     <node name="reference-token" index="15" length="4">
+       user
+     </node><!-- name="reference-token" -->
+     <node name="reference-token" index="20" length="2">
+       id
+     </node><!-- name="reference-token" -->
+    </node><!-- name="json-pointer" -->
+   </node><!-- name="body-reference" -->
+  </node><!-- name="source" -->
+ </node><!-- name="expression" -->
+</root>
+"
+`;
+
+exports[`parse translators XMLTranslator should translate $url to XML 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<root nodes="1" characters="4">
+<!-- input string -->
+  $url
+ <node name="expression" index="0" length="4">
+   $url
+ </node><!-- name="expression" -->
+</root>
+"
+`;

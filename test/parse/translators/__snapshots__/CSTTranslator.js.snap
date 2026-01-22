@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`parse translators CSTTranslator should translate $request.body#/user/id to a CST 1`] = `
+{
+  "type": "expression",
+  "text": "$request.body#/user/id",
+  "start": 0,
+  "length": 22,
+  "children": [
+    {
+      "type": "source",
+      "text": "body#/user/id",
+      "start": 9,
+      "length": 13,
+      "children": [
+        {
+          "type": "body-reference",
+          "text": "body#/user/id",
+          "start": 9,
+          "length": 13,
+          "children": [
+            {
+              "type": "json-pointer",
+              "text": "/user/id",
+              "start": 14,
+              "length": 8,
+              "children": [
+                {
+                  "type": "reference-token",
+                  "text": "user",
+                  "start": 15,
+                  "length": 4,
+                  "children": [],
+                },
+                {
+                  "type": "reference-token",
+                  "text": "id",
+                  "start": 20,
+                  "length": 2,
+                  "children": [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse translators CSTTranslator should translate $steps.login.outputs.token to a CST 1`] = `
+{
+  "type": "expression",
+  "text": "$steps.login.outputs.token",
+  "start": 0,
+  "length": 26,
+  "children": [
+    {
+      "type": "name",
+      "text": "login.outputs.token",
+      "start": 7,
+      "length": 19,
+      "children": [],
+    },
+  ],
+}
+`;
+
+exports[`parse translators CSTTranslator should translate $url to a CST 1`] = `
+{
+  "type": "expression",
+  "text": "$url",
+  "start": 0,
+  "length": 4,
+  "children": [],
+}
+`;
