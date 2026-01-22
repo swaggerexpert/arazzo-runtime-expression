@@ -114,7 +114,7 @@ const transformers = {
 
   ['header-reference'](node) {
     const tokenNode = node.children.find((c) => c.type === 'token');
-    return { type: 'HeaderReference', token: tokenNode.text };
+    return { type: 'HeaderReference', token: tokenNode.text.toLowerCase() };
   },
 
   ['query-reference'](node) {
