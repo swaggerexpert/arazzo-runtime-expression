@@ -43,8 +43,8 @@ components-sub-field = 1*(ALPHA / DIGIT / "." / "-" / "_")
 ; https://datatracker.ietf.org/doc/html/rfc6901#section-3
 json-pointer     = *( "/" reference-token )
 reference-token  = *( unescaped / escaped )
-unescaped        = %x00-2E / %x30-7A / %x7C / %x7F-10FFFF
-                 ; %x2F ('/'), %x7B ('{'), %x7D ('}'), and %x7E ('~') are excluded from 'unescaped'
+unescaped        = %x00-2E / %x30-7D / %x7F-10FFFF
+                 ; %x2F ('/') and %x7E ('~') are excluded from 'unescaped'
 escaped          = "~" ( "0" / "1" )
                  ; representing '~' and '/', respectively
 

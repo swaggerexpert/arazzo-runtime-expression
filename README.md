@@ -88,6 +88,11 @@ test(expressions[0]); // => true
 parse(expressions[0]); // => { result, tree }
 ```
 
+**Known limitation:** `$request.body#/...` and `$response.body#/...` expressions with JSON pointers cannot be reliably
+extracted from `{expression}` syntax. This is because [RFC 6901](https://datatracker.ietf.org/doc/html/rfc6901)
+(JSON Pointer) allows the `}` character in pointer paths, making it impossible to determine where the expression ends.
+Use `parse()` directly on the raw expression for these cases.
+
 #### Parsing
 
 Parsing a Runtime Expression is as simple as importing the **parse** function and calling it.
@@ -305,8 +310,8 @@ components-sub-field = 1*(ALPHA / DIGIT / "." / "-" / "_")
 ; https://datatracker.ietf.org/doc/html/rfc6901#section-3
 json-pointer     = *( "/" reference-token )
 reference-token  = *( unescaped / escaped )
-unescaped        = %x00-2E / %x30-7A / %x7C / %x7F-10FFFF
-                 ; %x2F ('/'), %x7B ('{'), %x7D ('}'), and %x7E ('~') are excluded from 'unescaped'
+unescaped        = %x00-2E / %x30-7D / %x7F-10FFFF
+                 ; %x2F ('/') and %x7E ('~') are excluded from 'unescaped'
 escaped          = "~" ( "0" / "1" )
                  ; representing '~' and '/', respectively
 

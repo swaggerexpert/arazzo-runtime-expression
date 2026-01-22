@@ -7,14 +7,14 @@ export default function grammar(){
   // SUMMARY
   //      rules = 36
   //       udts = 0
-  //    opcodes = 214
+  //    opcodes = 213
   //        ---   ABNF original opcodes
   //        ALT = 21
   //        CAT = 24
   //        REP = 16
   //        RNM = 55
   //        TLS = 73
-  //        TBS = 13
+  //        TBS = 12
   //        TRG = 12
   //        ---   SABNF superset opcodes
   //        UDT = 0
@@ -296,11 +296,10 @@ export default function grammar(){
 
   /* unescaped */
   this.rules[26].opcodes = [];
-  this.rules[26].opcodes[0] = { type: 1, children: [1,2,3,4] };// ALT
+  this.rules[26].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
   this.rules[26].opcodes[1] = { type: 5, min: 0, max: 46 };// TRG
-  this.rules[26].opcodes[2] = { type: 5, min: 48, max: 122 };// TRG
-  this.rules[26].opcodes[3] = { type: 6, string: [124] };// TBS
-  this.rules[26].opcodes[4] = { type: 5, min: 127, max: 1114111 };// TRG
+  this.rules[26].opcodes[2] = { type: 5, min: 48, max: 125 };// TRG
+  this.rules[26].opcodes[3] = { type: 5, min: 127, max: 1114111 };// TRG
 
   /* escaped */
   this.rules[27].opcodes = [];
@@ -438,8 +437,8 @@ export default function grammar(){
     str += "; https://datatracker.ietf.org/doc/html/rfc6901#section-3\n";
     str += "json-pointer     = *( \"/\" reference-token )\n";
     str += "reference-token  = *( unescaped / escaped )\n";
-    str += "unescaped        = %x00-2E / %x30-7A / %x7C / %x7F-10FFFF\n";
-    str += "                 ; %x2F ('/'), %x7B ('{'), %x7D ('}'), and %x7E ('~') are excluded from 'unescaped'\n";
+    str += "unescaped        = %x00-2E / %x30-7D / %x7F-10FFFF\n";
+    str += "                 ; %x2F ('/') and %x7E ('~') are excluded from 'unescaped'\n";
     str += "escaped          = \"~\" ( \"0\" / \"1\" )\n";
     str += "                 ; representing '~' and '/', respectively\n";
     str += "\n";
