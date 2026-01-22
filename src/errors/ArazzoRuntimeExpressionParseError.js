@@ -1,5 +1,5 @@
 import ArazzoRuntimeExpressionError from './ArazzoRuntimeExpressionError.js';
 
-class ArazzoRuntimeExpressionParserError extends ArazzoRuntimeExpressionError {}
+class ArazzoRuntimeExpressionParseError extends ArazzoRuntimeExpressionError {}
 
-export default ArazzoRuntimeExpressionParserError;
+export default ArazzoRuntimeExpressionParseError;
