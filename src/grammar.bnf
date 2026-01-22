@@ -1,12 +1,39 @@
 ; Arazzo runtime expression ABNF syntax
-expression       = ( "$url" / "$method" / "$statusCode" / "$request." source / "$response." source / "$inputs." name / "$outputs." name / "$steps." name / "$workflows." name / "$sourceDescriptions." name / "$components." name / "$components.parameters." parameter-name)
-parameter-name   = name ; Reuses 'name' rule for parameter names
+expression       = ( "$url" / "$method" / "$statusCode" / "$request." source / "$response." source / "$inputs." name / "$outputs." name / "$steps." name / "$workflows." name / "$sourceDescriptions." name / "$components." name )
 source           = ( header-reference / query-reference / path-reference / body-reference )
 header-reference = "header." token
 query-reference  = "query." name
 path-reference   = "path." name
 body-reference   = "body" ["#" json-pointer ]
 name             = *( CHAR )
+
+; Secondary grammar for parsing $steps name part
+; Format: {stepId}.{field}.{subField}[#/{jsonPointer}]
+steps-name       = steps-id "." steps-field "." steps-sub-field ["#" json-pointer]
+steps-id         = 1*(ALPHA / DIGIT / "_" / "-")
+steps-field      = "outputs"
+steps-sub-field  = 1*(ALPHA / DIGIT / "." / "-" / "_")
+
+; Secondary grammar for parsing $workflows name part
+; Format: {workflowId}.{field}.{subField}[#/{jsonPointer}]
+workflows-name       = workflows-id "." workflows-field "." workflows-sub-field ["#" json-pointer]
+workflows-id         = 1*(ALPHA / DIGIT / "_" / "-")
+workflows-field      = "inputs" / "outputs"
+workflows-sub-field  = 1*(ALPHA / DIGIT / "." / "-" / "_")
+
+; Secondary grammar for parsing $sourceDescriptions name part
+; Format: {sourceName}.{reference}
+; reference can be operationId (unconstrained) or workflowId (constrained)
+source-descriptions-name        = source-descriptions-source-name "." source-descriptions-reference
+source-descriptions-source-name = 1*(ALPHA / DIGIT / "_" / "-")
+source-descriptions-reference   = 1*CHAR
+
+; Secondary grammar for parsing $components name part
+; Format: {field}.{subField}
+; Allowed fields: inputs, parameters, successActions, failureActions
+components-name      = components-field "." components-sub-field
+components-field     = "inputs" / "parameters" / "successActions" / "failureActions"
+components-sub-field = 1*(ALPHA / DIGIT / "." / "-" / "_")
 
 ; https://datatracker.ietf.org/doc/html/rfc6901#section-3
 json-pointer     = *( "/" reference-token )

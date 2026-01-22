@@ -1,0 +1,613 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`parse ast-corpus $components.failureActions.logError 1`] = `
+{
+  "type": "ComponentsExpression",
+  "field": "failureActions",
+  "subField": "logError",
+}
+`;
+
+exports[`parse ast-corpus $components.inputs.username 1`] = `
+{
+  "type": "ComponentsExpression",
+  "field": "inputs",
+  "subField": "username",
+}
+`;
+
+exports[`parse ast-corpus $components.parameters.petId 1`] = `
+{
+  "type": "ComponentsExpression",
+  "field": "parameters",
+  "subField": "petId",
+}
+`;
+
+exports[`parse ast-corpus $components.successActions.notifyUser 1`] = `
+{
+  "type": "ComponentsExpression",
+  "field": "successActions",
+  "subField": "notifyUser",
+}
+`;
+
+exports[`parse ast-corpus $inputs.apiKey 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "apiKey",
+}
+`;
+
+exports[`parse ast-corpus $inputs.password 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "password",
+}
+`;
+
+exports[`parse ast-corpus $inputs.username 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "username",
+}
+`;
+
+exports[`parse ast-corpus $method 1`] = `
+{
+  "type": "MethodExpression",
+}
+`;
+
+exports[`parse ast-corpus $outputs.data 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "data",
+}
+`;
+
+exports[`parse ast-corpus $outputs.result 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "result",
+}
+`;
+
+exports[`parse ast-corpus $outputs.token 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "token",
+}
+`;
+
+exports[`parse ast-corpus $request.body 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.body#/data/items/0 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/data/items/0",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "data",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "items",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "0",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.body#/nested/deep/value 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/nested/deep/value",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "nested",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "deep",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "value",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.body#/url 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/url",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "url",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.body#/user/uuid 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/user/uuid",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "user",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "uuid",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.header.X-Custom-Header 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "HeaderReference",
+      "token": "X-Custom-Header",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.header.accept 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "HeaderReference",
+      "token": "accept",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.header.content-Type 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "HeaderReference",
+      "token": "content-Type",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.path.eventType 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "PathReference",
+      "name": "eventType",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.path.id 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "PathReference",
+      "name": "id",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.path.userId 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "PathReference",
+      "name": "userId",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.query.filter 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "QueryReference",
+      "name": "filter",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.query.page 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "QueryReference",
+      "name": "page",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $request.query.queryUrl 1`] = `
+{
+  "type": "RequestExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "QueryReference",
+      "name": "queryUrl",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $response.body 1`] = `
+{
+  "type": "ResponseExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $response.body#/data/id 1`] = `
+{
+  "type": "ResponseExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/data/id",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "data",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "id",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $response.body#/results/0/name 1`] = `
+{
+  "type": "ResponseExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/results/0/name",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "results",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "0",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "name",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $response.body#/status 1`] = `
+{
+  "type": "ResponseExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/status",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "status",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $response.header.X-Response-Header 1`] = `
+{
+  "type": "ResponseExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "HeaderReference",
+      "token": "X-Response-Header",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $response.header.content-type 1`] = `
+{
+  "type": "ResponseExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "HeaderReference",
+      "token": "content-type",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $sourceDescriptions.externalService.url 1`] = `
+{
+  "type": "SourceDescriptionsExpression",
+  "sourceName": "externalService",
+  "reference": "url",
+}
+`;
+
+exports[`parse ast-corpus $sourceDescriptions.mainApi.createUser 1`] = `
+{
+  "type": "SourceDescriptionsExpression",
+  "sourceName": "mainApi",
+  "reference": "createUser",
+}
+`;
+
+exports[`parse ast-corpus $sourceDescriptions.petStore.getPets 1`] = `
+{
+  "type": "SourceDescriptionsExpression",
+  "sourceName": "petStore",
+  "reference": "getPets",
+}
+`;
+
+exports[`parse ast-corpus $statusCode 1`] = `
+{
+  "type": "StatusCodeExpression",
+}
+`;
+
+exports[`parse ast-corpus $steps.createUser.outputs.userId 1`] = `
+{
+  "type": "StepsExpression",
+  "stepId": "createUser",
+  "field": "outputs",
+  "outputName": "userId",
+}
+`;
+
+exports[`parse ast-corpus $steps.loginStep.outputs.sessionToken 1`] = `
+{
+  "type": "StepsExpression",
+  "stepId": "loginStep",
+  "field": "outputs",
+  "outputName": "sessionToken",
+}
+`;
+
+exports[`parse ast-corpus $steps.loginStep.outputs.user#/name 1`] = `
+{
+  "type": "StepsExpression",
+  "stepId": "loginStep",
+  "field": "outputs",
+  "outputName": "user",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/name",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "name",
+      },
+    ],
+  },
+}
+`;
+
+exports[`parse ast-corpus $steps.someStepId.outputs.pets#/0/id 1`] = `
+{
+  "type": "StepsExpression",
+  "stepId": "someStepId",
+  "field": "outputs",
+  "outputName": "pets",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/0/id",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "0",
+      },
+      {
+        "type": "ReferenceToken",
+        "value": "id",
+      },
+    ],
+  },
+}
+`;
+
+exports[`parse ast-corpus $steps.stepId.outputs.value 1`] = `
+{
+  "type": "StepsExpression",
+  "stepId": "stepId",
+  "field": "outputs",
+  "outputName": "value",
+}
+`;
+
+exports[`parse ast-corpus $url 1`] = `
+{
+  "type": "UrlExpression",
+}
+`;
+
+exports[`parse ast-corpus $workflows.authWorkflow.outputs.token 1`] = `
+{
+  "type": "WorkflowsExpression",
+  "workflowId": "authWorkflow",
+  "field": "outputs",
+  "subField": "token",
+}
+`;
+
+exports[`parse ast-corpus $workflows.authWorkflow.outputs.token#/accessToken 1`] = `
+{
+  "type": "WorkflowsExpression",
+  "workflowId": "authWorkflow",
+  "field": "outputs",
+  "subField": "token",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/accessToken",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "accessToken",
+      },
+    ],
+  },
+}
+`;
+
+exports[`parse ast-corpus $workflows.mainProcess.outputs.data 1`] = `
+{
+  "type": "WorkflowsExpression",
+  "workflowId": "mainProcess",
+  "field": "outputs",
+  "subField": "data",
+}
+`;
+
+exports[`parse ast-corpus $workflows.myWorkflow.inputs.username 1`] = `
+{
+  "type": "WorkflowsExpression",
+  "workflowId": "myWorkflow",
+  "field": "inputs",
+  "subField": "username",
+}
+`;
+
+exports[`parse ast-corpus $workflows.myWorkflow.outputs.result 1`] = `
+{
+  "type": "WorkflowsExpression",
+  "workflowId": "myWorkflow",
+  "field": "outputs",
+  "subField": "result",
+}
+`;
+
+exports[`parse ast-corpus $workflows.myWorkflow.outputs.result#/value 1`] = `
+{
+  "type": "WorkflowsExpression",
+  "workflowId": "myWorkflow",
+  "field": "outputs",
+  "subField": "result",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/value",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "value",
+      },
+    ],
+  },
+}
+`;

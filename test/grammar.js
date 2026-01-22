@@ -10,7 +10,7 @@ describe('SABNF', function () {
   });
 
   it('should convert to string', function () {
-    const abnfFilePath = path.join('..', 'src', 'runtime-expression.bnf');
+    const abnfFilePath = path.join('..', 'src', 'grammar.bnf');
     const abnf = fs.readFileSync(new URL(abnfFilePath, import.meta.url)).toString();
     const grammar = new Grammar();
 
