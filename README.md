@@ -38,14 +38,11 @@ It supports Runtime Expressions defined in following Arazzo specification versio
     - [Extraction](#extraction)
     - [Parsing](#parsing)
       - [Translators](#translators)
-        - [CST](#cst)
-        - [AST](#ast)
-        - [XML](#xml)
-      - [Tracing](#tracing)
       - [Statistics](#statistics)
+      - [Tracing](#tracing)
     - [Validation](#validation)
-    - [Grammar](#grammar)
     - [Errors](#errors)
+    - [Grammar](#grammar)
 - [More about Arazzo runtime expressions](#more-about-arazzo-runtime-expressions)
 - [License](#license)
 
@@ -70,16 +67,31 @@ and use [apg-lite](https://github.com/ldthomas/apg-lite) parser generator.
 
 Arazzo embeds Runtime Expressions into string values surrounded with `{}` curly braces.
 To extract Runtime Expressions from this embedded form, use the **extract** function.
-Extracted Runtime Expression can be used for further parsing of validation.
+The function returns an array of all extracted expressions, which can be used for further parsing or validation.
 
 ```js
 import { extract, test, parse } from '@swaggerexpert/arazzo-runtime-expression';
 
-const expression = extract('{$request.header.accept}'); // => '$request.header.accept'
+// Extract single expression
+extract('{$request.header.accept}'); // => ['$request.header.accept']
 
-test(expression); // => true
-parse(expression); // => { result, ast }
+// Extract multiple expressions from a template string
+extract('client_id={$inputs.clientId}&grant_type={$inputs.grantType}');
+// => ['$inputs.clientId', '$inputs.grantType']
+
+// No expressions found
+extract('no expressions here'); // => []
+
+// Use extracted expressions
+const expressions = extract('{$url}');
+test(expressions[0]); // => true
+parse(expressions[0]); // => { result, tree }
 ```
+
+**Known limitation:** `$request.body#/...` and `$response.body#/...` expressions with JSON pointers cannot be reliably
+extracted from `{expression}` syntax. This is because [RFC 6901](https://datatracker.ietf.org/doc/html/rfc6901)
+(JSON Pointer) allows the `}` character in pointer paths, making it impossible to determine where the expression ends.
+Use `parse()` directly on the raw expression for these cases.
 
 #### Parsing
 
@@ -95,234 +107,89 @@ const parseResult = parse('$request.header.accept');
 
 ```
 {
-  result: {
-    success: true,
-    state: 101,
-    stateName: 'MATCH',
-    length: 22,
-    matched: 22,
-    maxMatched: 22,
-    maxTreeDepth: 13,
-    nodeHits: 152
-  },
-  ast: fnast {
-    callbacks: [
-      expression: [Function: expression],
-      'parameter-name': [Function: parameterName],
-      source: [Function: source],
-      'header-reference': [Function: headerReference],
-      'query-reference': [Function: queryReference],
-      'path-reference': [Function: pathReference],
-      'body-reference': [Function: bodyReference],
-      'json-pointer': [Function: jsonPointer],
-      'reference-token': [Function: referenceToken],
-      name: [Function: name],
-      token: [Function: token]
-    ],
-    init: [Function (anonymous)],
-    ruleDefined: [Function (anonymous)],
-    udtDefined: [Function (anonymous)],
-    down: [Function (anonymous)],
-    up: [Function (anonymous)],
-    translate: [Function (anonymous)],
-    setLength: [Function (anonymous)],
-    getLength: [Function (anonymous)],
-    toXml: [Function (anonymous)]
-  }
+  result: <ParseResult['result']>,
+  tree: <ParseResult['tree']>,
+  stats: <ParseResult['stats']>,
+  trace: <ParseResult['trace']>,
 }
 ```
 
-###### Interpreting AST as list of entries
-
-```js
-import { parse } from '@swaggerexpert/arazzo-runtime-expression';
-
-const parseResult = parse('$request.header.accept');
-const parts = [];
-
-parseResult.ast.translate(parts);
-```
-
-After running the above code, **parts** variable has the following shape:
-
-```js
-[
-  [ 'expression', '$request.header.accept' ],
-  [ 'source', 'header.accept' ],
-  [ 'header-reference', 'header.accept' ],
-  [ 'token', 'accept' ],
-]
-```
-
-###### Interpreting AST as XML
-
-```js
-import { parse } from '@swaggerexpert/arazzo-runtime-expression';
-
-const parseResult = parse('$request.header.accept');
-const xml = parseResult.ast.toXml();
-```
-
-After running the above code, **xml** variable has the following content:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<root nodes="4" characters="22">
-  <!-- input string -->
-  $request.header.accept
-  <node name="expression" index="0" length="22">
-    $request.header.accept
-    <node name="source" index="9" length="13">
-      header.accept
-      <node name="header-reference" index="9" length="13">
-        header.accept
-        <node name="token" index="16" length="6">
-          accept
-        </node><!-- name="token" -->
-      </node><!-- name="header-reference" -->
-    </node><!-- name="source" -->
-  </node><!-- name="expression" -->
-</root>
-```
-
-> NOTE: AST can also be traversed in classical way using [depth first traversal](https://www.tutorialspoint.com/data_structures_algorithms/depth_first_traversal.htm). For more information about this option please refer to [apg-js](https://github.com/ldthomas/apg-js) and [apg-js-examples](https://github.com/ldthomas/apg-js-examples).
+[TypeScript typings](https://github.com/swaggerexpert/arazzo-runtime-expression/blob/main/types/index.d.ts) are available for all fields attached to parse result object returned by the `parse` function.
 
 ##### Translators
 
-Translators are responsible for transforming the parsed input into a specific format.
-The library provides several built-in translators for different use cases.
+`@swaggerexpert/arazzo-runtime-expression` provides several translators to convert the parse result into different tree representations.
 
-###### CST
+###### CST translator
 
-`CSTTranslator` produces a Concrete Syntax Tree (CST) representation of the parsed runtime expression.
-This tree is suitable to be consumed by other tools like IDEs or editors, where a detailed syntax tree is needed.
+[Concrete Syntax Tree](https://en.wikipedia.org/wiki/Parse_tree) (Parse tree) representation is available on parse result
+when instance of `CSTTranslator` is provided via a `translator` option to the `parse` function.
+CST is suitable to be consumed by other tools like IDEs, editors, etc...
 
 ```js
 import { parse, CSTTranslator } from '@swaggerexpert/arazzo-runtime-expression';
 
-const parseResult = parse('$request.header.accept', { translator: new CSTTranslator() });
-const cst = parseResult.tree;
+const { tree: cst } = parse('$request.header.accept', { translator: new CSTTranslator() });
 ```
 
-After running the above code, **cst** variable contains the Concrete Syntax Tree representation:
+CST tree has a shape documented by [TypeScript typings (CSTNode)](https://github.com/swaggerexpert/arazzo-runtime-expression/blob/main/types/index.d.ts).
+
+###### AST translator
+
+**Default translator**. [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) representation is available on parse result
+by default or when instance of `ASTTranslator` is provided via a `translator` option to the `parse` function.
+AST is suitable to be consumed by implementations that need to analyze the structure of the runtime expression.
 
 ```js
-{
-  type: 'expression',
-  text: '$request.header.accept',
-  start: 0,
-  length: 22,
-  children: [
-    {
-      type: 'source',
-      text: 'header.accept',
-      start: 9,
-      length: 13,
-      children: [
-        {
-          type: 'header-reference',
-          text: 'header.accept',
-          start: 9,
-          length: 13,
-          children: [
-            {
-              type: 'token',
-              text: 'accept',
-              start: 16,
-              length: 6,
-              children: []
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+import { parse } from '@swaggerexpert/arazzo-runtime-expression';
+
+const { tree: ast } = parse('$request.header.accept');
 ```
 
-###### AST
-
-`ASTTranslator` produces an Abstract Syntax Tree (AST), which is a high-level semantic representation of the parsed runtime expression.
-This tree is suitable for implementations that need to analyze or evaluate the expression structure.
+or
 
 ```js
 import { parse, ASTTranslator } from '@swaggerexpert/arazzo-runtime-expression';
 
-const parseResult = parse('$request.header.accept', { translator: new ASTTranslator() });
-const ast = parseResult.tree;
+const { tree: ast } = parse('$request.header.accept', { translator: new ASTTranslator() });
 ```
 
-After running the above code, **ast** variable contains the Abstract Syntax Tree representation:
+AST tree has a shape documented by [TypeScript typings (ASTNode)](https://github.com/swaggerexpert/arazzo-runtime-expression/blob/main/types/index.d.ts).
 
-```js
-{
-  type: 'RequestExpression',
-  source: {
-    type: 'Source',
-    reference: {
-      type: 'HeaderReference',
-      token: 'accept'
-    }
-  }
-}
-```
-
-###### XML
-
-`XMLTranslator` transforms the parsed runtime expression into XML format.
+###### XML translator
 
 ```js
 import { parse, XMLTranslator } from '@swaggerexpert/arazzo-runtime-expression';
 
-const parseResult = parse('$request.header.accept', { translator: new XMLTranslator() });
-const xml = parseResult.tree;
+const { tree: xml } = parse('$request.header.accept', { translator: new XMLTranslator() });
 ```
 
-After running the above code, **xml** variable contains following string:
+##### Statistics
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<root nodes="4" characters="22">
-  <!-- input string -->
-  $request.header.accept
-  <node name="expression" index="0" length="22">
-    $request.header.accept
-    <node name="source" index="9" length="13">
-      header.accept
-      <node name="header-reference" index="9" length="13">
-        header.accept
-        <node name="token" index="16" length="6">
-          accept
-        </node><!-- name="token" -->
-      </node><!-- name="header-reference" -->
-    </node><!-- name="source" -->
-  </node><!-- name="expression" -->
-</root>
-```
-
-###### No translator
-
-When `null` is provided as a translator option, no tree is produced. The parse result will only contain the result metadata.
-This is useful when you only need to validate the syntax without building a tree.
+`parse` function returns additional statistical information about the parsing process.
+Collection of the statistics can be enabled by setting `stats` option to `true`.
 
 ```js
 import { parse } from '@swaggerexpert/arazzo-runtime-expression';
 
-const parseResult = parse('$request.header.accept', { translator: null });
-// parseResult.tree is undefined
+const { stats } = parse('$request.header.accept', { stats: true });
+
+stats.displayStats(); // returns operator statistics as string
 ```
 
 ##### Tracing
 
-Tracing is essential for debugging failed parses or analyzing rule execution flow.
-When tracing is enabled, it records which grammar rules are matched and their results.
+`parse` function returns additional tracing information about the parsing process.
+Tracing can be enabled by setting `trace` option to `true`. Tracing is essential
+for debugging failed parses or analyzing rule execution flow.
 
 ```js
 import { parse } from '@swaggerexpert/arazzo-runtime-expression';
 
-const parseResult = parse('$invalid', { trace: true });
+const { result, trace } = parse('$invalid', { trace: true });
 
-parseResult.trace.displayTrace(); // returns trace information as string
+result.success; // false
+trace.displayTrace(); // returns trace information as string
 ```
 
 Tracing also allows you to infer expected tokens at a failure point. This is useful for generating meaningful syntax error messages.
@@ -330,22 +197,10 @@ Tracing also allows you to infer expected tokens at a failure point. This is use
 ```js
 import { parse } from '@swaggerexpert/arazzo-runtime-expression';
 
-const parseResult = parse('$invalid', { trace: true });
+const { trace } = parse('$invalid', { trace: true });
 
-const expectations = parseResult.trace.inferExpectations();
+const expectations = trace.inferExpectations();
 console.log(expectations.toString()); // e.g., "expected '$url', '$method', '$statusCode', '$request.', ..."
-```
-
-##### Statistics
-
-Statistics provide insight into the parsing process, including operator hits and rule invocation counts.
-
-```js
-import { parse } from '@swaggerexpert/arazzo-runtime-expression';
-
-const parseResult = parse('$request.header.accept', { stats: true });
-
-parseResult.stats.displayStats(); // returns operator statistics as string
 ```
 
 #### Validation
@@ -357,6 +212,30 @@ import { test } from '@swaggerexpert/arazzo-runtime-expression';
 
 test('$request.header.accept'); // => true
 test('nonsensical string'); // => false
+```
+
+#### Errors
+
+`@swaggerexpert/arazzo-runtime-expression` provides a structured error class hierarchy,
+enabling precise error handling across runtime expression operations.
+
+```js
+import { ArazzoRuntimeExpressionError, ArazzoRuntimeExpressionParseError } from '@swaggerexpert/arazzo-runtime-expression';
+```
+
+**ArazzoRuntimeExpressionError** is the base class for all errors. **ArazzoRuntimeExpressionParseError** is thrown when parsing fails
+and includes additional context about the expression that failed to parse.
+
+```js
+import { parse, ArazzoRuntimeExpressionParseError } from '@swaggerexpert/arazzo-runtime-expression';
+
+try {
+  parse(123); // non-string input
+} catch (error) {
+  if (error instanceof ArazzoRuntimeExpressionParseError) {
+    console.log(error.runtimeExpression); // the expression that failed
+  }
+}
 ```
 
 #### Grammar
@@ -381,33 +260,6 @@ grammar.toString();
 String(grammar);
 ```
 
-#### Errors
-
-`@swaggerexpert/arazzo-runtime-expression` provides custom error classes for precise error handling.
-
-```js
-import {
-  parse,
-  ArazzoRuntimeExpressionError,
-  ArazzoRuntimeExpressionParseError
-} from '@swaggerexpert/arazzo-runtime-expression';
-```
-
-`ArazzoRuntimeExpressionError` is the base error class for all errors. `ArazzoRuntimeExpressionParseError` is thrown when parsing fails
-and includes additional context about the expression that failed to parse.
-
-```js
-import { parse, ArazzoRuntimeExpressionParseError } from '@swaggerexpert/arazzo-runtime-expression';
-
-try {
-  parse(123); // non-string input
-} catch (error) {
-  if (error instanceof ArazzoRuntimeExpressionParseError) {
-    console.log(error.runtimeExpression); // the expression that failed
-  }
-}
-```
-
 ## More about Arazzo runtime expressions
 
 The runtime expression is defined by the following [ABNF](https://tools.ietf.org/html/rfc5234) syntax
@@ -421,6 +273,11 @@ query-reference  = "query." name
 path-reference   = "path." name
 body-reference   = "body" ["#" json-pointer ]
 name             = *( CHAR )
+
+; Grammar for parsing template strings with embedded expressions
+expression-string    = *( literal-char / embedded-expression )
+embedded-expression  = "{" expression "}"
+literal-char         = %x00-7A / %x7C / %x7E-10FFFF  ; anything except { (%x7B) and } (%x7D)
 
 ; Secondary grammar for parsing $steps name part
 ; Format: {stepId}.{field}.{subField}[#/{jsonPointer}]
@@ -478,7 +335,8 @@ CHAR = unescape /
         %x74 /          ; t    tab             U+0009
         %x75 4HEXDIG )  ; uXXXX                U+XXXX
 escape         = %x5C   ; \
-unescape       = %x20-21 / %x23-5B / %x5D-10FFFF
+unescape       = %x20-21 / %x23-5B / %x5D-7A / %x7C / %x7E-10FFFF
+               ; %x7B ('{') and %x7D ('}') are excluded from 'unescape'
 
 ; https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1
 HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"

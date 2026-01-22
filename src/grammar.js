@@ -5,17 +5,17 @@
 export default function grammar(){
   // ```
   // SUMMARY
-  //      rules = 33
+  //      rules = 36
   //       udts = 0
-  //    opcodes = 199
+  //    opcodes = 213
   //        ---   ABNF original opcodes
-  //        ALT = 19
-  //        CAT = 23
-  //        REP = 15
-  //        RNM = 52
-  //        TLS = 71
-  //        TBS = 10
-  //        TRG = 9
+  //        ALT = 21
+  //        CAT = 24
+  //        REP = 16
+  //        RNM = 55
+  //        TLS = 73
+  //        TBS = 12
+  //        TRG = 12
   //        ---   SABNF superset opcodes
   //        UDT = 0
   //        AND = 0
@@ -34,32 +34,35 @@ export default function grammar(){
   this.rules[4] = { name: 'path-reference', lower: 'path-reference', index: 4, isBkr: false };
   this.rules[5] = { name: 'body-reference', lower: 'body-reference', index: 5, isBkr: false };
   this.rules[6] = { name: 'name', lower: 'name', index: 6, isBkr: false };
-  this.rules[7] = { name: 'steps-name', lower: 'steps-name', index: 7, isBkr: false };
-  this.rules[8] = { name: 'steps-id', lower: 'steps-id', index: 8, isBkr: false };
-  this.rules[9] = { name: 'steps-field', lower: 'steps-field', index: 9, isBkr: false };
-  this.rules[10] = { name: 'steps-sub-field', lower: 'steps-sub-field', index: 10, isBkr: false };
-  this.rules[11] = { name: 'workflows-name', lower: 'workflows-name', index: 11, isBkr: false };
-  this.rules[12] = { name: 'workflows-id', lower: 'workflows-id', index: 12, isBkr: false };
-  this.rules[13] = { name: 'workflows-field', lower: 'workflows-field', index: 13, isBkr: false };
-  this.rules[14] = { name: 'workflows-sub-field', lower: 'workflows-sub-field', index: 14, isBkr: false };
-  this.rules[15] = { name: 'source-descriptions-name', lower: 'source-descriptions-name', index: 15, isBkr: false };
-  this.rules[16] = { name: 'source-descriptions-source-name', lower: 'source-descriptions-source-name', index: 16, isBkr: false };
-  this.rules[17] = { name: 'source-descriptions-reference', lower: 'source-descriptions-reference', index: 17, isBkr: false };
-  this.rules[18] = { name: 'components-name', lower: 'components-name', index: 18, isBkr: false };
-  this.rules[19] = { name: 'components-field', lower: 'components-field', index: 19, isBkr: false };
-  this.rules[20] = { name: 'components-sub-field', lower: 'components-sub-field', index: 20, isBkr: false };
-  this.rules[21] = { name: 'json-pointer', lower: 'json-pointer', index: 21, isBkr: false };
-  this.rules[22] = { name: 'reference-token', lower: 'reference-token', index: 22, isBkr: false };
-  this.rules[23] = { name: 'unescaped', lower: 'unescaped', index: 23, isBkr: false };
-  this.rules[24] = { name: 'escaped', lower: 'escaped', index: 24, isBkr: false };
-  this.rules[25] = { name: 'token', lower: 'token', index: 25, isBkr: false };
-  this.rules[26] = { name: 'tchar', lower: 'tchar', index: 26, isBkr: false };
-  this.rules[27] = { name: 'CHAR', lower: 'char', index: 27, isBkr: false };
-  this.rules[28] = { name: 'escape', lower: 'escape', index: 28, isBkr: false };
-  this.rules[29] = { name: 'unescape', lower: 'unescape', index: 29, isBkr: false };
-  this.rules[30] = { name: 'HEXDIG', lower: 'hexdig', index: 30, isBkr: false };
-  this.rules[31] = { name: 'DIGIT', lower: 'digit', index: 31, isBkr: false };
-  this.rules[32] = { name: 'ALPHA', lower: 'alpha', index: 32, isBkr: false };
+  this.rules[7] = { name: 'expression-string', lower: 'expression-string', index: 7, isBkr: false };
+  this.rules[8] = { name: 'embedded-expression', lower: 'embedded-expression', index: 8, isBkr: false };
+  this.rules[9] = { name: 'literal-char', lower: 'literal-char', index: 9, isBkr: false };
+  this.rules[10] = { name: 'steps-name', lower: 'steps-name', index: 10, isBkr: false };
+  this.rules[11] = { name: 'steps-id', lower: 'steps-id', index: 11, isBkr: false };
+  this.rules[12] = { name: 'steps-field', lower: 'steps-field', index: 12, isBkr: false };
+  this.rules[13] = { name: 'steps-sub-field', lower: 'steps-sub-field', index: 13, isBkr: false };
+  this.rules[14] = { name: 'workflows-name', lower: 'workflows-name', index: 14, isBkr: false };
+  this.rules[15] = { name: 'workflows-id', lower: 'workflows-id', index: 15, isBkr: false };
+  this.rules[16] = { name: 'workflows-field', lower: 'workflows-field', index: 16, isBkr: false };
+  this.rules[17] = { name: 'workflows-sub-field', lower: 'workflows-sub-field', index: 17, isBkr: false };
+  this.rules[18] = { name: 'source-descriptions-name', lower: 'source-descriptions-name', index: 18, isBkr: false };
+  this.rules[19] = { name: 'source-descriptions-source-name', lower: 'source-descriptions-source-name', index: 19, isBkr: false };
+  this.rules[20] = { name: 'source-descriptions-reference', lower: 'source-descriptions-reference', index: 20, isBkr: false };
+  this.rules[21] = { name: 'components-name', lower: 'components-name', index: 21, isBkr: false };
+  this.rules[22] = { name: 'components-field', lower: 'components-field', index: 22, isBkr: false };
+  this.rules[23] = { name: 'components-sub-field', lower: 'components-sub-field', index: 23, isBkr: false };
+  this.rules[24] = { name: 'json-pointer', lower: 'json-pointer', index: 24, isBkr: false };
+  this.rules[25] = { name: 'reference-token', lower: 'reference-token', index: 25, isBkr: false };
+  this.rules[26] = { name: 'unescaped', lower: 'unescaped', index: 26, isBkr: false };
+  this.rules[27] = { name: 'escaped', lower: 'escaped', index: 27, isBkr: false };
+  this.rules[28] = { name: 'token', lower: 'token', index: 28, isBkr: false };
+  this.rules[29] = { name: 'tchar', lower: 'tchar', index: 29, isBkr: false };
+  this.rules[30] = { name: 'CHAR', lower: 'char', index: 30, isBkr: false };
+  this.rules[31] = { name: 'escape', lower: 'escape', index: 31, isBkr: false };
+  this.rules[32] = { name: 'unescape', lower: 'unescape', index: 32, isBkr: false };
+  this.rules[33] = { name: 'HEXDIG', lower: 'hexdig', index: 33, isBkr: false };
+  this.rules[34] = { name: 'DIGIT', lower: 'digit', index: 34, isBkr: false };
+  this.rules[35] = { name: 'ALPHA', lower: 'alpha', index: 35, isBkr: false };
 
   /* UDTS */
   this.udts = [];
@@ -108,7 +111,7 @@ export default function grammar(){
   this.rules[2].opcodes = [];
   this.rules[2].opcodes[0] = { type: 2, children: [1,2] };// CAT
   this.rules[2].opcodes[1] = { type: 7, string: [104,101,97,100,101,114,46] };// TLS
-  this.rules[2].opcodes[2] = { type: 4, index: 25 };// RNM(token)
+  this.rules[2].opcodes[2] = { type: 4, index: 28 };// RNM(token)
 
   /* query-reference */
   this.rules[3].opcodes = [];
@@ -129,239 +132,262 @@ export default function grammar(){
   this.rules[5].opcodes[2] = { type: 3, min: 0, max: 1 };// REP
   this.rules[5].opcodes[3] = { type: 2, children: [4,5] };// CAT
   this.rules[5].opcodes[4] = { type: 7, string: [35] };// TLS
-  this.rules[5].opcodes[5] = { type: 4, index: 21 };// RNM(json-pointer)
+  this.rules[5].opcodes[5] = { type: 4, index: 24 };// RNM(json-pointer)
 
   /* name */
   this.rules[6].opcodes = [];
   this.rules[6].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
-  this.rules[6].opcodes[1] = { type: 4, index: 27 };// RNM(CHAR)
+  this.rules[6].opcodes[1] = { type: 4, index: 30 };// RNM(CHAR)
+
+  /* expression-string */
+  this.rules[7].opcodes = [];
+  this.rules[7].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
+  this.rules[7].opcodes[1] = { type: 1, children: [2,3] };// ALT
+  this.rules[7].opcodes[2] = { type: 4, index: 9 };// RNM(literal-char)
+  this.rules[7].opcodes[3] = { type: 4, index: 8 };// RNM(embedded-expression)
+
+  /* embedded-expression */
+  this.rules[8].opcodes = [];
+  this.rules[8].opcodes[0] = { type: 2, children: [1,2,3] };// CAT
+  this.rules[8].opcodes[1] = { type: 7, string: [123] };// TLS
+  this.rules[8].opcodes[2] = { type: 4, index: 0 };// RNM(expression)
+  this.rules[8].opcodes[3] = { type: 7, string: [125] };// TLS
+
+  /* literal-char */
+  this.rules[9].opcodes = [];
+  this.rules[9].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
+  this.rules[9].opcodes[1] = { type: 5, min: 0, max: 122 };// TRG
+  this.rules[9].opcodes[2] = { type: 6, string: [124] };// TBS
+  this.rules[9].opcodes[3] = { type: 5, min: 126, max: 1114111 };// TRG
 
   /* steps-name */
-  this.rules[7].opcodes = [];
-  this.rules[7].opcodes[0] = { type: 2, children: [1,2,3,4,5,6] };// CAT
-  this.rules[7].opcodes[1] = { type: 4, index: 8 };// RNM(steps-id)
-  this.rules[7].opcodes[2] = { type: 7, string: [46] };// TLS
-  this.rules[7].opcodes[3] = { type: 4, index: 9 };// RNM(steps-field)
-  this.rules[7].opcodes[4] = { type: 7, string: [46] };// TLS
-  this.rules[7].opcodes[5] = { type: 4, index: 10 };// RNM(steps-sub-field)
-  this.rules[7].opcodes[6] = { type: 3, min: 0, max: 1 };// REP
-  this.rules[7].opcodes[7] = { type: 2, children: [8,9] };// CAT
-  this.rules[7].opcodes[8] = { type: 7, string: [35] };// TLS
-  this.rules[7].opcodes[9] = { type: 4, index: 21 };// RNM(json-pointer)
+  this.rules[10].opcodes = [];
+  this.rules[10].opcodes[0] = { type: 2, children: [1,2,3,4,5,6] };// CAT
+  this.rules[10].opcodes[1] = { type: 4, index: 11 };// RNM(steps-id)
+  this.rules[10].opcodes[2] = { type: 7, string: [46] };// TLS
+  this.rules[10].opcodes[3] = { type: 4, index: 12 };// RNM(steps-field)
+  this.rules[10].opcodes[4] = { type: 7, string: [46] };// TLS
+  this.rules[10].opcodes[5] = { type: 4, index: 13 };// RNM(steps-sub-field)
+  this.rules[10].opcodes[6] = { type: 3, min: 0, max: 1 };// REP
+  this.rules[10].opcodes[7] = { type: 2, children: [8,9] };// CAT
+  this.rules[10].opcodes[8] = { type: 7, string: [35] };// TLS
+  this.rules[10].opcodes[9] = { type: 4, index: 24 };// RNM(json-pointer)
 
   /* steps-id */
-  this.rules[8].opcodes = [];
-  this.rules[8].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[8].opcodes[1] = { type: 1, children: [2,3,4,5] };// ALT
-  this.rules[8].opcodes[2] = { type: 4, index: 32 };// RNM(ALPHA)
-  this.rules[8].opcodes[3] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[8].opcodes[4] = { type: 7, string: [95] };// TLS
-  this.rules[8].opcodes[5] = { type: 7, string: [45] };// TLS
+  this.rules[11].opcodes = [];
+  this.rules[11].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
+  this.rules[11].opcodes[1] = { type: 1, children: [2,3,4,5] };// ALT
+  this.rules[11].opcodes[2] = { type: 4, index: 35 };// RNM(ALPHA)
+  this.rules[11].opcodes[3] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[11].opcodes[4] = { type: 7, string: [95] };// TLS
+  this.rules[11].opcodes[5] = { type: 7, string: [45] };// TLS
 
   /* steps-field */
-  this.rules[9].opcodes = [];
-  this.rules[9].opcodes[0] = { type: 7, string: [111,117,116,112,117,116,115] };// TLS
+  this.rules[12].opcodes = [];
+  this.rules[12].opcodes[0] = { type: 7, string: [111,117,116,112,117,116,115] };// TLS
 
   /* steps-sub-field */
-  this.rules[10].opcodes = [];
-  this.rules[10].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[10].opcodes[1] = { type: 1, children: [2,3,4,5,6] };// ALT
-  this.rules[10].opcodes[2] = { type: 4, index: 32 };// RNM(ALPHA)
-  this.rules[10].opcodes[3] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[10].opcodes[4] = { type: 7, string: [46] };// TLS
-  this.rules[10].opcodes[5] = { type: 7, string: [45] };// TLS
-  this.rules[10].opcodes[6] = { type: 7, string: [95] };// TLS
+  this.rules[13].opcodes = [];
+  this.rules[13].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
+  this.rules[13].opcodes[1] = { type: 1, children: [2,3,4,5,6] };// ALT
+  this.rules[13].opcodes[2] = { type: 4, index: 35 };// RNM(ALPHA)
+  this.rules[13].opcodes[3] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[13].opcodes[4] = { type: 7, string: [46] };// TLS
+  this.rules[13].opcodes[5] = { type: 7, string: [45] };// TLS
+  this.rules[13].opcodes[6] = { type: 7, string: [95] };// TLS
 
   /* workflows-name */
-  this.rules[11].opcodes = [];
-  this.rules[11].opcodes[0] = { type: 2, children: [1,2,3,4,5,6] };// CAT
-  this.rules[11].opcodes[1] = { type: 4, index: 12 };// RNM(workflows-id)
-  this.rules[11].opcodes[2] = { type: 7, string: [46] };// TLS
-  this.rules[11].opcodes[3] = { type: 4, index: 13 };// RNM(workflows-field)
-  this.rules[11].opcodes[4] = { type: 7, string: [46] };// TLS
-  this.rules[11].opcodes[5] = { type: 4, index: 14 };// RNM(workflows-sub-field)
-  this.rules[11].opcodes[6] = { type: 3, min: 0, max: 1 };// REP
-  this.rules[11].opcodes[7] = { type: 2, children: [8,9] };// CAT
-  this.rules[11].opcodes[8] = { type: 7, string: [35] };// TLS
-  this.rules[11].opcodes[9] = { type: 4, index: 21 };// RNM(json-pointer)
+  this.rules[14].opcodes = [];
+  this.rules[14].opcodes[0] = { type: 2, children: [1,2,3,4,5,6] };// CAT
+  this.rules[14].opcodes[1] = { type: 4, index: 15 };// RNM(workflows-id)
+  this.rules[14].opcodes[2] = { type: 7, string: [46] };// TLS
+  this.rules[14].opcodes[3] = { type: 4, index: 16 };// RNM(workflows-field)
+  this.rules[14].opcodes[4] = { type: 7, string: [46] };// TLS
+  this.rules[14].opcodes[5] = { type: 4, index: 17 };// RNM(workflows-sub-field)
+  this.rules[14].opcodes[6] = { type: 3, min: 0, max: 1 };// REP
+  this.rules[14].opcodes[7] = { type: 2, children: [8,9] };// CAT
+  this.rules[14].opcodes[8] = { type: 7, string: [35] };// TLS
+  this.rules[14].opcodes[9] = { type: 4, index: 24 };// RNM(json-pointer)
 
   /* workflows-id */
-  this.rules[12].opcodes = [];
-  this.rules[12].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[12].opcodes[1] = { type: 1, children: [2,3,4,5] };// ALT
-  this.rules[12].opcodes[2] = { type: 4, index: 32 };// RNM(ALPHA)
-  this.rules[12].opcodes[3] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[12].opcodes[4] = { type: 7, string: [95] };// TLS
-  this.rules[12].opcodes[5] = { type: 7, string: [45] };// TLS
+  this.rules[15].opcodes = [];
+  this.rules[15].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
+  this.rules[15].opcodes[1] = { type: 1, children: [2,3,4,5] };// ALT
+  this.rules[15].opcodes[2] = { type: 4, index: 35 };// RNM(ALPHA)
+  this.rules[15].opcodes[3] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[15].opcodes[4] = { type: 7, string: [95] };// TLS
+  this.rules[15].opcodes[5] = { type: 7, string: [45] };// TLS
 
   /* workflows-field */
-  this.rules[13].opcodes = [];
-  this.rules[13].opcodes[0] = { type: 1, children: [1,2] };// ALT
-  this.rules[13].opcodes[1] = { type: 7, string: [105,110,112,117,116,115] };// TLS
-  this.rules[13].opcodes[2] = { type: 7, string: [111,117,116,112,117,116,115] };// TLS
+  this.rules[16].opcodes = [];
+  this.rules[16].opcodes[0] = { type: 1, children: [1,2] };// ALT
+  this.rules[16].opcodes[1] = { type: 7, string: [105,110,112,117,116,115] };// TLS
+  this.rules[16].opcodes[2] = { type: 7, string: [111,117,116,112,117,116,115] };// TLS
 
   /* workflows-sub-field */
-  this.rules[14].opcodes = [];
-  this.rules[14].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[14].opcodes[1] = { type: 1, children: [2,3,4,5,6] };// ALT
-  this.rules[14].opcodes[2] = { type: 4, index: 32 };// RNM(ALPHA)
-  this.rules[14].opcodes[3] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[14].opcodes[4] = { type: 7, string: [46] };// TLS
-  this.rules[14].opcodes[5] = { type: 7, string: [45] };// TLS
-  this.rules[14].opcodes[6] = { type: 7, string: [95] };// TLS
-
-  /* source-descriptions-name */
-  this.rules[15].opcodes = [];
-  this.rules[15].opcodes[0] = { type: 2, children: [1,2,3] };// CAT
-  this.rules[15].opcodes[1] = { type: 4, index: 16 };// RNM(source-descriptions-source-name)
-  this.rules[15].opcodes[2] = { type: 7, string: [46] };// TLS
-  this.rules[15].opcodes[3] = { type: 4, index: 17 };// RNM(source-descriptions-reference)
-
-  /* source-descriptions-source-name */
-  this.rules[16].opcodes = [];
-  this.rules[16].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[16].opcodes[1] = { type: 1, children: [2,3,4,5] };// ALT
-  this.rules[16].opcodes[2] = { type: 4, index: 32 };// RNM(ALPHA)
-  this.rules[16].opcodes[3] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[16].opcodes[4] = { type: 7, string: [95] };// TLS
-  this.rules[16].opcodes[5] = { type: 7, string: [45] };// TLS
-
-  /* source-descriptions-reference */
   this.rules[17].opcodes = [];
   this.rules[17].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[17].opcodes[1] = { type: 4, index: 27 };// RNM(CHAR)
+  this.rules[17].opcodes[1] = { type: 1, children: [2,3,4,5,6] };// ALT
+  this.rules[17].opcodes[2] = { type: 4, index: 35 };// RNM(ALPHA)
+  this.rules[17].opcodes[3] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[17].opcodes[4] = { type: 7, string: [46] };// TLS
+  this.rules[17].opcodes[5] = { type: 7, string: [45] };// TLS
+  this.rules[17].opcodes[6] = { type: 7, string: [95] };// TLS
 
-  /* components-name */
+  /* source-descriptions-name */
   this.rules[18].opcodes = [];
   this.rules[18].opcodes[0] = { type: 2, children: [1,2,3] };// CAT
-  this.rules[18].opcodes[1] = { type: 4, index: 19 };// RNM(components-field)
+  this.rules[18].opcodes[1] = { type: 4, index: 19 };// RNM(source-descriptions-source-name)
   this.rules[18].opcodes[2] = { type: 7, string: [46] };// TLS
-  this.rules[18].opcodes[3] = { type: 4, index: 20 };// RNM(components-sub-field)
+  this.rules[18].opcodes[3] = { type: 4, index: 20 };// RNM(source-descriptions-reference)
 
-  /* components-field */
+  /* source-descriptions-source-name */
   this.rules[19].opcodes = [];
-  this.rules[19].opcodes[0] = { type: 1, children: [1,2,3,4] };// ALT
-  this.rules[19].opcodes[1] = { type: 7, string: [105,110,112,117,116,115] };// TLS
-  this.rules[19].opcodes[2] = { type: 7, string: [112,97,114,97,109,101,116,101,114,115] };// TLS
-  this.rules[19].opcodes[3] = { type: 7, string: [115,117,99,99,101,115,115,97,99,116,105,111,110,115] };// TLS
-  this.rules[19].opcodes[4] = { type: 7, string: [102,97,105,108,117,114,101,97,99,116,105,111,110,115] };// TLS
+  this.rules[19].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
+  this.rules[19].opcodes[1] = { type: 1, children: [2,3,4,5] };// ALT
+  this.rules[19].opcodes[2] = { type: 4, index: 35 };// RNM(ALPHA)
+  this.rules[19].opcodes[3] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[19].opcodes[4] = { type: 7, string: [95] };// TLS
+  this.rules[19].opcodes[5] = { type: 7, string: [45] };// TLS
 
-  /* components-sub-field */
+  /* source-descriptions-reference */
   this.rules[20].opcodes = [];
   this.rules[20].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[20].opcodes[1] = { type: 1, children: [2,3,4,5,6] };// ALT
-  this.rules[20].opcodes[2] = { type: 4, index: 32 };// RNM(ALPHA)
-  this.rules[20].opcodes[3] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[20].opcodes[4] = { type: 7, string: [46] };// TLS
-  this.rules[20].opcodes[5] = { type: 7, string: [45] };// TLS
-  this.rules[20].opcodes[6] = { type: 7, string: [95] };// TLS
+  this.rules[20].opcodes[1] = { type: 4, index: 30 };// RNM(CHAR)
+
+  /* components-name */
+  this.rules[21].opcodes = [];
+  this.rules[21].opcodes[0] = { type: 2, children: [1,2,3] };// CAT
+  this.rules[21].opcodes[1] = { type: 4, index: 22 };// RNM(components-field)
+  this.rules[21].opcodes[2] = { type: 7, string: [46] };// TLS
+  this.rules[21].opcodes[3] = { type: 4, index: 23 };// RNM(components-sub-field)
+
+  /* components-field */
+  this.rules[22].opcodes = [];
+  this.rules[22].opcodes[0] = { type: 1, children: [1,2,3,4] };// ALT
+  this.rules[22].opcodes[1] = { type: 7, string: [105,110,112,117,116,115] };// TLS
+  this.rules[22].opcodes[2] = { type: 7, string: [112,97,114,97,109,101,116,101,114,115] };// TLS
+  this.rules[22].opcodes[3] = { type: 7, string: [115,117,99,99,101,115,115,97,99,116,105,111,110,115] };// TLS
+  this.rules[22].opcodes[4] = { type: 7, string: [102,97,105,108,117,114,101,97,99,116,105,111,110,115] };// TLS
+
+  /* components-sub-field */
+  this.rules[23].opcodes = [];
+  this.rules[23].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
+  this.rules[23].opcodes[1] = { type: 1, children: [2,3,4,5,6] };// ALT
+  this.rules[23].opcodes[2] = { type: 4, index: 35 };// RNM(ALPHA)
+  this.rules[23].opcodes[3] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[23].opcodes[4] = { type: 7, string: [46] };// TLS
+  this.rules[23].opcodes[5] = { type: 7, string: [45] };// TLS
+  this.rules[23].opcodes[6] = { type: 7, string: [95] };// TLS
 
   /* json-pointer */
-  this.rules[21].opcodes = [];
-  this.rules[21].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
-  this.rules[21].opcodes[1] = { type: 2, children: [2,3] };// CAT
-  this.rules[21].opcodes[2] = { type: 7, string: [47] };// TLS
-  this.rules[21].opcodes[3] = { type: 4, index: 22 };// RNM(reference-token)
+  this.rules[24].opcodes = [];
+  this.rules[24].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
+  this.rules[24].opcodes[1] = { type: 2, children: [2,3] };// CAT
+  this.rules[24].opcodes[2] = { type: 7, string: [47] };// TLS
+  this.rules[24].opcodes[3] = { type: 4, index: 25 };// RNM(reference-token)
 
   /* reference-token */
-  this.rules[22].opcodes = [];
-  this.rules[22].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
-  this.rules[22].opcodes[1] = { type: 1, children: [2,3] };// ALT
-  this.rules[22].opcodes[2] = { type: 4, index: 23 };// RNM(unescaped)
-  this.rules[22].opcodes[3] = { type: 4, index: 24 };// RNM(escaped)
+  this.rules[25].opcodes = [];
+  this.rules[25].opcodes[0] = { type: 3, min: 0, max: Infinity };// REP
+  this.rules[25].opcodes[1] = { type: 1, children: [2,3] };// ALT
+  this.rules[25].opcodes[2] = { type: 4, index: 26 };// RNM(unescaped)
+  this.rules[25].opcodes[3] = { type: 4, index: 27 };// RNM(escaped)
 
   /* unescaped */
-  this.rules[23].opcodes = [];
-  this.rules[23].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
-  this.rules[23].opcodes[1] = { type: 5, min: 0, max: 46 };// TRG
-  this.rules[23].opcodes[2] = { type: 5, min: 48, max: 125 };// TRG
-  this.rules[23].opcodes[3] = { type: 5, min: 127, max: 1114111 };// TRG
+  this.rules[26].opcodes = [];
+  this.rules[26].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
+  this.rules[26].opcodes[1] = { type: 5, min: 0, max: 46 };// TRG
+  this.rules[26].opcodes[2] = { type: 5, min: 48, max: 125 };// TRG
+  this.rules[26].opcodes[3] = { type: 5, min: 127, max: 1114111 };// TRG
 
   /* escaped */
-  this.rules[24].opcodes = [];
-  this.rules[24].opcodes[0] = { type: 2, children: [1,2] };// CAT
-  this.rules[24].opcodes[1] = { type: 7, string: [126] };// TLS
-  this.rules[24].opcodes[2] = { type: 1, children: [3,4] };// ALT
-  this.rules[24].opcodes[3] = { type: 7, string: [48] };// TLS
-  this.rules[24].opcodes[4] = { type: 7, string: [49] };// TLS
+  this.rules[27].opcodes = [];
+  this.rules[27].opcodes[0] = { type: 2, children: [1,2] };// CAT
+  this.rules[27].opcodes[1] = { type: 7, string: [126] };// TLS
+  this.rules[27].opcodes[2] = { type: 1, children: [3,4] };// ALT
+  this.rules[27].opcodes[3] = { type: 7, string: [48] };// TLS
+  this.rules[27].opcodes[4] = { type: 7, string: [49] };// TLS
 
   /* token */
-  this.rules[25].opcodes = [];
-  this.rules[25].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
-  this.rules[25].opcodes[1] = { type: 4, index: 26 };// RNM(tchar)
+  this.rules[28].opcodes = [];
+  this.rules[28].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
+  this.rules[28].opcodes[1] = { type: 4, index: 29 };// RNM(tchar)
 
   /* tchar */
-  this.rules[26].opcodes = [];
-  this.rules[26].opcodes[0] = { type: 1, children: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] };// ALT
-  this.rules[26].opcodes[1] = { type: 7, string: [33] };// TLS
-  this.rules[26].opcodes[2] = { type: 7, string: [35] };// TLS
-  this.rules[26].opcodes[3] = { type: 7, string: [36] };// TLS
-  this.rules[26].opcodes[4] = { type: 7, string: [37] };// TLS
-  this.rules[26].opcodes[5] = { type: 7, string: [38] };// TLS
-  this.rules[26].opcodes[6] = { type: 7, string: [39] };// TLS
-  this.rules[26].opcodes[7] = { type: 7, string: [42] };// TLS
-  this.rules[26].opcodes[8] = { type: 7, string: [43] };// TLS
-  this.rules[26].opcodes[9] = { type: 7, string: [45] };// TLS
-  this.rules[26].opcodes[10] = { type: 7, string: [46] };// TLS
-  this.rules[26].opcodes[11] = { type: 7, string: [94] };// TLS
-  this.rules[26].opcodes[12] = { type: 7, string: [95] };// TLS
-  this.rules[26].opcodes[13] = { type: 7, string: [96] };// TLS
-  this.rules[26].opcodes[14] = { type: 7, string: [124] };// TLS
-  this.rules[26].opcodes[15] = { type: 7, string: [126] };// TLS
-  this.rules[26].opcodes[16] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[26].opcodes[17] = { type: 4, index: 32 };// RNM(ALPHA)
+  this.rules[29].opcodes = [];
+  this.rules[29].opcodes[0] = { type: 1, children: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] };// ALT
+  this.rules[29].opcodes[1] = { type: 7, string: [33] };// TLS
+  this.rules[29].opcodes[2] = { type: 7, string: [35] };// TLS
+  this.rules[29].opcodes[3] = { type: 7, string: [36] };// TLS
+  this.rules[29].opcodes[4] = { type: 7, string: [37] };// TLS
+  this.rules[29].opcodes[5] = { type: 7, string: [38] };// TLS
+  this.rules[29].opcodes[6] = { type: 7, string: [39] };// TLS
+  this.rules[29].opcodes[7] = { type: 7, string: [42] };// TLS
+  this.rules[29].opcodes[8] = { type: 7, string: [43] };// TLS
+  this.rules[29].opcodes[9] = { type: 7, string: [45] };// TLS
+  this.rules[29].opcodes[10] = { type: 7, string: [46] };// TLS
+  this.rules[29].opcodes[11] = { type: 7, string: [94] };// TLS
+  this.rules[29].opcodes[12] = { type: 7, string: [95] };// TLS
+  this.rules[29].opcodes[13] = { type: 7, string: [96] };// TLS
+  this.rules[29].opcodes[14] = { type: 7, string: [124] };// TLS
+  this.rules[29].opcodes[15] = { type: 7, string: [126] };// TLS
+  this.rules[29].opcodes[16] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[29].opcodes[17] = { type: 4, index: 35 };// RNM(ALPHA)
 
   /* CHAR */
-  this.rules[27].opcodes = [];
-  this.rules[27].opcodes[0] = { type: 1, children: [1,2] };// ALT
-  this.rules[27].opcodes[1] = { type: 4, index: 29 };// RNM(unescape)
-  this.rules[27].opcodes[2] = { type: 2, children: [3,4] };// CAT
-  this.rules[27].opcodes[3] = { type: 4, index: 28 };// RNM(escape)
-  this.rules[27].opcodes[4] = { type: 1, children: [5,6,7,8,9,10,11,12,13] };// ALT
-  this.rules[27].opcodes[5] = { type: 6, string: [34] };// TBS
-  this.rules[27].opcodes[6] = { type: 6, string: [92] };// TBS
-  this.rules[27].opcodes[7] = { type: 6, string: [47] };// TBS
-  this.rules[27].opcodes[8] = { type: 6, string: [98] };// TBS
-  this.rules[27].opcodes[9] = { type: 6, string: [102] };// TBS
-  this.rules[27].opcodes[10] = { type: 6, string: [110] };// TBS
-  this.rules[27].opcodes[11] = { type: 6, string: [114] };// TBS
-  this.rules[27].opcodes[12] = { type: 6, string: [116] };// TBS
-  this.rules[27].opcodes[13] = { type: 2, children: [14,15] };// CAT
-  this.rules[27].opcodes[14] = { type: 6, string: [117] };// TBS
-  this.rules[27].opcodes[15] = { type: 3, min: 4, max: 4 };// REP
-  this.rules[27].opcodes[16] = { type: 4, index: 30 };// RNM(HEXDIG)
+  this.rules[30].opcodes = [];
+  this.rules[30].opcodes[0] = { type: 1, children: [1,2] };// ALT
+  this.rules[30].opcodes[1] = { type: 4, index: 32 };// RNM(unescape)
+  this.rules[30].opcodes[2] = { type: 2, children: [3,4] };// CAT
+  this.rules[30].opcodes[3] = { type: 4, index: 31 };// RNM(escape)
+  this.rules[30].opcodes[4] = { type: 1, children: [5,6,7,8,9,10,11,12,13] };// ALT
+  this.rules[30].opcodes[5] = { type: 6, string: [34] };// TBS
+  this.rules[30].opcodes[6] = { type: 6, string: [92] };// TBS
+  this.rules[30].opcodes[7] = { type: 6, string: [47] };// TBS
+  this.rules[30].opcodes[8] = { type: 6, string: [98] };// TBS
+  this.rules[30].opcodes[9] = { type: 6, string: [102] };// TBS
+  this.rules[30].opcodes[10] = { type: 6, string: [110] };// TBS
+  this.rules[30].opcodes[11] = { type: 6, string: [114] };// TBS
+  this.rules[30].opcodes[12] = { type: 6, string: [116] };// TBS
+  this.rules[30].opcodes[13] = { type: 2, children: [14,15] };// CAT
+  this.rules[30].opcodes[14] = { type: 6, string: [117] };// TBS
+  this.rules[30].opcodes[15] = { type: 3, min: 4, max: 4 };// REP
+  this.rules[30].opcodes[16] = { type: 4, index: 33 };// RNM(HEXDIG)
 
   /* escape */
-  this.rules[28].opcodes = [];
-  this.rules[28].opcodes[0] = { type: 6, string: [92] };// TBS
+  this.rules[31].opcodes = [];
+  this.rules[31].opcodes[0] = { type: 6, string: [92] };// TBS
 
   /* unescape */
-  this.rules[29].opcodes = [];
-  this.rules[29].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
-  this.rules[29].opcodes[1] = { type: 5, min: 32, max: 33 };// TRG
-  this.rules[29].opcodes[2] = { type: 5, min: 35, max: 91 };// TRG
-  this.rules[29].opcodes[3] = { type: 5, min: 93, max: 1114111 };// TRG
+  this.rules[32].opcodes = [];
+  this.rules[32].opcodes[0] = { type: 1, children: [1,2,3,4,5] };// ALT
+  this.rules[32].opcodes[1] = { type: 5, min: 32, max: 33 };// TRG
+  this.rules[32].opcodes[2] = { type: 5, min: 35, max: 91 };// TRG
+  this.rules[32].opcodes[3] = { type: 5, min: 93, max: 122 };// TRG
+  this.rules[32].opcodes[4] = { type: 6, string: [124] };// TBS
+  this.rules[32].opcodes[5] = { type: 5, min: 126, max: 1114111 };// TRG
 
   /* HEXDIG */
-  this.rules[30].opcodes = [];
-  this.rules[30].opcodes[0] = { type: 1, children: [1,2,3,4,5,6,7] };// ALT
-  this.rules[30].opcodes[1] = { type: 4, index: 31 };// RNM(DIGIT)
-  this.rules[30].opcodes[2] = { type: 7, string: [97] };// TLS
-  this.rules[30].opcodes[3] = { type: 7, string: [98] };// TLS
-  this.rules[30].opcodes[4] = { type: 7, string: [99] };// TLS
-  this.rules[30].opcodes[5] = { type: 7, string: [100] };// TLS
-  this.rules[30].opcodes[6] = { type: 7, string: [101] };// TLS
-  this.rules[30].opcodes[7] = { type: 7, string: [102] };// TLS
+  this.rules[33].opcodes = [];
+  this.rules[33].opcodes[0] = { type: 1, children: [1,2,3,4,5,6,7] };// ALT
+  this.rules[33].opcodes[1] = { type: 4, index: 34 };// RNM(DIGIT)
+  this.rules[33].opcodes[2] = { type: 7, string: [97] };// TLS
+  this.rules[33].opcodes[3] = { type: 7, string: [98] };// TLS
+  this.rules[33].opcodes[4] = { type: 7, string: [99] };// TLS
+  this.rules[33].opcodes[5] = { type: 7, string: [100] };// TLS
+  this.rules[33].opcodes[6] = { type: 7, string: [101] };// TLS
+  this.rules[33].opcodes[7] = { type: 7, string: [102] };// TLS
 
   /* DIGIT */
-  this.rules[31].opcodes = [];
-  this.rules[31].opcodes[0] = { type: 5, min: 48, max: 57 };// TRG
+  this.rules[34].opcodes = [];
+  this.rules[34].opcodes[0] = { type: 5, min: 48, max: 57 };// TRG
 
   /* ALPHA */
-  this.rules[32].opcodes = [];
-  this.rules[32].opcodes[0] = { type: 1, children: [1,2] };// ALT
-  this.rules[32].opcodes[1] = { type: 5, min: 65, max: 90 };// TRG
-  this.rules[32].opcodes[2] = { type: 5, min: 97, max: 122 };// TRG
+  this.rules[35].opcodes = [];
+  this.rules[35].opcodes[0] = { type: 1, children: [1,2] };// ALT
+  this.rules[35].opcodes[1] = { type: 5, min: 65, max: 90 };// TRG
+  this.rules[35].opcodes[2] = { type: 5, min: 97, max: 122 };// TRG
 
   // The `toString()` function will display the original grammar file(s) that produced these opcodes.
   this.toString = function toString(){
@@ -374,6 +400,11 @@ export default function grammar(){
     str += "path-reference   = \"path.\" name\n";
     str += "body-reference   = \"body\" [\"#\" json-pointer ]\n";
     str += "name             = *( CHAR )\n";
+    str += "\n";
+    str += "; Grammar for parsing template strings with embedded expressions\n";
+    str += "expression-string    = *( literal-char / embedded-expression )\n";
+    str += "embedded-expression  = \"{\" expression \"}\"\n";
+    str += "literal-char         = %x00-7A / %x7C / %x7E-10FFFF  ; anything except { (%x7B) and } (%x7D)\n";
     str += "\n";
     str += "; Secondary grammar for parsing $steps name part\n";
     str += "; Format: {stepId}.{field}.{subField}[#/{jsonPointer}]\n";
@@ -431,7 +462,8 @@ export default function grammar(){
     str += "        %x74 /          ; t    tab             U+0009\n";
     str += "        %x75 4HEXDIG )  ; uXXXX                U+XXXX\n";
     str += "escape         = %x5C   ; \\\n";
-    str += "unescape       = %x20-21 / %x23-5B / %x5D-10FFFF\n";
+    str += "unescape       = %x20-21 / %x23-5B / %x5D-7A / %x7C / %x7E-10FFFF\n";
+    str += "               ; %x7B ('{') and %x7D ('}') are excluded from 'unescape'\n";
     str += "\n";
     str += "; https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1\n";
     str += "HEXDIG         =  DIGIT / \"A\" / \"B\" / \"C\" / \"D\" / \"E\" / \"F\"\n";

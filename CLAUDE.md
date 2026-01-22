@@ -28,18 +28,49 @@ This library parses, validates, and extracts [Arazzo Runtime Expressions](https:
 
 - **`src/parse/translators/`** - Translator classes that extend apg-lite's `Ast`:
   - `CSTTranslator` - Produces Concrete Syntax Tree with `{ type, text, start, length, children }` nodes
+  - `ASTTranslator` - Produces Abstract Syntax Tree with semantic node types (extends CSTTranslator)
   - `XMLTranslator` - Produces XML string representation (extends CSTTranslator)
 
+- **`src/parse/translators/ASTTranslator/transformers.js`** - Transforms CST nodes to AST nodes. Uses secondary grammars for complex expressions like `$steps`, `$workflows`, `$sourceDescriptions`, and `$components`.
+
 - **`src/parse/callbacks/cst.js`** - Generic CST callback factory used by translators to build tree nodes.
+
+- **`src/extract.js`** - Extracts runtime expressions from template strings using the `expression-string` grammar rule.
+
+### Grammar Structure
+
+The grammar has two main parts:
+
+1. **Primary grammar** - Parses standalone runtime expressions (e.g., `$url`, `$request.body#/id`)
+
+2. **Expression-string grammar** - Parses template strings with embedded `{expression}` patterns:
+   - `expression-string = *( literal-char / embedded-expression )`
+   - `embedded-expression = "{" expression "}"`
+   - `literal-char` excludes `{` and `}` characters
+
+3. **Secondary grammars** - Parse the `name` part of complex expressions:
+   - `steps-name` - For `$steps.{stepId}.outputs.{outputName}`
+   - `workflows-name` - For `$workflows.{workflowId}.{inputs|outputs}.{subField}`
+   - `source-descriptions-name` - For `$sourceDescriptions.{sourceName}.{reference}`
+   - `components-name` - For `$components.{field}.{subField}`
+
+**Important:** The `{` and `}` characters are excluded from:
+- `unescape` rule (CHAR definition)
+- `unescaped` rule (json-pointer definition)
+
+This allows proper parsing of embedded expressions in template strings.
 
 ### Public API (exported from `src/index.js`)
 
 - `parse(expression, options?)` - Parse a runtime expression, returns `{ result, tree }`
-  - `options.translator` - CSTTranslator (default), XMLTranslator, or null for validation-only
+  - `options.translator` - CSTTranslator (default), ASTTranslator, XMLTranslator, or null for validation-only
+  - `options.trace` - Enable tracing for debugging
+  - `options.stats` - Enable statistics collection
 - `test(expression)` - Validate a runtime expression, returns boolean
-- `extract(string)` - Extract expression from `{expression}` notation, returns string or null
+- `extract(string)` - Extract expressions from template string with `{expression}` patterns, returns `string[]`
 - `Grammar` - Grammar class for accessing the ABNF definition
 - `CSTTranslator` - CST translator class
+- `ASTTranslator` - AST translator class
 - `XMLTranslator` - XML translator class
 
 ### Build Output
@@ -50,3 +81,10 @@ The library produces dual module formats:
 - `types/` - TypeScript declarations
 
 Babel handles the transformation with custom plugins for import extension rewriting.
+
+### Testing
+
+Test fixtures are in `test/fixtures/`:
+- `expressions-valid.js` - Valid expression examples
+- `ast-corpus/` - Expected AST output for each valid expression
+- `cst-corpus/` - Expected CST output for each valid expression

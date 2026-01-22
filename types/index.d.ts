@@ -296,9 +296,9 @@ export function parse(runtimeExpression: string, options?: ParseOptions): ParseR
 export function test(runtimeExpression: string): boolean;
 
 /**
- * Extract runtime expression from embedded form {expression}
+ * Extract runtime expressions from a string containing embedded {expression} patterns
  */
-export function extract(openapiRuntimeExpression: string): string | null;
+export function extract(str: string): string[];
 
 /**
  * Grammar - ABNF grammar for runtime expressions

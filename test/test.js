@@ -6,7 +6,7 @@ describe('test', function () {
   it('should detect expression', function () {
     assert.isTrue(test('$url'));
     assert.isTrue(test('$method'));
-    assert.isTrue(test('$request.path.eventType}'));
+    assert.isTrue(test('$request.path.eventType'));
     assert.isTrue(test('$request.path.id'));
     assert.isTrue(test('$request.query.queryUrl'));
     assert.isTrue(test('$request.header.content-Type'));
@@ -41,5 +41,20 @@ describe('test', function () {
     assert.isFalse(test(1));
     assert.isFalse(test(null));
     assert.isFalse(test(undefined));
+  });
+
+  it('should reject expressions containing { or } in name part', function () {
+    // { and } are excluded from CHAR (unescape rule) for Arazzo expression names
+    assert.isFalse(test('$inputs.foo}'));
+    assert.isFalse(test('$inputs.foo{'));
+    assert.isFalse(test('$inputs.{foo}'));
+  });
+
+  it('should accept { and } in JSON pointer paths (RFC 6901 compliant)', function () {
+    // RFC 6901 allows { and } in JSON pointer paths (unescaped rule)
+    // This is standards-compliant behavior
+    assert.isTrue(test('$request.body#/foo}'));
+    assert.isTrue(test('$request.body#/foo{'));
+    assert.isTrue(test('$request.body#/{foo}'));
   });
 });

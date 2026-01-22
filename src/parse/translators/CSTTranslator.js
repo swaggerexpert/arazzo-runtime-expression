@@ -6,6 +6,11 @@ class CSTTranslator extends AST {
   constructor() {
     super();
 
+    // expression-string grammar rules
+    this.callbacks['expression-string'] = cstCallback('expression-string');
+    this.callbacks['embedded-expression'] = cstCallback('embedded-expression');
+    this.callbacks['literal-char'] = cstCallback('literal-char');
+    // main expression grammar rules
     this.callbacks['expression'] = cstCallback('expression');
     this.callbacks['source'] = cstCallback('source');
     this.callbacks['header-reference'] = cstCallback('header-reference');
