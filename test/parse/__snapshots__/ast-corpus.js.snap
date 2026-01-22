@@ -207,7 +207,7 @@ exports[`parse ast-corpus $request.header.X-Custom-Header 1`] = `
     "type": "Source",
     "reference": {
       "type": "HeaderReference",
-      "token": "X-Custom-Header",
+      "token": "x-custom-header",
     },
   },
 }
@@ -233,7 +233,7 @@ exports[`parse ast-corpus $request.header.content-Type 1`] = `
     "type": "Source",
     "reference": {
       "type": "HeaderReference",
-      "token": "content-Type",
+      "token": "content-type",
     },
   },
 }
@@ -414,7 +414,7 @@ exports[`parse ast-corpus $response.header.X-Response-Header 1`] = `
     "type": "Source",
     "reference": {
       "type": "HeaderReference",
-      "token": "X-Response-Header",
+      "token": "x-response-header",
     },
   },
 }
