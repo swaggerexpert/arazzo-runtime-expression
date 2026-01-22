@@ -6,7 +6,7 @@ describe('test', function () {
   it('should detect expression', function () {
     assert.isTrue(test('$url'));
     assert.isTrue(test('$method'));
-    assert.isTrue(test('$request.path.eventType}'));
+    assert.isTrue(test('$request.path.eventType'));
     assert.isTrue(test('$request.path.id'));
     assert.isTrue(test('$request.query.queryUrl'));
     assert.isTrue(test('$request.header.content-Type'));
@@ -41,5 +41,15 @@ describe('test', function () {
     assert.isFalse(test(1));
     assert.isFalse(test(null));
     assert.isFalse(test(undefined));
+  });
+
+  it('should reject expressions containing { or } characters', function () {
+    // { and } are excluded from CHAR and json-pointer unescaped
+    assert.isFalse(test('$inputs.foo}'));
+    assert.isFalse(test('$inputs.foo{'));
+    assert.isFalse(test('$inputs.{foo}'));
+    assert.isFalse(test('$request.body#/foo}'));
+    assert.isFalse(test('$request.body#/foo{'));
+    assert.isFalse(test('$request.body#/{foo}'));
   });
 });
