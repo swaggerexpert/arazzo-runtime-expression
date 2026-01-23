@@ -1,41 +1,58 @@
-
 name: Release
+
 on:
   workflow_dispatch:
-    branches:
-      - main
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+      attestations: write
+    environment:
+      name: npm-release
+      url: https://www.npmjs.com/package/@swaggerexpert/arazzo-runtime-expression
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
           persist-credentials: false
+          fetch-depth: 0
+          submodules: true
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20.5.0
+          node-version: 24
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Build code
+        run: npm run build
+
       - name: Execute tests
         run: npm test
+
       - name: Semantic Release
-        id: semantic
-        uses: cycjimmy/semantic-release-action@v6
-        with:
-          dry_run: false
-          extra_plugins: |
-            @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Release published
-        if: steps.semantic.outputs.new_release_published == 'true'
+        run: npx semantic-release
+
+      - name: Attest npm tarball (GitHub)
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: "dist/*.tgz"
+
+      - name: Publish tarball to npm (OIDC)
         run: |
-          echo ${{ steps.semantic.outputs.new_release_version }}
-          echo ${{ steps.semantic.outputs.new_release_major_version }}
-          echo ${{ steps.semantic.outputs.new_release_minor_version }}
-          echo ${{ steps.semantic.outputs.new_release_patch_version }}
+          set -euo pipefail
+          TARBALL="$(ls -1 dist/*.tgz | head -n 1)"
+          echo "Publishing $TARBALL"
+          npm publish "file:./$TARBALL" --provenance
