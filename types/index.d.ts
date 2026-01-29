@@ -204,7 +204,7 @@ export interface SourceDescriptionsExpression {
  */
 export interface ComponentsExpression {
   readonly type: 'ComponentsExpression';
-  readonly field: 'inputs' | 'parameters' | 'successActions' | 'failureActions';
+  readonly field: 'parameters' | 'successActions' | 'failureActions';
   readonly subField: string;
 }
 

@@ -7,13 +7,13 @@ export default function grammar(){
   // SUMMARY
   //      rules = 36
   //       udts = 0
-  //    opcodes = 213
+  //    opcodes = 212
   //        ---   ABNF original opcodes
   //        ALT = 21
   //        CAT = 24
   //        REP = 16
   //        RNM = 55
-  //        TLS = 73
+  //        TLS = 72
   //        TBS = 12
   //        TRG = 12
   //        ---   SABNF superset opcodes
@@ -264,11 +264,10 @@ export default function grammar(){
 
   /* components-field */
   this.rules[22].opcodes = [];
-  this.rules[22].opcodes[0] = { type: 1, children: [1,2,3,4] };// ALT
-  this.rules[22].opcodes[1] = { type: 7, string: [105,110,112,117,116,115] };// TLS
-  this.rules[22].opcodes[2] = { type: 7, string: [112,97,114,97,109,101,116,101,114,115] };// TLS
-  this.rules[22].opcodes[3] = { type: 7, string: [115,117,99,99,101,115,115,97,99,116,105,111,110,115] };// TLS
-  this.rules[22].opcodes[4] = { type: 7, string: [102,97,105,108,117,114,101,97,99,116,105,111,110,115] };// TLS
+  this.rules[22].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
+  this.rules[22].opcodes[1] = { type: 7, string: [112,97,114,97,109,101,116,101,114,115] };// TLS
+  this.rules[22].opcodes[2] = { type: 7, string: [115,117,99,99,101,115,115,97,99,116,105,111,110,115] };// TLS
+  this.rules[22].opcodes[3] = { type: 7, string: [102,97,105,108,117,114,101,97,99,116,105,111,110,115] };// TLS
 
   /* components-sub-field */
   this.rules[23].opcodes = [];
@@ -429,9 +428,9 @@ export default function grammar(){
     str += "\n";
     str += "; Secondary grammar for parsing $components name part\n";
     str += "; Format: {field}.{subField}\n";
-    str += "; Allowed fields: inputs, parameters, successActions, failureActions\n";
+    str += "; Allowed fields: parameters, successActions, failureActions\n";
     str += "components-name      = components-field \".\" components-sub-field\n";
-    str += "components-field     = \"inputs\" / \"parameters\" / \"successActions\" / \"failureActions\"\n";
+    str += "components-field     = \"parameters\" / \"successActions\" / \"failureActions\"\n";
     str += "components-sub-field = 1*(ALPHA / DIGIT / \".\" / \"-\" / \"_\")\n";
     str += "\n";
     str += "; https://datatracker.ietf.org/doc/html/rfc6901#section-3\n";

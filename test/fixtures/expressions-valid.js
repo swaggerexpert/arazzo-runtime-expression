@@ -67,7 +67,6 @@ const validExpressions = [
   '$sourceDescriptions.externalService.url',
 
   // Components expression
-  '$components.inputs.username',
   '$components.parameters.petId',
   '$components.successActions.notifyUser',
   '$components.failureActions.logError',

@@ -302,9 +302,9 @@ source-descriptions-reference   = 1*CHAR
 
 ; Secondary grammar for parsing $components name part
 ; Format: {field}.{subField}
-; Allowed fields: inputs, parameters, successActions, failureActions
+; Allowed fields: parameters, successActions, failureActions
 components-name      = components-field "." components-sub-field
-components-field     = "inputs" / "parameters" / "successActions" / "failureActions"
+components-field     = "parameters" / "successActions" / "failureActions"
 components-sub-field = 1*(ALPHA / DIGIT / "." / "-" / "_")
 
 ; https://datatracker.ietf.org/doc/html/rfc6901#section-3
