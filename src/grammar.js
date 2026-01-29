@@ -428,7 +428,7 @@ export default function grammar(){
     str += "\n";
     str += "; Secondary grammar for parsing $components name part\n";
     str += "; Format: {field}.{subField}\n";
-    str += "; Allowed fields: inputs, parameters, successActions, failureActions\n";
+    str += "; Allowed fields: parameters, successActions, failureActions\n";
     str += "components-name      = components-field \".\" components-sub-field\n";
     str += "components-field     = \"parameters\" / \"successActions\" / \"failureActions\"\n";
     str += "components-sub-field = 1*(ALPHA / DIGIT / \".\" / \"-\" / \"_\")\n";
