@@ -20,7 +20,7 @@ It supports Runtime Expressions defined in following Arazzo specification versio
 <table>
   <tr>
     <td align="right" valign="middle">
-        <img src="https://cdn2.hubspot.net/hubfs/4008838/website/logos/logos_for_download/Tidelift_primary-shorthand-logo.png" alt="Tidelift" width="60" />
+        <img src="https://raw.githubusercontent.com/swaggerexpert/arazzo-runtime-expression/main/assets/tidelift.webp" alt="Tidelift" width="60" />
       </td>
       <td valign="middle">
         <a href="https://tidelift.com/subscription/pkg/npm-.swaggerexpert-arazzo-runtime-expression?utm_source=npm-swaggerexpert-arazzo-runtime-expression&utm_medium=referral&utm_campaign=readme">
