@@ -14,7 +14,7 @@ export interface CSTNode {
  * Translator base interface
  */
 export interface Translator {
-  getTree(): CSTNode | string | undefined;
+  getTree(): CSTNode | ASTNode | string | undefined;
 }
 
 /**
@@ -29,7 +29,8 @@ export class CSTTranslator implements Translator {
 /**
  * XMLTranslator - Produces XML string representation
  */
-export class XMLTranslator extends CSTTranslator {
+export class XMLTranslator implements Translator {
+  constructor();
   getTree(): string;
 }
 
@@ -227,7 +228,8 @@ export type ASTNode =
  * ASTTranslator - Produces Abstract Syntax Tree
  * Suitable for implementations that need to analyze or evaluate expressions.
  */
-export class ASTTranslator extends CSTTranslator {
+export class ASTTranslator implements Translator {
+  constructor();
   getTree(): ASTNode;
 }
 
@@ -258,36 +260,65 @@ export class Stats {
 /**
  * Parse options
  */
-export interface ParseOptions {
+export interface ParseOptions<T extends Translator | null = Translator | null> {
   readonly stats?: boolean;
   readonly trace?: boolean;
-  readonly translator?: Translator | null;
+  readonly translator?: T;
+}
+
+/**
+ * Parse result metadata
+ */
+export interface ParseResultMeta {
+  readonly success: boolean;
+  readonly state: number;
+  readonly stateName: string;
+  readonly length: number;
+  readonly matched: number;
+  readonly maxMatched: number;
+  readonly maxTreeDepth: number;
+  readonly nodeHits: number;
 }
 
 /**
  * Parse result
  */
-export interface ParseResult {
-  readonly result: {
-    readonly success: boolean;
-    readonly state: number;
-    readonly stateName: string;
-    readonly length: number;
-    readonly matched: number;
-    readonly maxMatched: number;
-    readonly maxTreeDepth: number;
-    readonly nodeHits: number;
-  };
-  readonly tree: CSTNode | string | undefined;
+export interface ParseResult<T = CSTNode | ASTNode | string | undefined> {
+  readonly result: ParseResultMeta;
+  readonly tree: T;
   readonly stats: Stats | undefined;
   readonly trace: Trace | undefined;
 }
 
 /**
- * Parse a runtime expression
+ * Parse a runtime expression with ASTTranslator
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
-export function parse(runtimeExpression: string, options?: ParseOptions): ParseResult;
+export function parse(runtimeExpression: string, options: ParseOptions<ASTTranslator>): ParseResult<ASTNode>;
+
+/**
+ * Parse a runtime expression with XMLTranslator
+ * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
+ */
+export function parse(runtimeExpression: string, options: ParseOptions<XMLTranslator>): ParseResult<string>;
+
+/**
+ * Parse a runtime expression with CSTTranslator
+ * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
+ */
+export function parse(runtimeExpression: string, options: ParseOptions<CSTTranslator>): ParseResult<CSTNode>;
+
+/**
+ * Parse a runtime expression with null translator (validation only)
+ * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
+ */
+export function parse(runtimeExpression: string, options: ParseOptions<null>): ParseResult<undefined>;
+
+/**
+ * Parse a runtime expression with default ASTTranslator
+ * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
+ */
+export function parse(runtimeExpression: string, options?: ParseOptions): ParseResult<ASTNode>;
 
 /**
  * Test if a string is a valid runtime expression
