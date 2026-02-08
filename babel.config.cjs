@@ -30,9 +30,18 @@ module.exports = {
           {
             resolvePath(sourcePath, currentFile) {
               if (sourcePath === "apg-lite") {
-                const apgLiteCJS = path.resolve("./src/apg-lite.cjs");
+                // apg-lite.cjs will be in the same cjs/ output directory
+                // The relative path from src/ needs to account for the output being in cjs/
+                const srcDir = path.resolve("./src");
                 const currentDir = path.dirname(currentFile);
-                return path.relative(currentDir, apgLiteCJS);
+                const relativeToSrc = path.relative(srcDir, currentDir);
+                // Path from the output file location to apg-lite.cjs
+                // Both will be under cjs/, so we need to go up relativeToSrc levels then to apg-lite.cjs
+                if (relativeToSrc === "") {
+                  return "./apg-lite.cjs";
+                }
+                const depth = relativeToSrc.split(path.sep).length;
+                return "../".repeat(depth) + "apg-lite.cjs";
               }
               return sourcePath;
             },
