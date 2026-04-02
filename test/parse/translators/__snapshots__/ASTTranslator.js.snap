@@ -30,7 +30,6 @@ exports[`parse translators ASTTranslator should translate $steps.login.outputs.t
 {
   "type": "StepsExpression",
   "stepId": "login",
-  "field": "outputs",
   "outputName": "token",
 }
 `;

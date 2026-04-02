@@ -1,50 +1,3 @@
-import { Parser } from 'apg-lite';
-
-import Grammar from '../../../grammar.js';
-import CSTTranslator from '../CSTTranslator.js';
-
-const grammar = new Grammar();
-
-const parseStepsName = (stepsName) => {
-  const parser = new Parser();
-  parser.ast = new CSTTranslator();
-  const result = parser.parse(grammar, 'steps-name', stepsName);
-  if (!result.success) {
-    throw new Error(`Invalid steps expression name: ${stepsName}`);
-  }
-  return parser.ast.getTree();
-};
-
-const parseWorkflowsName = (workflowsName) => {
-  const parser = new Parser();
-  parser.ast = new CSTTranslator();
-  const result = parser.parse(grammar, 'workflows-name', workflowsName);
-  if (!result.success) {
-    throw new Error(`Invalid workflows expression name: ${workflowsName}`);
-  }
-  return parser.ast.getTree();
-};
-
-const parseSourceDescriptionsName = (sourceDescriptionsName) => {
-  const parser = new Parser();
-  parser.ast = new CSTTranslator();
-  const result = parser.parse(grammar, 'source-descriptions-name', sourceDescriptionsName);
-  if (!result.success) {
-    throw new Error(`Invalid source descriptions expression name: ${sourceDescriptionsName}`);
-  }
-  return parser.ast.getTree();
-};
-
-const parseComponentsName = (componentsName) => {
-  const parser = new Parser();
-  parser.ast = new CSTTranslator();
-  const result = parser.parse(grammar, 'components-name', componentsName);
-  if (!result.success) {
-    throw new Error(`Invalid components expression name: ${componentsName}`);
-  }
-  return parser.ast.getTree();
-};
-
 export const transformCSTtoAST = (node, transformerMap) => {
   const transformer = transformerMap[node.type];
   if (!transformer) {
@@ -61,6 +14,7 @@ const transformers = {
     if (text === '$url') return { type: 'UrlExpression' };
     if (text === '$method') return { type: 'MethodExpression' };
     if (text === '$statusCode') return { type: 'StatusCodeExpression' };
+    if (text === '$self') return { type: 'SelfExpression' };
 
     // Source expressions (request/response)
     if (text.startsWith('$request.')) {
@@ -78,29 +32,30 @@ const transformers = {
       };
     }
 
-    // Named expressions (raw name)
-    const nameNode = node.children.find((c) => c.type === 'name');
+    // Reference expressions (secondary grammar parsing)
     if (text.startsWith('$inputs.')) {
-      return { type: 'InputsExpression', name: nameNode.text };
+      const refNode = node.children.find((c) => c.type === 'inputs-reference');
+      return transformCSTtoAST(refNode, transformers);
     }
     if (text.startsWith('$outputs.')) {
-      return { type: 'OutputsExpression', name: nameNode.text };
+      const refNode = node.children.find((c) => c.type === 'outputs-reference');
+      return transformCSTtoAST(refNode, transformers);
     }
     if (text.startsWith('$steps.')) {
-      const stepsNameCST = parseStepsName(nameNode.text);
-      return transformCSTtoAST(stepsNameCST, transformers);
+      const refNode = node.children.find((c) => c.type === 'steps-reference');
+      return transformCSTtoAST(refNode, transformers);
     }
     if (text.startsWith('$workflows.')) {
-      const workflowsNameCST = parseWorkflowsName(nameNode.text);
-      return transformCSTtoAST(workflowsNameCST, transformers);
+      const refNode = node.children.find((c) => c.type === 'workflows-reference');
+      return transformCSTtoAST(refNode, transformers);
     }
     if (text.startsWith('$sourceDescriptions.')) {
-      const sourceDescriptionsNameCST = parseSourceDescriptionsName(nameNode.text);
-      return transformCSTtoAST(sourceDescriptionsNameCST, transformers);
+      const refNode = node.children.find((c) => c.type === 'source-reference');
+      return transformCSTtoAST(refNode, transformers);
     }
     if (text.startsWith('$components.')) {
-      const componentsNameCST = parseComponentsName(nameNode.text);
-      return transformCSTtoAST(componentsNameCST, transformers);
+      const refNode = node.children.find((c) => c.type === 'components-reference');
+      return transformCSTtoAST(refNode, transformers);
     }
   },
 
@@ -153,18 +108,13 @@ const transformers = {
     return { type: 'ReferenceToken', value: node.text };
   },
 
-  // steps-name secondary grammar transformers
-  ['steps-name'](node) {
-    const stepIdNode = node.children.find((c) => c.type === 'steps-id');
-    const fieldNode = node.children.find((c) => c.type === 'steps-field');
-    const subFieldNode = node.children.find((c) => c.type === 'steps-sub-field');
+  ['inputs-reference'](node) {
+    const inputNameNode = node.children.find((c) => c.type === 'inputs-name');
     const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
 
     const result = {
-      type: 'StepsExpression',
-      stepId: stepIdNode.text,
-      field: fieldNode.text,
-      outputName: subFieldNode.text,
+      type: 'InputsExpression',
+      name: inputNameNode.text,
     };
 
     if (jsonPointerNode) {
@@ -174,18 +124,51 @@ const transformers = {
     return result;
   },
 
-  // workflows-name secondary grammar transformers
-  ['workflows-name'](node) {
+  ['outputs-reference'](node) {
+    const outputNameNode = node.children.find((c) => c.type === 'outputs-name');
+    const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
+
+    const result = {
+      type: 'OutputsExpression',
+      name: outputNameNode.text,
+    };
+
+    if (jsonPointerNode) {
+      result.jsonPointer = transformCSTtoAST(jsonPointerNode, transformers);
+    }
+
+    return result;
+  },
+
+  ['steps-reference'](node) {
+    const stepIdNode = node.children.find((c) => c.type === 'steps-id');
+    const outputNameNode = node.children.find((c) => c.type === 'outputs-name');
+    const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
+
+    const result = {
+      type: 'StepsExpression',
+      stepId: stepIdNode.text,
+      outputName: outputNameNode.text,
+    };
+
+    if (jsonPointerNode) {
+      result.jsonPointer = transformCSTtoAST(jsonPointerNode, transformers);
+    }
+
+    return result;
+  },
+
+  ['workflows-reference'](node) {
     const workflowIdNode = node.children.find((c) => c.type === 'workflows-id');
     const fieldNode = node.children.find((c) => c.type === 'workflows-field');
-    const subFieldNode = node.children.find((c) => c.type === 'workflows-sub-field');
+    const fieldNameNode = node.children.find((c) => c.type === 'workflows-field-name');
     const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
 
     const result = {
       type: 'WorkflowsExpression',
       workflowId: workflowIdNode.text,
       field: fieldNode.text,
-      subField: subFieldNode.text,
+      fieldName: fieldNameNode.text,
     };
 
     if (jsonPointerNode) {
@@ -195,9 +178,8 @@ const transformers = {
     return result;
   },
 
-  // source-descriptions-name secondary grammar transformers
-  ['source-descriptions-name'](node) {
-    const sourceNameNode = node.children.find((c) => c.type === 'source-descriptions-source-name');
+  ['source-reference'](node) {
+    const sourceNameNode = node.children.find((c) => c.type === 'source-descriptions-name');
     const referenceNode = node.children.find((c) => c.type === 'source-descriptions-reference');
 
     return {
@@ -207,15 +189,14 @@ const transformers = {
     };
   },
 
-  // components-name secondary grammar transformers
-  ['components-name'](node) {
-    const fieldNode = node.children.find((c) => c.type === 'components-field');
-    const subFieldNode = node.children.find((c) => c.type === 'components-sub-field');
+  ['components-reference'](node) {
+    const typeNode = node.children.find((c) => c.type === 'components-type');
+    const nameNode = node.children.find((c) => c.type === 'components-name');
 
     return {
       type: 'ComponentsExpression',
-      field: fieldNode.text,
-      subField: subFieldNode.text,
+      componentType: typeNode.text,
+      componentName: nameNode.text,
     };
   },
 };

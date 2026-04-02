@@ -8,29 +8,26 @@ exports[`parse cst-corpus $components.failureActions.logError 1`] = `
   "length": 35,
   "children": [
     {
-      "type": "name",
+      "type": "components-reference",
       "text": "failureActions.logError",
       "start": 12,
       "length": 23,
-      "children": [],
-    },
-  ],
-}
-`;
-
-exports[`parse cst-corpus $components.inputs.username 1`] = `
-{
-  "type": "expression",
-  "text": "$components.inputs.username",
-  "start": 0,
-  "length": 27,
-  "children": [
-    {
-      "type": "name",
-      "text": "inputs.username",
-      "start": 12,
-      "length": 15,
-      "children": [],
+      "children": [
+        {
+          "type": "components-type",
+          "text": "failureActions",
+          "start": 12,
+          "length": 14,
+          "children": [],
+        },
+        {
+          "type": "components-name",
+          "text": "logError",
+          "start": 27,
+          "length": 8,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -44,11 +41,26 @@ exports[`parse cst-corpus $components.parameters.petId 1`] = `
   "length": 28,
   "children": [
     {
-      "type": "name",
+      "type": "components-reference",
       "text": "parameters.petId",
       "start": 12,
       "length": 16,
-      "children": [],
+      "children": [
+        {
+          "type": "components-type",
+          "text": "parameters",
+          "start": 12,
+          "length": 10,
+          "children": [],
+        },
+        {
+          "type": "components-name",
+          "text": "petId",
+          "start": 23,
+          "length": 5,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -62,11 +74,52 @@ exports[`parse cst-corpus $components.successActions.notifyUser 1`] = `
   "length": 37,
   "children": [
     {
-      "type": "name",
+      "type": "components-reference",
       "text": "successActions.notifyUser",
       "start": 12,
       "length": 25,
-      "children": [],
+      "children": [
+        {
+          "type": "components-type",
+          "text": "successActions",
+          "start": 12,
+          "length": 14,
+          "children": [],
+        },
+        {
+          "type": "components-name",
+          "text": "notifyUser",
+          "start": 27,
+          "length": 10,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $inputs.a 1`] = `
+{
+  "type": "expression",
+  "text": "$inputs.a",
+  "start": 0,
+  "length": 9,
+  "children": [
+    {
+      "type": "inputs-reference",
+      "text": "a",
+      "start": 8,
+      "length": 1,
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "a",
+          "start": 8,
+          "length": 1,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -80,11 +133,186 @@ exports[`parse cst-corpus $inputs.apiKey 1`] = `
   "length": 14,
   "children": [
     {
-      "type": "name",
+      "type": "inputs-reference",
       "text": "apiKey",
       "start": 8,
       "length": 6,
-      "children": [],
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "apiKey",
+          "start": 8,
+          "length": 6,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $inputs.customer#/address/city 1`] = `
+{
+  "type": "expression",
+  "text": "$inputs.customer#/address/city",
+  "start": 0,
+  "length": 30,
+  "children": [
+    {
+      "type": "inputs-reference",
+      "text": "customer#/address/city",
+      "start": 8,
+      "length": 22,
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "customer",
+          "start": 8,
+          "length": 8,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/address/city",
+          "start": 17,
+          "length": 13,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "address",
+              "start": 18,
+              "length": 7,
+              "children": [],
+            },
+            {
+              "type": "reference-token",
+              "text": "city",
+              "start": 26,
+              "length": 4,
+              "children": [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $inputs.customer#/firstName 1`] = `
+{
+  "type": "expression",
+  "text": "$inputs.customer#/firstName",
+  "start": 0,
+  "length": 27,
+  "children": [
+    {
+      "type": "inputs-reference",
+      "text": "customer#/firstName",
+      "start": 8,
+      "length": 19,
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "customer",
+          "start": 8,
+          "length": 8,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/firstName",
+          "start": 17,
+          "length": 10,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "firstName",
+              "start": 18,
+              "length": 9,
+              "children": [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $inputs.my.nested.name 1`] = `
+{
+  "type": "expression",
+  "text": "$inputs.my.nested.name",
+  "start": 0,
+  "length": 22,
+  "children": [
+    {
+      "type": "inputs-reference",
+      "text": "my.nested.name",
+      "start": 8,
+      "length": 14,
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "my.nested.name",
+          "start": 8,
+          "length": 14,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $inputs.my_input 1`] = `
+{
+  "type": "expression",
+  "text": "$inputs.my_input",
+  "start": 0,
+  "length": 16,
+  "children": [
+    {
+      "type": "inputs-reference",
+      "text": "my_input",
+      "start": 8,
+      "length": 8,
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "my_input",
+          "start": 8,
+          "length": 8,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $inputs.my-input 1`] = `
+{
+  "type": "expression",
+  "text": "$inputs.my-input",
+  "start": 0,
+  "length": 16,
+  "children": [
+    {
+      "type": "inputs-reference",
+      "text": "my-input",
+      "start": 8,
+      "length": 8,
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "my-input",
+          "start": 8,
+          "length": 8,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -98,11 +326,19 @@ exports[`parse cst-corpus $inputs.password 1`] = `
   "length": 16,
   "children": [
     {
-      "type": "name",
+      "type": "inputs-reference",
       "text": "password",
       "start": 8,
       "length": 8,
-      "children": [],
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "password",
+          "start": 8,
+          "length": 8,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -116,11 +352,19 @@ exports[`parse cst-corpus $inputs.username 1`] = `
   "length": 16,
   "children": [
     {
-      "type": "name",
+      "type": "inputs-reference",
       "text": "username",
       "start": 8,
       "length": 8,
-      "children": [],
+      "children": [
+        {
+          "type": "inputs-name",
+          "text": "username",
+          "start": 8,
+          "length": 8,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -136,6 +380,32 @@ exports[`parse cst-corpus $method 1`] = `
 }
 `;
 
+exports[`parse cst-corpus $outputs.a 1`] = `
+{
+  "type": "expression",
+  "text": "$outputs.a",
+  "start": 0,
+  "length": 10,
+  "children": [
+    {
+      "type": "outputs-reference",
+      "text": "a",
+      "start": 9,
+      "length": 1,
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "a",
+          "start": 9,
+          "length": 1,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`parse cst-corpus $outputs.data 1`] = `
 {
   "type": "expression",
@@ -144,11 +414,186 @@ exports[`parse cst-corpus $outputs.data 1`] = `
   "length": 13,
   "children": [
     {
-      "type": "name",
+      "type": "outputs-reference",
       "text": "data",
       "start": 9,
       "length": 4,
-      "children": [],
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "data",
+          "start": 9,
+          "length": 4,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $outputs.mappedResponse#/data/id 1`] = `
+{
+  "type": "expression",
+  "text": "$outputs.mappedResponse#/data/id",
+  "start": 0,
+  "length": 32,
+  "children": [
+    {
+      "type": "outputs-reference",
+      "text": "mappedResponse#/data/id",
+      "start": 9,
+      "length": 23,
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "mappedResponse",
+          "start": 9,
+          "length": 14,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/data/id",
+          "start": 24,
+          "length": 8,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "data",
+              "start": 25,
+              "length": 4,
+              "children": [],
+            },
+            {
+              "type": "reference-token",
+              "text": "id",
+              "start": 30,
+              "length": 2,
+              "children": [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $outputs.my.nested.name 1`] = `
+{
+  "type": "expression",
+  "text": "$outputs.my.nested.name",
+  "start": 0,
+  "length": 23,
+  "children": [
+    {
+      "type": "outputs-reference",
+      "text": "my.nested.name",
+      "start": 9,
+      "length": 14,
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "my.nested.name",
+          "start": 9,
+          "length": 14,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $outputs.my_output 1`] = `
+{
+  "type": "expression",
+  "text": "$outputs.my_output",
+  "start": 0,
+  "length": 18,
+  "children": [
+    {
+      "type": "outputs-reference",
+      "text": "my_output",
+      "start": 9,
+      "length": 9,
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "my_output",
+          "start": 9,
+          "length": 9,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $outputs.my-output 1`] = `
+{
+  "type": "expression",
+  "text": "$outputs.my-output",
+  "start": 0,
+  "length": 18,
+  "children": [
+    {
+      "type": "outputs-reference",
+      "text": "my-output",
+      "start": 9,
+      "length": 9,
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "my-output",
+          "start": 9,
+          "length": 9,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $outputs.response#/name 1`] = `
+{
+  "type": "expression",
+  "text": "$outputs.response#/name",
+  "start": 0,
+  "length": 23,
+  "children": [
+    {
+      "type": "outputs-reference",
+      "text": "response#/name",
+      "start": 9,
+      "length": 14,
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "response",
+          "start": 9,
+          "length": 8,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/name",
+          "start": 18,
+          "length": 5,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "name",
+              "start": 19,
+              "length": 4,
+              "children": [],
+            },
+          ],
+        },
+      ],
     },
   ],
 }
@@ -162,11 +607,74 @@ exports[`parse cst-corpus $outputs.result 1`] = `
   "length": 15,
   "children": [
     {
-      "type": "name",
+      "type": "outputs-reference",
       "text": "result",
       "start": 9,
       "length": 6,
-      "children": [],
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "result",
+          "start": 9,
+          "length": 6,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $outputs.result#/items/0/name 1`] = `
+{
+  "type": "expression",
+  "text": "$outputs.result#/items/0/name",
+  "start": 0,
+  "length": 29,
+  "children": [
+    {
+      "type": "outputs-reference",
+      "text": "result#/items/0/name",
+      "start": 9,
+      "length": 20,
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "result",
+          "start": 9,
+          "length": 6,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/items/0/name",
+          "start": 16,
+          "length": 13,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "items",
+              "start": 17,
+              "length": 5,
+              "children": [],
+            },
+            {
+              "type": "reference-token",
+              "text": "0",
+              "start": 23,
+              "length": 1,
+              "children": [],
+            },
+            {
+              "type": "reference-token",
+              "text": "name",
+              "start": 25,
+              "length": 4,
+              "children": [],
+            },
+          ],
+        },
+      ],
     },
   ],
 }
@@ -180,11 +688,19 @@ exports[`parse cst-corpus $outputs.token 1`] = `
   "length": 14,
   "children": [
     {
-      "type": "name",
+      "type": "outputs-reference",
       "text": "token",
       "start": 9,
       "length": 5,
-      "children": [],
+      "children": [
+        {
+          "type": "outputs-name",
+          "text": "token",
+          "start": 9,
+          "length": 5,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -966,6 +1482,16 @@ exports[`parse cst-corpus $response.header.content-type 1`] = `
 }
 `;
 
+exports[`parse cst-corpus $self 1`] = `
+{
+  "type": "expression",
+  "text": "$self",
+  "start": 0,
+  "length": 5,
+  "children": [],
+}
+`;
+
 exports[`parse cst-corpus $sourceDescriptions.externalService.url 1`] = `
 {
   "type": "expression",
@@ -974,11 +1500,26 @@ exports[`parse cst-corpus $sourceDescriptions.externalService.url 1`] = `
   "length": 39,
   "children": [
     {
-      "type": "name",
+      "type": "source-reference",
       "text": "externalService.url",
       "start": 20,
       "length": 19,
-      "children": [],
+      "children": [
+        {
+          "type": "source-descriptions-name",
+          "text": "externalService",
+          "start": 20,
+          "length": 15,
+          "children": [],
+        },
+        {
+          "type": "source-descriptions-reference",
+          "text": "url",
+          "start": 36,
+          "length": 3,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -992,11 +1533,26 @@ exports[`parse cst-corpus $sourceDescriptions.mainApi.createUser 1`] = `
   "length": 38,
   "children": [
     {
-      "type": "name",
+      "type": "source-reference",
       "text": "mainApi.createUser",
       "start": 20,
       "length": 18,
-      "children": [],
+      "children": [
+        {
+          "type": "source-descriptions-name",
+          "text": "mainApi",
+          "start": 20,
+          "length": 7,
+          "children": [],
+        },
+        {
+          "type": "source-descriptions-reference",
+          "text": "createUser",
+          "start": 28,
+          "length": 10,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1010,11 +1566,26 @@ exports[`parse cst-corpus $sourceDescriptions.petStore.getPets 1`] = `
   "length": 36,
   "children": [
     {
-      "type": "name",
+      "type": "source-reference",
       "text": "petStore.getPets",
       "start": 20,
       "length": 16,
-      "children": [],
+      "children": [
+        {
+          "type": "source-descriptions-name",
+          "text": "petStore",
+          "start": 20,
+          "length": 8,
+          "children": [],
+        },
+        {
+          "type": "source-descriptions-reference",
+          "text": "getPets",
+          "start": 29,
+          "length": 7,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1038,11 +1609,26 @@ exports[`parse cst-corpus $steps.createUser.outputs.userId 1`] = `
   "length": 32,
   "children": [
     {
-      "type": "name",
+      "type": "steps-reference",
       "text": "createUser.outputs.userId",
       "start": 7,
       "length": 25,
-      "children": [],
+      "children": [
+        {
+          "type": "steps-id",
+          "text": "createUser",
+          "start": 7,
+          "length": 10,
+          "children": [],
+        },
+        {
+          "type": "outputs-name",
+          "text": "userId",
+          "start": 26,
+          "length": 6,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1056,11 +1642,26 @@ exports[`parse cst-corpus $steps.loginStep.outputs.sessionToken 1`] = `
   "length": 37,
   "children": [
     {
-      "type": "name",
+      "type": "steps-reference",
       "text": "loginStep.outputs.sessionToken",
       "start": 7,
       "length": 30,
-      "children": [],
+      "children": [
+        {
+          "type": "steps-id",
+          "text": "loginStep",
+          "start": 7,
+          "length": 9,
+          "children": [],
+        },
+        {
+          "type": "outputs-name",
+          "text": "sessionToken",
+          "start": 25,
+          "length": 12,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1074,11 +1675,41 @@ exports[`parse cst-corpus $steps.loginStep.outputs.user#/name 1`] = `
   "length": 35,
   "children": [
     {
-      "type": "name",
+      "type": "steps-reference",
       "text": "loginStep.outputs.user#/name",
       "start": 7,
       "length": 28,
-      "children": [],
+      "children": [
+        {
+          "type": "steps-id",
+          "text": "loginStep",
+          "start": 7,
+          "length": 9,
+          "children": [],
+        },
+        {
+          "type": "outputs-name",
+          "text": "user",
+          "start": 25,
+          "length": 4,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/name",
+          "start": 30,
+          "length": 5,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "name",
+              "start": 31,
+              "length": 4,
+              "children": [],
+            },
+          ],
+        },
+      ],
     },
   ],
 }
@@ -1092,11 +1723,48 @@ exports[`parse cst-corpus $steps.someStepId.outputs.pets#/0/id 1`] = `
   "length": 36,
   "children": [
     {
-      "type": "name",
+      "type": "steps-reference",
       "text": "someStepId.outputs.pets#/0/id",
       "start": 7,
       "length": 29,
-      "children": [],
+      "children": [
+        {
+          "type": "steps-id",
+          "text": "someStepId",
+          "start": 7,
+          "length": 10,
+          "children": [],
+        },
+        {
+          "type": "outputs-name",
+          "text": "pets",
+          "start": 26,
+          "length": 4,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/0/id",
+          "start": 31,
+          "length": 5,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "0",
+              "start": 32,
+              "length": 1,
+              "children": [],
+            },
+            {
+              "type": "reference-token",
+              "text": "id",
+              "start": 34,
+              "length": 2,
+              "children": [],
+            },
+          ],
+        },
+      ],
     },
   ],
 }
@@ -1110,11 +1778,26 @@ exports[`parse cst-corpus $steps.stepId.outputs.value 1`] = `
   "length": 27,
   "children": [
     {
-      "type": "name",
+      "type": "steps-reference",
       "text": "stepId.outputs.value",
       "start": 7,
       "length": 20,
-      "children": [],
+      "children": [
+        {
+          "type": "steps-id",
+          "text": "stepId",
+          "start": 7,
+          "length": 6,
+          "children": [],
+        },
+        {
+          "type": "outputs-name",
+          "text": "value",
+          "start": 22,
+          "length": 5,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1138,11 +1821,33 @@ exports[`parse cst-corpus $workflows.authWorkflow.outputs.token 1`] = `
   "length": 37,
   "children": [
     {
-      "type": "name",
+      "type": "workflows-reference",
       "text": "authWorkflow.outputs.token",
       "start": 11,
       "length": 26,
-      "children": [],
+      "children": [
+        {
+          "type": "workflows-id",
+          "text": "authWorkflow",
+          "start": 11,
+          "length": 12,
+          "children": [],
+        },
+        {
+          "type": "workflows-field",
+          "text": "outputs",
+          "start": 24,
+          "length": 7,
+          "children": [],
+        },
+        {
+          "type": "workflows-field-name",
+          "text": "token",
+          "start": 32,
+          "length": 5,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1156,11 +1861,48 @@ exports[`parse cst-corpus $workflows.authWorkflow.outputs.token#/accessToken 1`]
   "length": 50,
   "children": [
     {
-      "type": "name",
+      "type": "workflows-reference",
       "text": "authWorkflow.outputs.token#/accessToken",
       "start": 11,
       "length": 39,
-      "children": [],
+      "children": [
+        {
+          "type": "workflows-id",
+          "text": "authWorkflow",
+          "start": 11,
+          "length": 12,
+          "children": [],
+        },
+        {
+          "type": "workflows-field",
+          "text": "outputs",
+          "start": 24,
+          "length": 7,
+          "children": [],
+        },
+        {
+          "type": "workflows-field-name",
+          "text": "token",
+          "start": 32,
+          "length": 5,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/accessToken",
+          "start": 38,
+          "length": 12,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "accessToken",
+              "start": 39,
+              "length": 11,
+              "children": [],
+            },
+          ],
+        },
+      ],
     },
   ],
 }
@@ -1174,11 +1916,33 @@ exports[`parse cst-corpus $workflows.mainProcess.outputs.data 1`] = `
   "length": 35,
   "children": [
     {
-      "type": "name",
+      "type": "workflows-reference",
       "text": "mainProcess.outputs.data",
       "start": 11,
       "length": 24,
-      "children": [],
+      "children": [
+        {
+          "type": "workflows-id",
+          "text": "mainProcess",
+          "start": 11,
+          "length": 11,
+          "children": [],
+        },
+        {
+          "type": "workflows-field",
+          "text": "outputs",
+          "start": 23,
+          "length": 7,
+          "children": [],
+        },
+        {
+          "type": "workflows-field-name",
+          "text": "data",
+          "start": 31,
+          "length": 4,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1192,11 +1956,33 @@ exports[`parse cst-corpus $workflows.myWorkflow.inputs.username 1`] = `
   "length": 37,
   "children": [
     {
-      "type": "name",
+      "type": "workflows-reference",
       "text": "myWorkflow.inputs.username",
       "start": 11,
       "length": 26,
-      "children": [],
+      "children": [
+        {
+          "type": "workflows-id",
+          "text": "myWorkflow",
+          "start": 11,
+          "length": 10,
+          "children": [],
+        },
+        {
+          "type": "workflows-field",
+          "text": "inputs",
+          "start": 22,
+          "length": 6,
+          "children": [],
+        },
+        {
+          "type": "workflows-field-name",
+          "text": "username",
+          "start": 29,
+          "length": 8,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1210,11 +1996,33 @@ exports[`parse cst-corpus $workflows.myWorkflow.outputs.result 1`] = `
   "length": 36,
   "children": [
     {
-      "type": "name",
+      "type": "workflows-reference",
       "text": "myWorkflow.outputs.result",
       "start": 11,
       "length": 25,
-      "children": [],
+      "children": [
+        {
+          "type": "workflows-id",
+          "text": "myWorkflow",
+          "start": 11,
+          "length": 10,
+          "children": [],
+        },
+        {
+          "type": "workflows-field",
+          "text": "outputs",
+          "start": 22,
+          "length": 7,
+          "children": [],
+        },
+        {
+          "type": "workflows-field-name",
+          "text": "result",
+          "start": 30,
+          "length": 6,
+          "children": [],
+        },
+      ],
     },
   ],
 }
@@ -1228,11 +2036,48 @@ exports[`parse cst-corpus $workflows.myWorkflow.outputs.result#/value 1`] = `
   "length": 43,
   "children": [
     {
-      "type": "name",
+      "type": "workflows-reference",
       "text": "myWorkflow.outputs.result#/value",
       "start": 11,
       "length": 32,
-      "children": [],
+      "children": [
+        {
+          "type": "workflows-id",
+          "text": "myWorkflow",
+          "start": 11,
+          "length": 10,
+          "children": [],
+        },
+        {
+          "type": "workflows-field",
+          "text": "outputs",
+          "start": 22,
+          "length": 7,
+          "children": [],
+        },
+        {
+          "type": "workflows-field-name",
+          "text": "result",
+          "start": 30,
+          "length": 6,
+          "children": [],
+        },
+        {
+          "type": "json-pointer",
+          "text": "/value",
+          "start": 37,
+          "length": 6,
+          "children": [
+            {
+              "type": "reference-token",
+              "text": "value",
+              "start": 38,
+              "length": 5,
+              "children": [],
+            },
+          ],
+        },
+      ],
     },
   ],
 }

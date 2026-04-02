@@ -3,32 +3,31 @@
 exports[`parse ast-corpus $components.failureActions.logError 1`] = `
 {
   "type": "ComponentsExpression",
-  "field": "failureActions",
-  "subField": "logError",
-}
-`;
-
-exports[`parse ast-corpus $components.inputs.username 1`] = `
-{
-  "type": "ComponentsExpression",
-  "field": "inputs",
-  "subField": "username",
+  "componentType": "failureActions",
+  "componentName": "logError",
 }
 `;
 
 exports[`parse ast-corpus $components.parameters.petId 1`] = `
 {
   "type": "ComponentsExpression",
-  "field": "parameters",
-  "subField": "petId",
+  "componentType": "parameters",
+  "componentName": "petId",
 }
 `;
 
 exports[`parse ast-corpus $components.successActions.notifyUser 1`] = `
 {
   "type": "ComponentsExpression",
-  "field": "successActions",
-  "subField": "notifyUser",
+  "componentType": "successActions",
+  "componentName": "notifyUser",
+}
+`;
+
+exports[`parse ast-corpus $inputs.a 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "a",
 }
 `;
 
@@ -36,6 +35,65 @@ exports[`parse ast-corpus $inputs.apiKey 1`] = `
 {
   "type": "InputsExpression",
   "name": "apiKey",
+}
+`;
+
+exports[`parse ast-corpus $inputs.customer#/address/city 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "customer",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/address/city",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "address",
+      },
+      {
+        "type": "ReferenceToken",
+        "value": "city",
+      },
+    ],
+  },
+}
+`;
+
+exports[`parse ast-corpus $inputs.customer#/firstName 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "customer",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/firstName",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "firstName",
+      },
+    ],
+  },
+}
+`;
+
+exports[`parse ast-corpus $inputs.my.nested.name 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "my.nested.name",
+}
+`;
+
+exports[`parse ast-corpus $inputs.my_input 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "my_input",
+}
+`;
+
+exports[`parse ast-corpus $inputs.my-input 1`] = `
+{
+  "type": "InputsExpression",
+  "name": "my-input",
 }
 `;
 
@@ -59,6 +117,13 @@ exports[`parse ast-corpus $method 1`] = `
 }
 `;
 
+exports[`parse ast-corpus $outputs.a 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "a",
+}
+`;
+
 exports[`parse ast-corpus $outputs.data 1`] = `
 {
   "type": "OutputsExpression",
@@ -66,10 +131,94 @@ exports[`parse ast-corpus $outputs.data 1`] = `
 }
 `;
 
+exports[`parse ast-corpus $outputs.mappedResponse#/data/id 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "mappedResponse",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/data/id",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "data",
+      },
+      {
+        "type": "ReferenceToken",
+        "value": "id",
+      },
+    ],
+  },
+}
+`;
+
+exports[`parse ast-corpus $outputs.my.nested.name 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "my.nested.name",
+}
+`;
+
+exports[`parse ast-corpus $outputs.my_output 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "my_output",
+}
+`;
+
+exports[`parse ast-corpus $outputs.my-output 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "my-output",
+}
+`;
+
+exports[`parse ast-corpus $outputs.response#/name 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "response",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/name",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "name",
+      },
+    ],
+  },
+}
+`;
+
 exports[`parse ast-corpus $outputs.result 1`] = `
 {
   "type": "OutputsExpression",
   "name": "result",
+}
+`;
+
+exports[`parse ast-corpus $outputs.result#/items/0/name 1`] = `
+{
+  "type": "OutputsExpression",
+  "name": "result",
+  "jsonPointer": {
+    "type": "JsonPointer",
+    "value": "/items/0/name",
+    "referenceTokens": [
+      {
+        "type": "ReferenceToken",
+        "value": "items",
+      },
+      {
+        "type": "ReferenceToken",
+        "value": "0",
+      },
+      {
+        "type": "ReferenceToken",
+        "value": "name",
+      },
+    ],
+  },
 }
 `;
 
@@ -433,6 +582,12 @@ exports[`parse ast-corpus $response.header.content-type 1`] = `
 }
 `;
 
+exports[`parse ast-corpus $self 1`] = `
+{
+  "type": "SelfExpression",
+}
+`;
+
 exports[`parse ast-corpus $sourceDescriptions.externalService.url 1`] = `
 {
   "type": "SourceDescriptionsExpression",
@@ -467,7 +622,6 @@ exports[`parse ast-corpus $steps.createUser.outputs.userId 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "createUser",
-  "field": "outputs",
   "outputName": "userId",
 }
 `;
@@ -476,7 +630,6 @@ exports[`parse ast-corpus $steps.loginStep.outputs.sessionToken 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "loginStep",
-  "field": "outputs",
   "outputName": "sessionToken",
 }
 `;
@@ -485,7 +638,6 @@ exports[`parse ast-corpus $steps.loginStep.outputs.user#/name 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "loginStep",
-  "field": "outputs",
   "outputName": "user",
   "jsonPointer": {
     "type": "JsonPointer",
@@ -504,7 +656,6 @@ exports[`parse ast-corpus $steps.someStepId.outputs.pets#/0/id 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "someStepId",
-  "field": "outputs",
   "outputName": "pets",
   "jsonPointer": {
     "type": "JsonPointer",
@@ -527,7 +678,6 @@ exports[`parse ast-corpus $steps.stepId.outputs.value 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "stepId",
-  "field": "outputs",
   "outputName": "value",
 }
 `;
@@ -543,7 +693,7 @@ exports[`parse ast-corpus $workflows.authWorkflow.outputs.token 1`] = `
   "type": "WorkflowsExpression",
   "workflowId": "authWorkflow",
   "field": "outputs",
-  "subField": "token",
+  "fieldName": "token",
 }
 `;
 
@@ -552,7 +702,7 @@ exports[`parse ast-corpus $workflows.authWorkflow.outputs.token#/accessToken 1`]
   "type": "WorkflowsExpression",
   "workflowId": "authWorkflow",
   "field": "outputs",
-  "subField": "token",
+  "fieldName": "token",
   "jsonPointer": {
     "type": "JsonPointer",
     "value": "/accessToken",
@@ -571,7 +721,7 @@ exports[`parse ast-corpus $workflows.mainProcess.outputs.data 1`] = `
   "type": "WorkflowsExpression",
   "workflowId": "mainProcess",
   "field": "outputs",
-  "subField": "data",
+  "fieldName": "data",
 }
 `;
 
@@ -580,7 +730,7 @@ exports[`parse ast-corpus $workflows.myWorkflow.inputs.username 1`] = `
   "type": "WorkflowsExpression",
   "workflowId": "myWorkflow",
   "field": "inputs",
-  "subField": "username",
+  "fieldName": "username",
 }
 `;
 
@@ -589,7 +739,7 @@ exports[`parse ast-corpus $workflows.myWorkflow.outputs.result 1`] = `
   "type": "WorkflowsExpression",
   "workflowId": "myWorkflow",
   "field": "outputs",
-  "subField": "result",
+  "fieldName": "result",
 }
 `;
 
@@ -598,7 +748,7 @@ exports[`parse ast-corpus $workflows.myWorkflow.outputs.result#/value 1`] = `
   "type": "WorkflowsExpression",
   "workflowId": "myWorkflow",
   "field": "outputs",
-  "subField": "result",
+  "fieldName": "result",
   "jsonPointer": {
     "type": "JsonPointer",
     "value": "/value",

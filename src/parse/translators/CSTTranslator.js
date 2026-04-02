@@ -19,26 +19,24 @@ class CSTTranslator extends AST {
     this.callbacks['body-reference'] = cstCallback('body-reference');
     this.callbacks['json-pointer'] = cstCallback('json-pointer');
     this.callbacks['reference-token'] = cstCallback('reference-token');
-    this.callbacks['name'] = cstCallback('name');
-    this.callbacks['token'] = cstCallback('token');
-    // steps-name secondary grammar rules
-    this.callbacks['steps-name'] = cstCallback('steps-name');
-    this.callbacks['steps-id'] = cstCallback('steps-id');
-    this.callbacks['steps-field'] = cstCallback('steps-field');
-    this.callbacks['steps-sub-field'] = cstCallback('steps-sub-field');
-    // workflows-name secondary grammar rules
-    this.callbacks['workflows-name'] = cstCallback('workflows-name');
+    this.callbacks['inputs-reference'] = cstCallback('inputs-reference');
+    this.callbacks['inputs-name'] = cstCallback('inputs-name');
+    this.callbacks['outputs-reference'] = cstCallback('outputs-reference');
+    this.callbacks['outputs-name'] = cstCallback('outputs-name');
+    this.callbacks['steps-reference'] = cstCallback('steps-reference');
+    this.callbacks['workflows-reference'] = cstCallback('workflows-reference');
     this.callbacks['workflows-id'] = cstCallback('workflows-id');
     this.callbacks['workflows-field'] = cstCallback('workflows-field');
-    this.callbacks['workflows-sub-field'] = cstCallback('workflows-sub-field');
-    // source-descriptions-name secondary grammar rules
+    this.callbacks['workflows-field-name'] = cstCallback('workflows-field-name');
+    this.callbacks['source-reference'] = cstCallback('source-reference');
     this.callbacks['source-descriptions-name'] = cstCallback('source-descriptions-name');
-    this.callbacks['source-descriptions-source-name'] = cstCallback('source-descriptions-source-name');
     this.callbacks['source-descriptions-reference'] = cstCallback('source-descriptions-reference');
-    // components-name secondary grammar rules
+    this.callbacks['components-reference'] = cstCallback('components-reference');
+    this.callbacks['components-type'] = cstCallback('components-type');
     this.callbacks['components-name'] = cstCallback('components-name');
-    this.callbacks['components-field'] = cstCallback('components-field');
-    this.callbacks['components-sub-field'] = cstCallback('components-sub-field');
+    this.callbacks['name'] = cstCallback('name');
+    this.callbacks['token'] = cstCallback('token');
+    this.callbacks['steps-id'] = cstCallback('steps-id');
   }
 
   getTree() {

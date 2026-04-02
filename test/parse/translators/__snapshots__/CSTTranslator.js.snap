@@ -57,11 +57,26 @@ exports[`parse translators CSTTranslator should translate $steps.login.outputs.t
   "length": 26,
   "children": [
     {
-      "type": "name",
+      "type": "steps-reference",
       "text": "login.outputs.token",
       "start": 7,
       "length": 19,
-      "children": [],
+      "children": [
+        {
+          "type": "steps-id",
+          "text": "login",
+          "start": 7,
+          "length": 5,
+          "children": [],
+        },
+        {
+          "type": "outputs-name",
+          "text": "token",
+          "start": 21,
+          "length": 5,
+          "children": [],
+        },
+      ],
     },
   ],
 }
