@@ -45,7 +45,7 @@ jobs:
         run: npx semantic-release
 
       - name: Attest npm tarball (GitHub)
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: "dist/*.tgz"
 
