@@ -37,9 +37,16 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge
+      - name: Wait for checks to pass
         if: steps.check.outputs.should_merge == 'true'
-        run: gh pr merge --auto --squash "$PR_URL"
+        run: gh pr checks "$PR_URL" --watch
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Squash and merge
+        if: steps.check.outputs.should_merge == 'true'
+        run: gh pr merge --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
