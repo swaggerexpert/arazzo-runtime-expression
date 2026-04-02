@@ -447,6 +447,7 @@ export default function grammar(){
     str += "components-type         = \"parameters\" / \"successActions\" / \"failureActions\"\n";
     str += "components-name         = identifier\n";
     str += "\n";
+    str += "; Unconstrained name rule for query/path references and source description references\n";
     str += "name                    = *( CHAR )\n";
     str += "\n";
     str += "; Grammar for parsing template strings with embedded expressions\n";
