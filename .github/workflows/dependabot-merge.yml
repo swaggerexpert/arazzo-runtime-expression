@@ -39,7 +39,7 @@ jobs:
 
       - name: Wait for checks to pass
         if: steps.check.outputs.should_merge == 'true'
-        run: gh pr checks "$PR_URL" --watch
+        run: gh pr checks "$PR_URL" --watch --required --fail-fast
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
