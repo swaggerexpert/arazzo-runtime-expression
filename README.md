@@ -319,7 +319,7 @@ literal-char         = %x00-7A / %x7C / %x7E-10FFFF  ; anything except { (%x7B) 
 ; { (%x7B) and } (%x7D) are excluded from 'unescaped' for unambiguous embedded expression parsing
 json-pointer     = *( "/" reference-token )
 reference-token  = *( unescaped / escaped )
-unescaped        = %x00-2E / %x30-7A / %x7C / %x7E-10FFFF
+unescaped        = %x00-2E / %x30-7A / %x7C / %x7F-10FFFF
                  ; %x2F ('/'), %x7E ('~'), %x7B ('{'), %x7D ('}') are excluded
 escaped          = "~" ( "0" / "1" )
                  ; representing '~' and '/', respectively

@@ -287,7 +287,7 @@ export default function grammar(){
   this.rules[28].opcodes[1] = { type: 5, min: 0, max: 46 };// TRG
   this.rules[28].opcodes[2] = { type: 5, min: 48, max: 122 };// TRG
   this.rules[28].opcodes[3] = { type: 6, string: [124] };// TBS
-  this.rules[28].opcodes[4] = { type: 5, min: 126, max: 1114111 };// TRG
+  this.rules[28].opcodes[4] = { type: 5, min: 127, max: 1114111 };// TRG
 
   /* escaped */
   this.rules[29].opcodes = [];
@@ -459,7 +459,7 @@ export default function grammar(){
     str += "; { (%x7B) and } (%x7D) are excluded from 'unescaped' for unambiguous embedded expression parsing\n";
     str += "json-pointer     = *( \"/\" reference-token )\n";
     str += "reference-token  = *( unescaped / escaped )\n";
-    str += "unescaped        = %x00-2E / %x30-7A / %x7C / %x7E-10FFFF\n";
+    str += "unescaped        = %x00-2E / %x30-7A / %x7C / %x7F-10FFFF\n";
     str += "                 ; %x2F ('/'), %x7E ('~'), %x7B ('{'), %x7D ('}') are excluded\n";
     str += "escaped          = \"~\" ( \"0\" / \"1\" )\n";
     str += "                 ; representing '~' and '/', respectively\n";
