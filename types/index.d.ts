@@ -64,6 +64,14 @@ export interface StatusCodeExpression {
 }
 
 /**
+ * $self - The canonical URI of the current Arazzo Description
+ * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
+ */
+export interface SelfExpression {
+  readonly type: 'SelfExpression';
+}
+
+/**
  * JSON Pointer reference token
  * https://datatracker.ietf.org/doc/html/rfc6901#section-3
  */
@@ -153,6 +161,7 @@ export interface ResponseExpression {
 export interface InputsExpression {
   readonly type: 'InputsExpression';
   readonly name: string;
+  readonly jsonPointer?: JsonPointer;
 }
 
 /**
@@ -162,6 +171,7 @@ export interface InputsExpression {
 export interface OutputsExpression {
   readonly type: 'OutputsExpression';
   readonly name: string;
+  readonly jsonPointer?: JsonPointer;
 }
 
 /**
@@ -177,13 +187,15 @@ export interface StepsExpression {
 }
 
 /**
- * $workflows.{workflowId}.{field}.{subField} - Workflows expression
+ * $workflows.{workflowId}.{field}.{fieldName} - Workflows expression
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
 export interface WorkflowsExpression {
   readonly type: 'WorkflowsExpression';
   readonly workflowId: string;
   readonly field: 'inputs' | 'outputs';
+  readonly fieldName: string;
+  /** @deprecated Use `fieldName` instead. */
   readonly subField: string;
   readonly jsonPointer?: JsonPointer;
 }
@@ -199,12 +211,16 @@ export interface SourceDescriptionsExpression {
 }
 
 /**
- * $components.{field}.{subField} - Components expression
+ * $components.{componentType}.{componentName} - Components expression
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
 export interface ComponentsExpression {
   readonly type: 'ComponentsExpression';
+  readonly componentType: 'parameters' | 'successActions' | 'failureActions';
+  readonly componentName: string;
+  /** @deprecated Use `componentType` instead. */
   readonly field: 'parameters' | 'successActions' | 'failureActions';
+  /** @deprecated Use `componentName` instead. */
   readonly subField: string;
 }
 
@@ -215,6 +231,7 @@ export type ASTNode =
   | UrlExpression
   | MethodExpression
   | StatusCodeExpression
+  | SelfExpression
   | RequestExpression
   | ResponseExpression
   | InputsExpression

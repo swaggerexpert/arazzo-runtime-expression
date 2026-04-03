@@ -148,6 +148,7 @@ const transformers = {
     const result = {
       type: 'StepsExpression',
       stepId: stepIdNode.text,
+      field: 'outputs',
       outputName: outputNameNode.text,
     };
 
@@ -169,6 +170,7 @@ const transformers = {
       workflowId: workflowIdNode.text,
       field: fieldNode.text,
       fieldName: fieldNameNode.text,
+      subField: fieldNameNode.text,
     };
 
     if (jsonPointerNode) {
@@ -197,6 +199,8 @@ const transformers = {
       type: 'ComponentsExpression',
       componentType: typeNode.text,
       componentName: nameNode.text,
+      field: typeNode.text,
+      subField: nameNode.text,
     };
   },
 };

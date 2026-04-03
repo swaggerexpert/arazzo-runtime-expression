@@ -5,6 +5,8 @@ exports[`parse ast-corpus $components.failureActions.logError 1`] = `
   "type": "ComponentsExpression",
   "componentType": "failureActions",
   "componentName": "logError",
+  "field": "failureActions",
+  "subField": "logError",
 }
 `;
 
@@ -13,6 +15,8 @@ exports[`parse ast-corpus $components.parameters.petId 1`] = `
   "type": "ComponentsExpression",
   "componentType": "parameters",
   "componentName": "petId",
+  "field": "parameters",
+  "subField": "petId",
 }
 `;
 
@@ -21,6 +25,8 @@ exports[`parse ast-corpus $components.successActions.notifyUser 1`] = `
   "type": "ComponentsExpression",
   "componentType": "successActions",
   "componentName": "notifyUser",
+  "field": "successActions",
+  "subField": "notifyUser",
 }
 `;
 
@@ -622,6 +628,7 @@ exports[`parse ast-corpus $steps.createUser.outputs.userId 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "createUser",
+  "field": "outputs",
   "outputName": "userId",
 }
 `;
@@ -630,6 +637,7 @@ exports[`parse ast-corpus $steps.loginStep.outputs.sessionToken 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "loginStep",
+  "field": "outputs",
   "outputName": "sessionToken",
 }
 `;
@@ -638,6 +646,7 @@ exports[`parse ast-corpus $steps.loginStep.outputs.user#/name 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "loginStep",
+  "field": "outputs",
   "outputName": "user",
   "jsonPointer": {
     "type": "JsonPointer",
@@ -656,6 +665,7 @@ exports[`parse ast-corpus $steps.someStepId.outputs.pets#/0/id 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "someStepId",
+  "field": "outputs",
   "outputName": "pets",
   "jsonPointer": {
     "type": "JsonPointer",
@@ -678,6 +688,7 @@ exports[`parse ast-corpus $steps.stepId.outputs.value 1`] = `
 {
   "type": "StepsExpression",
   "stepId": "stepId",
+  "field": "outputs",
   "outputName": "value",
 }
 `;
@@ -694,6 +705,7 @@ exports[`parse ast-corpus $workflows.authWorkflow.outputs.token 1`] = `
   "workflowId": "authWorkflow",
   "field": "outputs",
   "fieldName": "token",
+  "subField": "token",
 }
 `;
 
@@ -703,6 +715,7 @@ exports[`parse ast-corpus $workflows.authWorkflow.outputs.token#/accessToken 1`]
   "workflowId": "authWorkflow",
   "field": "outputs",
   "fieldName": "token",
+  "subField": "token",
   "jsonPointer": {
     "type": "JsonPointer",
     "value": "/accessToken",
@@ -722,6 +735,7 @@ exports[`parse ast-corpus $workflows.mainProcess.outputs.data 1`] = `
   "workflowId": "mainProcess",
   "field": "outputs",
   "fieldName": "data",
+  "subField": "data",
 }
 `;
 
@@ -731,6 +745,7 @@ exports[`parse ast-corpus $workflows.myWorkflow.inputs.username 1`] = `
   "workflowId": "myWorkflow",
   "field": "inputs",
   "fieldName": "username",
+  "subField": "username",
 }
 `;
 
@@ -740,6 +755,7 @@ exports[`parse ast-corpus $workflows.myWorkflow.outputs.result 1`] = `
   "workflowId": "myWorkflow",
   "field": "outputs",
   "fieldName": "result",
+  "subField": "result",
 }
 `;
 
@@ -749,6 +765,7 @@ exports[`parse ast-corpus $workflows.myWorkflow.outputs.result#/value 1`] = `
   "workflowId": "myWorkflow",
   "field": "outputs",
   "fieldName": "result",
+  "subField": "result",
   "jsonPointer": {
     "type": "JsonPointer",
     "value": "/value",

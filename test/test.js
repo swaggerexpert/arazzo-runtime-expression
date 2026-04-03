@@ -51,7 +51,7 @@ describe('test', function () {
   });
 
   it('should reject { and } in JSON pointer paths', function () {
-    // { and } are excluded from json-pointer-safe to allow unambiguous
+    // { and } are excluded from json-pointer grammar to allow unambiguous
     // parsing of embedded expressions like {$request.body#/status}
     assert.isFalse(test('$request.body#/foo}'));
     assert.isFalse(test('$request.body#/foo{'));
