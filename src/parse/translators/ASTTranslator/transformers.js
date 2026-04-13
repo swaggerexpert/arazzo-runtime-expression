@@ -32,7 +32,7 @@ const transformers = {
       };
     }
 
-    // Reference expressions (secondary grammar parsing)
+    // Reference expressions
     if (text.startsWith('$inputs.')) {
       const refNode = node.children.find((c) => c.type === 'inputs-reference');
       return transformCSTtoAST(refNode, transformers);

@@ -50,6 +50,12 @@ describe('test', function () {
     assert.isFalse(test('$inputs.{foo}'));
   });
 
+  it('should accept empty name in query and path references', function () {
+    // name = *( CHAR ) allows zero characters, matching the OpenAPI spec
+    assert.isTrue(test('$request.query.'));
+    assert.isTrue(test('$request.path.'));
+  });
+
   it('should reject { and } in JSON pointer paths', function () {
     // { and } are excluded from json-pointer grammar to allow unambiguous
     // parsing of embedded expressions like {$request.body#/status}

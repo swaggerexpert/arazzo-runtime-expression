@@ -308,7 +308,7 @@ components-reference    = component-type "." component-name
 component-type          = "parameters" / "successActions" / "failureActions"
 component-name          = identifier
 
-; Unconstrained name rule for query/path references and source description references
+; Unconstrained name rule for query/path references
 name                    = *( CHAR )
 
 ; Grammar for parsing template strings with embedded expressions
