@@ -283,30 +283,30 @@ path-reference          = "path." name
 body-reference          = "body" ["#" json-pointer ]
 
 ; Input/Output references
-inputs-reference        = inputs-name ["#" json-pointer]
-inputs-name             = identifier
-outputs-reference       = outputs-name ["#" json-pointer]
-outputs-name            = identifier
+inputs-reference        = input-name ["#" json-pointer]
+input-name              = identifier
+outputs-reference       = output-name ["#" json-pointer]
+output-name             = identifier
 
 ; Steps expressions
-steps-reference         = steps-id ".outputs." outputs-name ["#" json-pointer]
-steps-id                = identifier-strict
+steps-reference         = step-id ".outputs." output-name ["#" json-pointer]
+step-id                 = identifier-strict
 
 ; Workflows expressions
-workflows-reference     = workflows-id "." workflows-field "." workflows-field-name ["#" json-pointer]
-workflows-id            = identifier-strict
-workflows-field         = "inputs" / "outputs"
-workflows-field-name    = identifier
+workflows-reference     = workflow-id "." workflow-field "." workflow-field-name ["#" json-pointer]
+workflow-id             = identifier-strict
+workflow-field          = "inputs" / "outputs"
+workflow-field-name     = identifier
 
 ; Source descriptions expressions
-source-reference                = source-descriptions-name "." source-descriptions-reference
-source-descriptions-name        = identifier-strict
-source-descriptions-reference   = 1*CHAR
+source-reference        = source-name "." source-reference-id
+source-name             = identifier-strict
+source-reference-id     = 1*CHAR
 
 ; Components expressions
-components-reference    = components-type "." components-name
-components-type         = "parameters" / "successActions" / "failureActions"
-components-name         = identifier
+components-reference    = component-type "." component-name
+component-type          = "parameters" / "successActions" / "failureActions"
+component-name          = identifier
 
 ; Unconstrained name rule for query/path references and source description references
 name                    = *( CHAR )

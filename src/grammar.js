@@ -34,21 +34,21 @@ export default function grammar(){
   this.rules[4] = { name: 'path-reference', lower: 'path-reference', index: 4, isBkr: false };
   this.rules[5] = { name: 'body-reference', lower: 'body-reference', index: 5, isBkr: false };
   this.rules[6] = { name: 'inputs-reference', lower: 'inputs-reference', index: 6, isBkr: false };
-  this.rules[7] = { name: 'inputs-name', lower: 'inputs-name', index: 7, isBkr: false };
+  this.rules[7] = { name: 'input-name', lower: 'input-name', index: 7, isBkr: false };
   this.rules[8] = { name: 'outputs-reference', lower: 'outputs-reference', index: 8, isBkr: false };
-  this.rules[9] = { name: 'outputs-name', lower: 'outputs-name', index: 9, isBkr: false };
+  this.rules[9] = { name: 'output-name', lower: 'output-name', index: 9, isBkr: false };
   this.rules[10] = { name: 'steps-reference', lower: 'steps-reference', index: 10, isBkr: false };
-  this.rules[11] = { name: 'steps-id', lower: 'steps-id', index: 11, isBkr: false };
+  this.rules[11] = { name: 'step-id', lower: 'step-id', index: 11, isBkr: false };
   this.rules[12] = { name: 'workflows-reference', lower: 'workflows-reference', index: 12, isBkr: false };
-  this.rules[13] = { name: 'workflows-id', lower: 'workflows-id', index: 13, isBkr: false };
-  this.rules[14] = { name: 'workflows-field', lower: 'workflows-field', index: 14, isBkr: false };
-  this.rules[15] = { name: 'workflows-field-name', lower: 'workflows-field-name', index: 15, isBkr: false };
+  this.rules[13] = { name: 'workflow-id', lower: 'workflow-id', index: 13, isBkr: false };
+  this.rules[14] = { name: 'workflow-field', lower: 'workflow-field', index: 14, isBkr: false };
+  this.rules[15] = { name: 'workflow-field-name', lower: 'workflow-field-name', index: 15, isBkr: false };
   this.rules[16] = { name: 'source-reference', lower: 'source-reference', index: 16, isBkr: false };
-  this.rules[17] = { name: 'source-descriptions-name', lower: 'source-descriptions-name', index: 17, isBkr: false };
-  this.rules[18] = { name: 'source-descriptions-reference', lower: 'source-descriptions-reference', index: 18, isBkr: false };
+  this.rules[17] = { name: 'source-name', lower: 'source-name', index: 17, isBkr: false };
+  this.rules[18] = { name: 'source-reference-id', lower: 'source-reference-id', index: 18, isBkr: false };
   this.rules[19] = { name: 'components-reference', lower: 'components-reference', index: 19, isBkr: false };
-  this.rules[20] = { name: 'components-type', lower: 'components-type', index: 20, isBkr: false };
-  this.rules[21] = { name: 'components-name', lower: 'components-name', index: 21, isBkr: false };
+  this.rules[20] = { name: 'component-type', lower: 'component-type', index: 20, isBkr: false };
+  this.rules[21] = { name: 'component-name', lower: 'component-name', index: 21, isBkr: false };
   this.rules[22] = { name: 'name', lower: 'name', index: 22, isBkr: false };
   this.rules[23] = { name: 'expression-string', lower: 'expression-string', index: 23, isBkr: false };
   this.rules[24] = { name: 'embedded-expression', lower: 'embedded-expression', index: 24, isBkr: false };
@@ -142,83 +142,83 @@ export default function grammar(){
   /* inputs-reference */
   this.rules[6].opcodes = [];
   this.rules[6].opcodes[0] = { type: 2, children: [1,2] };// CAT
-  this.rules[6].opcodes[1] = { type: 4, index: 7 };// RNM(inputs-name)
+  this.rules[6].opcodes[1] = { type: 4, index: 7 };// RNM(input-name)
   this.rules[6].opcodes[2] = { type: 3, min: 0, max: 1 };// REP
   this.rules[6].opcodes[3] = { type: 2, children: [4,5] };// CAT
   this.rules[6].opcodes[4] = { type: 7, string: [35] };// TLS
   this.rules[6].opcodes[5] = { type: 4, index: 26 };// RNM(json-pointer)
 
-  /* inputs-name */
+  /* input-name */
   this.rules[7].opcodes = [];
   this.rules[7].opcodes[0] = { type: 4, index: 35 };// RNM(identifier)
 
   /* outputs-reference */
   this.rules[8].opcodes = [];
   this.rules[8].opcodes[0] = { type: 2, children: [1,2] };// CAT
-  this.rules[8].opcodes[1] = { type: 4, index: 9 };// RNM(outputs-name)
+  this.rules[8].opcodes[1] = { type: 4, index: 9 };// RNM(output-name)
   this.rules[8].opcodes[2] = { type: 3, min: 0, max: 1 };// REP
   this.rules[8].opcodes[3] = { type: 2, children: [4,5] };// CAT
   this.rules[8].opcodes[4] = { type: 7, string: [35] };// TLS
   this.rules[8].opcodes[5] = { type: 4, index: 26 };// RNM(json-pointer)
 
-  /* outputs-name */
+  /* output-name */
   this.rules[9].opcodes = [];
   this.rules[9].opcodes[0] = { type: 4, index: 35 };// RNM(identifier)
 
   /* steps-reference */
   this.rules[10].opcodes = [];
   this.rules[10].opcodes[0] = { type: 2, children: [1,2,3,4] };// CAT
-  this.rules[10].opcodes[1] = { type: 4, index: 11 };// RNM(steps-id)
+  this.rules[10].opcodes[1] = { type: 4, index: 11 };// RNM(step-id)
   this.rules[10].opcodes[2] = { type: 7, string: [46,111,117,116,112,117,116,115,46] };// TLS
-  this.rules[10].opcodes[3] = { type: 4, index: 9 };// RNM(outputs-name)
+  this.rules[10].opcodes[3] = { type: 4, index: 9 };// RNM(output-name)
   this.rules[10].opcodes[4] = { type: 3, min: 0, max: 1 };// REP
   this.rules[10].opcodes[5] = { type: 2, children: [6,7] };// CAT
   this.rules[10].opcodes[6] = { type: 7, string: [35] };// TLS
   this.rules[10].opcodes[7] = { type: 4, index: 26 };// RNM(json-pointer)
 
-  /* steps-id */
+  /* step-id */
   this.rules[11].opcodes = [];
   this.rules[11].opcodes[0] = { type: 4, index: 36 };// RNM(identifier-strict)
 
   /* workflows-reference */
   this.rules[12].opcodes = [];
   this.rules[12].opcodes[0] = { type: 2, children: [1,2,3,4,5,6] };// CAT
-  this.rules[12].opcodes[1] = { type: 4, index: 13 };// RNM(workflows-id)
+  this.rules[12].opcodes[1] = { type: 4, index: 13 };// RNM(workflow-id)
   this.rules[12].opcodes[2] = { type: 7, string: [46] };// TLS
-  this.rules[12].opcodes[3] = { type: 4, index: 14 };// RNM(workflows-field)
+  this.rules[12].opcodes[3] = { type: 4, index: 14 };// RNM(workflow-field)
   this.rules[12].opcodes[4] = { type: 7, string: [46] };// TLS
-  this.rules[12].opcodes[5] = { type: 4, index: 15 };// RNM(workflows-field-name)
+  this.rules[12].opcodes[5] = { type: 4, index: 15 };// RNM(workflow-field-name)
   this.rules[12].opcodes[6] = { type: 3, min: 0, max: 1 };// REP
   this.rules[12].opcodes[7] = { type: 2, children: [8,9] };// CAT
   this.rules[12].opcodes[8] = { type: 7, string: [35] };// TLS
   this.rules[12].opcodes[9] = { type: 4, index: 26 };// RNM(json-pointer)
 
-  /* workflows-id */
+  /* workflow-id */
   this.rules[13].opcodes = [];
   this.rules[13].opcodes[0] = { type: 4, index: 36 };// RNM(identifier-strict)
 
-  /* workflows-field */
+  /* workflow-field */
   this.rules[14].opcodes = [];
   this.rules[14].opcodes[0] = { type: 1, children: [1,2] };// ALT
   this.rules[14].opcodes[1] = { type: 7, string: [105,110,112,117,116,115] };// TLS
   this.rules[14].opcodes[2] = { type: 7, string: [111,117,116,112,117,116,115] };// TLS
 
-  /* workflows-field-name */
+  /* workflow-field-name */
   this.rules[15].opcodes = [];
   this.rules[15].opcodes[0] = { type: 4, index: 35 };// RNM(identifier)
 
   /* source-reference */
   this.rules[16].opcodes = [];
   this.rules[16].opcodes[0] = { type: 2, children: [1,2,3] };// CAT
-  this.rules[16].opcodes[1] = { type: 4, index: 17 };// RNM(source-descriptions-name)
+  this.rules[16].opcodes[1] = { type: 4, index: 17 };// RNM(source-name)
   this.rules[16].opcodes[2] = { type: 7, string: [46] };// TLS
-  this.rules[16].opcodes[3] = { type: 4, index: 18 };// RNM(source-descriptions-reference)
+  this.rules[16].opcodes[3] = { type: 4, index: 18 };// RNM(source-reference-id)
 
-  /* source-descriptions-name */
+  /* source-name */
   this.rules[17].opcodes = [];
   this.rules[17].opcodes[0] = { type: 4, index: 36 };// RNM(identifier-strict)
 
-  /* source-descriptions-reference */
+  /* source-reference-id */
   this.rules[18].opcodes = [];
   this.rules[18].opcodes[0] = { type: 3, min: 1, max: Infinity };// REP
   this.rules[18].opcodes[1] = { type: 4, index: 32 };// RNM(CHAR)
@@ -226,18 +226,18 @@ export default function grammar(){
   /* components-reference */
   this.rules[19].opcodes = [];
   this.rules[19].opcodes[0] = { type: 2, children: [1,2,3] };// CAT
-  this.rules[19].opcodes[1] = { type: 4, index: 20 };// RNM(components-type)
+  this.rules[19].opcodes[1] = { type: 4, index: 20 };// RNM(component-type)
   this.rules[19].opcodes[2] = { type: 7, string: [46] };// TLS
-  this.rules[19].opcodes[3] = { type: 4, index: 21 };// RNM(components-name)
+  this.rules[19].opcodes[3] = { type: 4, index: 21 };// RNM(component-name)
 
-  /* components-type */
+  /* component-type */
   this.rules[20].opcodes = [];
   this.rules[20].opcodes[0] = { type: 1, children: [1,2,3] };// ALT
   this.rules[20].opcodes[1] = { type: 7, string: [112,97,114,97,109,101,116,101,114,115] };// TLS
   this.rules[20].opcodes[2] = { type: 7, string: [115,117,99,99,101,115,115,97,99,116,105,111,110,115] };// TLS
   this.rules[20].opcodes[3] = { type: 7, string: [102,97,105,108,117,114,101,97,99,116,105,111,110,115] };// TLS
 
-  /* components-name */
+  /* component-name */
   this.rules[21].opcodes = [];
   this.rules[21].opcodes[0] = { type: 4, index: 35 };// RNM(identifier)
 
@@ -422,30 +422,30 @@ export default function grammar(){
     str += "body-reference          = \"body\" [\"#\" json-pointer ]\n";
     str += "\n";
     str += "; Input/Output references\n";
-    str += "inputs-reference        = inputs-name [\"#\" json-pointer]\n";
-    str += "inputs-name             = identifier\n";
-    str += "outputs-reference       = outputs-name [\"#\" json-pointer]\n";
-    str += "outputs-name            = identifier\n";
+    str += "inputs-reference        = input-name [\"#\" json-pointer]\n";
+    str += "input-name              = identifier\n";
+    str += "outputs-reference       = output-name [\"#\" json-pointer]\n";
+    str += "output-name             = identifier\n";
     str += "\n";
     str += "; Steps expressions\n";
-    str += "steps-reference         = steps-id \".outputs.\" outputs-name [\"#\" json-pointer]\n";
-    str += "steps-id                = identifier-strict\n";
+    str += "steps-reference         = step-id \".outputs.\" output-name [\"#\" json-pointer]\n";
+    str += "step-id                 = identifier-strict\n";
     str += "\n";
     str += "; Workflows expressions\n";
-    str += "workflows-reference     = workflows-id \".\" workflows-field \".\" workflows-field-name [\"#\" json-pointer]\n";
-    str += "workflows-id            = identifier-strict\n";
-    str += "workflows-field         = \"inputs\" / \"outputs\"\n";
-    str += "workflows-field-name    = identifier\n";
+    str += "workflows-reference     = workflow-id \".\" workflow-field \".\" workflow-field-name [\"#\" json-pointer]\n";
+    str += "workflow-id             = identifier-strict\n";
+    str += "workflow-field          = \"inputs\" / \"outputs\"\n";
+    str += "workflow-field-name     = identifier\n";
     str += "\n";
     str += "; Source descriptions expressions\n";
-    str += "source-reference                = source-descriptions-name \".\" source-descriptions-reference\n";
-    str += "source-descriptions-name        = identifier-strict\n";
-    str += "source-descriptions-reference   = 1*CHAR\n";
+    str += "source-reference        = source-name \".\" source-reference-id\n";
+    str += "source-name             = identifier-strict\n";
+    str += "source-reference-id     = 1*CHAR\n";
     str += "\n";
     str += "; Components expressions\n";
-    str += "components-reference    = components-type \".\" components-name\n";
-    str += "components-type         = \"parameters\" / \"successActions\" / \"failureActions\"\n";
-    str += "components-name         = identifier\n";
+    str += "components-reference    = component-type \".\" component-name\n";
+    str += "component-type          = \"parameters\" / \"successActions\" / \"failureActions\"\n";
+    str += "component-name          = identifier\n";
     str += "\n";
     str += "; Unconstrained name rule for query/path references and source description references\n";
     str += "name                    = *( CHAR )\n";

@@ -20,23 +20,23 @@ class CSTTranslator extends AST {
     this.callbacks['json-pointer'] = cstCallback('json-pointer');
     this.callbacks['reference-token'] = cstCallback('reference-token');
     this.callbacks['inputs-reference'] = cstCallback('inputs-reference');
-    this.callbacks['inputs-name'] = cstCallback('inputs-name');
+    this.callbacks['input-name'] = cstCallback('input-name');
     this.callbacks['outputs-reference'] = cstCallback('outputs-reference');
-    this.callbacks['outputs-name'] = cstCallback('outputs-name');
+    this.callbacks['output-name'] = cstCallback('output-name');
     this.callbacks['steps-reference'] = cstCallback('steps-reference');
     this.callbacks['workflows-reference'] = cstCallback('workflows-reference');
-    this.callbacks['workflows-id'] = cstCallback('workflows-id');
-    this.callbacks['workflows-field'] = cstCallback('workflows-field');
-    this.callbacks['workflows-field-name'] = cstCallback('workflows-field-name');
+    this.callbacks['workflow-id'] = cstCallback('workflow-id');
+    this.callbacks['workflow-field'] = cstCallback('workflow-field');
+    this.callbacks['workflow-field-name'] = cstCallback('workflow-field-name');
     this.callbacks['source-reference'] = cstCallback('source-reference');
-    this.callbacks['source-descriptions-name'] = cstCallback('source-descriptions-name');
-    this.callbacks['source-descriptions-reference'] = cstCallback('source-descriptions-reference');
+    this.callbacks['source-name'] = cstCallback('source-name');
+    this.callbacks['source-reference-id'] = cstCallback('source-reference-id');
     this.callbacks['components-reference'] = cstCallback('components-reference');
-    this.callbacks['components-type'] = cstCallback('components-type');
-    this.callbacks['components-name'] = cstCallback('components-name');
+    this.callbacks['component-type'] = cstCallback('component-type');
+    this.callbacks['component-name'] = cstCallback('component-name');
     this.callbacks['name'] = cstCallback('name');
     this.callbacks['token'] = cstCallback('token');
-    this.callbacks['steps-id'] = cstCallback('steps-id');
+    this.callbacks['step-id'] = cstCallback('step-id');
   }
 
   getTree() {

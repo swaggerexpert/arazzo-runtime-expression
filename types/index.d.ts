@@ -195,8 +195,6 @@ export interface WorkflowsExpression {
   readonly workflowId: string;
   readonly field: 'inputs' | 'outputs';
   readonly fieldName: string;
-  /** @deprecated Use `fieldName` instead. */
-  readonly subField: string;
   readonly jsonPointer?: JsonPointer;
 }
 
@@ -218,10 +216,6 @@ export interface ComponentsExpression {
   readonly type: 'ComponentsExpression';
   readonly componentType: 'parameters' | 'successActions' | 'failureActions';
   readonly componentName: string;
-  /** @deprecated Use `componentType` instead. */
-  readonly field: 'parameters' | 'successActions' | 'failureActions';
-  /** @deprecated Use `componentName` instead. */
-  readonly subField: string;
 }
 
 /**

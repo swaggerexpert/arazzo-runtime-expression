@@ -109,7 +109,7 @@ const transformers = {
   },
 
   ['inputs-reference'](node) {
-    const inputNameNode = node.children.find((c) => c.type === 'inputs-name');
+    const inputNameNode = node.children.find((c) => c.type === 'input-name');
     const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
 
     const result = {
@@ -125,7 +125,7 @@ const transformers = {
   },
 
   ['outputs-reference'](node) {
-    const outputNameNode = node.children.find((c) => c.type === 'outputs-name');
+    const outputNameNode = node.children.find((c) => c.type === 'output-name');
     const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
 
     const result = {
@@ -141,8 +141,8 @@ const transformers = {
   },
 
   ['steps-reference'](node) {
-    const stepIdNode = node.children.find((c) => c.type === 'steps-id');
-    const outputNameNode = node.children.find((c) => c.type === 'outputs-name');
+    const stepIdNode = node.children.find((c) => c.type === 'step-id');
+    const outputNameNode = node.children.find((c) => c.type === 'output-name');
     const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
 
     const result = {
@@ -160,9 +160,9 @@ const transformers = {
   },
 
   ['workflows-reference'](node) {
-    const workflowIdNode = node.children.find((c) => c.type === 'workflows-id');
-    const fieldNode = node.children.find((c) => c.type === 'workflows-field');
-    const fieldNameNode = node.children.find((c) => c.type === 'workflows-field-name');
+    const workflowIdNode = node.children.find((c) => c.type === 'workflow-id');
+    const fieldNode = node.children.find((c) => c.type === 'workflow-field');
+    const fieldNameNode = node.children.find((c) => c.type === 'workflow-field-name');
     const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
 
     const result = {
@@ -170,7 +170,6 @@ const transformers = {
       workflowId: workflowIdNode.text,
       field: fieldNode.text,
       fieldName: fieldNameNode.text,
-      subField: fieldNameNode.text,
     };
 
     if (jsonPointerNode) {
@@ -181,8 +180,8 @@ const transformers = {
   },
 
   ['source-reference'](node) {
-    const sourceNameNode = node.children.find((c) => c.type === 'source-descriptions-name');
-    const referenceNode = node.children.find((c) => c.type === 'source-descriptions-reference');
+    const sourceNameNode = node.children.find((c) => c.type === 'source-name');
+    const referenceNode = node.children.find((c) => c.type === 'source-reference-id');
 
     return {
       type: 'SourceDescriptionsExpression',
@@ -192,15 +191,13 @@ const transformers = {
   },
 
   ['components-reference'](node) {
-    const typeNode = node.children.find((c) => c.type === 'components-type');
-    const nameNode = node.children.find((c) => c.type === 'components-name');
+    const typeNode = node.children.find((c) => c.type === 'component-type');
+    const nameNode = node.children.find((c) => c.type === 'component-name');
 
     return {
       type: 'ComponentsExpression',
       componentType: typeNode.text,
       componentName: nameNode.text,
-      field: typeNode.text,
-      subField: nameNode.text,
     };
   },
 };

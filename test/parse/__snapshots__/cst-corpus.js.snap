@@ -14,14 +14,14 @@ exports[`parse cst-corpus $components.failureActions.logError 1`] = `
       "length": 23,
       "children": [
         {
-          "type": "components-type",
+          "type": "component-type",
           "text": "failureActions",
           "start": 12,
           "length": 14,
           "children": [],
         },
         {
-          "type": "components-name",
+          "type": "component-name",
           "text": "logError",
           "start": 27,
           "length": 8,
@@ -47,14 +47,14 @@ exports[`parse cst-corpus $components.parameters.petId 1`] = `
       "length": 16,
       "children": [
         {
-          "type": "components-type",
+          "type": "component-type",
           "text": "parameters",
           "start": 12,
           "length": 10,
           "children": [],
         },
         {
-          "type": "components-name",
+          "type": "component-name",
           "text": "petId",
           "start": 23,
           "length": 5,
@@ -80,14 +80,14 @@ exports[`parse cst-corpus $components.successActions.notifyUser 1`] = `
       "length": 25,
       "children": [
         {
-          "type": "components-type",
+          "type": "component-type",
           "text": "successActions",
           "start": 12,
           "length": 14,
           "children": [],
         },
         {
-          "type": "components-name",
+          "type": "component-name",
           "text": "notifyUser",
           "start": 27,
           "length": 10,
@@ -113,7 +113,7 @@ exports[`parse cst-corpus $inputs.a 1`] = `
       "length": 1,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "a",
           "start": 8,
           "length": 1,
@@ -139,7 +139,7 @@ exports[`parse cst-corpus $inputs.apiKey 1`] = `
       "length": 6,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "apiKey",
           "start": 8,
           "length": 6,
@@ -165,7 +165,7 @@ exports[`parse cst-corpus $inputs.customer#/address/city 1`] = `
       "length": 22,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "customer",
           "start": 8,
           "length": 8,
@@ -213,7 +213,7 @@ exports[`parse cst-corpus $inputs.customer#/firstName 1`] = `
       "length": 19,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "customer",
           "start": 8,
           "length": 8,
@@ -254,7 +254,7 @@ exports[`parse cst-corpus $inputs.my.nested.name 1`] = `
       "length": 14,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "my.nested.name",
           "start": 8,
           "length": 14,
@@ -280,7 +280,7 @@ exports[`parse cst-corpus $inputs.my_input 1`] = `
       "length": 8,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "my_input",
           "start": 8,
           "length": 8,
@@ -306,7 +306,7 @@ exports[`parse cst-corpus $inputs.my-input 1`] = `
       "length": 8,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "my-input",
           "start": 8,
           "length": 8,
@@ -332,7 +332,7 @@ exports[`parse cst-corpus $inputs.password 1`] = `
       "length": 8,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "password",
           "start": 8,
           "length": 8,
@@ -358,7 +358,7 @@ exports[`parse cst-corpus $inputs.username 1`] = `
       "length": 8,
       "children": [
         {
-          "type": "inputs-name",
+          "type": "input-name",
           "text": "username",
           "start": 8,
           "length": 8,
@@ -394,7 +394,7 @@ exports[`parse cst-corpus $outputs.a 1`] = `
       "length": 1,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "a",
           "start": 9,
           "length": 1,
@@ -420,7 +420,7 @@ exports[`parse cst-corpus $outputs.data 1`] = `
       "length": 4,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "data",
           "start": 9,
           "length": 4,
@@ -446,7 +446,7 @@ exports[`parse cst-corpus $outputs.mappedResponse#/data/id 1`] = `
       "length": 23,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "mappedResponse",
           "start": 9,
           "length": 14,
@@ -494,7 +494,7 @@ exports[`parse cst-corpus $outputs.my.nested.name 1`] = `
       "length": 14,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "my.nested.name",
           "start": 9,
           "length": 14,
@@ -520,7 +520,7 @@ exports[`parse cst-corpus $outputs.my_output 1`] = `
       "length": 9,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "my_output",
           "start": 9,
           "length": 9,
@@ -546,7 +546,7 @@ exports[`parse cst-corpus $outputs.my-output 1`] = `
       "length": 9,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "my-output",
           "start": 9,
           "length": 9,
@@ -572,7 +572,7 @@ exports[`parse cst-corpus $outputs.response#/name 1`] = `
       "length": 14,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "response",
           "start": 9,
           "length": 8,
@@ -613,7 +613,7 @@ exports[`parse cst-corpus $outputs.result 1`] = `
       "length": 6,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "result",
           "start": 9,
           "length": 6,
@@ -639,7 +639,7 @@ exports[`parse cst-corpus $outputs.result#/items/0/name 1`] = `
       "length": 20,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "result",
           "start": 9,
           "length": 6,
@@ -694,7 +694,7 @@ exports[`parse cst-corpus $outputs.token 1`] = `
       "length": 5,
       "children": [
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "token",
           "start": 9,
           "length": 5,
@@ -1506,14 +1506,14 @@ exports[`parse cst-corpus $sourceDescriptions.externalService.url 1`] = `
       "length": 19,
       "children": [
         {
-          "type": "source-descriptions-name",
+          "type": "source-name",
           "text": "externalService",
           "start": 20,
           "length": 15,
           "children": [],
         },
         {
-          "type": "source-descriptions-reference",
+          "type": "source-reference-id",
           "text": "url",
           "start": 36,
           "length": 3,
@@ -1539,14 +1539,14 @@ exports[`parse cst-corpus $sourceDescriptions.mainApi.createUser 1`] = `
       "length": 18,
       "children": [
         {
-          "type": "source-descriptions-name",
+          "type": "source-name",
           "text": "mainApi",
           "start": 20,
           "length": 7,
           "children": [],
         },
         {
-          "type": "source-descriptions-reference",
+          "type": "source-reference-id",
           "text": "createUser",
           "start": 28,
           "length": 10,
@@ -1572,14 +1572,14 @@ exports[`parse cst-corpus $sourceDescriptions.petStore.getPets 1`] = `
       "length": 16,
       "children": [
         {
-          "type": "source-descriptions-name",
+          "type": "source-name",
           "text": "petStore",
           "start": 20,
           "length": 8,
           "children": [],
         },
         {
-          "type": "source-descriptions-reference",
+          "type": "source-reference-id",
           "text": "getPets",
           "start": 29,
           "length": 7,
@@ -1615,14 +1615,14 @@ exports[`parse cst-corpus $steps.createUser.outputs.userId 1`] = `
       "length": 25,
       "children": [
         {
-          "type": "steps-id",
+          "type": "step-id",
           "text": "createUser",
           "start": 7,
           "length": 10,
           "children": [],
         },
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "userId",
           "start": 26,
           "length": 6,
@@ -1648,14 +1648,14 @@ exports[`parse cst-corpus $steps.loginStep.outputs.sessionToken 1`] = `
       "length": 30,
       "children": [
         {
-          "type": "steps-id",
+          "type": "step-id",
           "text": "loginStep",
           "start": 7,
           "length": 9,
           "children": [],
         },
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "sessionToken",
           "start": 25,
           "length": 12,
@@ -1681,14 +1681,14 @@ exports[`parse cst-corpus $steps.loginStep.outputs.user#/name 1`] = `
       "length": 28,
       "children": [
         {
-          "type": "steps-id",
+          "type": "step-id",
           "text": "loginStep",
           "start": 7,
           "length": 9,
           "children": [],
         },
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "user",
           "start": 25,
           "length": 4,
@@ -1729,14 +1729,14 @@ exports[`parse cst-corpus $steps.someStepId.outputs.pets#/0/id 1`] = `
       "length": 29,
       "children": [
         {
-          "type": "steps-id",
+          "type": "step-id",
           "text": "someStepId",
           "start": 7,
           "length": 10,
           "children": [],
         },
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "pets",
           "start": 26,
           "length": 4,
@@ -1784,14 +1784,14 @@ exports[`parse cst-corpus $steps.stepId.outputs.value 1`] = `
       "length": 20,
       "children": [
         {
-          "type": "steps-id",
+          "type": "step-id",
           "text": "stepId",
           "start": 7,
           "length": 6,
           "children": [],
         },
         {
-          "type": "outputs-name",
+          "type": "output-name",
           "text": "value",
           "start": 22,
           "length": 5,
@@ -1827,21 +1827,21 @@ exports[`parse cst-corpus $workflows.authWorkflow.outputs.token 1`] = `
       "length": 26,
       "children": [
         {
-          "type": "workflows-id",
+          "type": "workflow-id",
           "text": "authWorkflow",
           "start": 11,
           "length": 12,
           "children": [],
         },
         {
-          "type": "workflows-field",
+          "type": "workflow-field",
           "text": "outputs",
           "start": 24,
           "length": 7,
           "children": [],
         },
         {
-          "type": "workflows-field-name",
+          "type": "workflow-field-name",
           "text": "token",
           "start": 32,
           "length": 5,
@@ -1867,21 +1867,21 @@ exports[`parse cst-corpus $workflows.authWorkflow.outputs.token#/accessToken 1`]
       "length": 39,
       "children": [
         {
-          "type": "workflows-id",
+          "type": "workflow-id",
           "text": "authWorkflow",
           "start": 11,
           "length": 12,
           "children": [],
         },
         {
-          "type": "workflows-field",
+          "type": "workflow-field",
           "text": "outputs",
           "start": 24,
           "length": 7,
           "children": [],
         },
         {
-          "type": "workflows-field-name",
+          "type": "workflow-field-name",
           "text": "token",
           "start": 32,
           "length": 5,
@@ -1922,21 +1922,21 @@ exports[`parse cst-corpus $workflows.mainProcess.outputs.data 1`] = `
       "length": 24,
       "children": [
         {
-          "type": "workflows-id",
+          "type": "workflow-id",
           "text": "mainProcess",
           "start": 11,
           "length": 11,
           "children": [],
         },
         {
-          "type": "workflows-field",
+          "type": "workflow-field",
           "text": "outputs",
           "start": 23,
           "length": 7,
           "children": [],
         },
         {
-          "type": "workflows-field-name",
+          "type": "workflow-field-name",
           "text": "data",
           "start": 31,
           "length": 4,
@@ -1962,21 +1962,21 @@ exports[`parse cst-corpus $workflows.myWorkflow.inputs.username 1`] = `
       "length": 26,
       "children": [
         {
-          "type": "workflows-id",
+          "type": "workflow-id",
           "text": "myWorkflow",
           "start": 11,
           "length": 10,
           "children": [],
         },
         {
-          "type": "workflows-field",
+          "type": "workflow-field",
           "text": "inputs",
           "start": 22,
           "length": 6,
           "children": [],
         },
         {
-          "type": "workflows-field-name",
+          "type": "workflow-field-name",
           "text": "username",
           "start": 29,
           "length": 8,
@@ -2002,21 +2002,21 @@ exports[`parse cst-corpus $workflows.myWorkflow.outputs.result 1`] = `
       "length": 25,
       "children": [
         {
-          "type": "workflows-id",
+          "type": "workflow-id",
           "text": "myWorkflow",
           "start": 11,
           "length": 10,
           "children": [],
         },
         {
-          "type": "workflows-field",
+          "type": "workflow-field",
           "text": "outputs",
           "start": 22,
           "length": 7,
           "children": [],
         },
         {
-          "type": "workflows-field-name",
+          "type": "workflow-field-name",
           "text": "result",
           "start": 30,
           "length": 6,
@@ -2042,21 +2042,21 @@ exports[`parse cst-corpus $workflows.myWorkflow.outputs.result#/value 1`] = `
       "length": 32,
       "children": [
         {
-          "type": "workflows-id",
+          "type": "workflow-id",
           "text": "myWorkflow",
           "start": 11,
           "length": 10,
           "children": [],
         },
         {
-          "type": "workflows-field",
+          "type": "workflow-field",
           "text": "outputs",
           "start": 22,
           "length": 7,
           "children": [],
         },
         {
-          "type": "workflows-field-name",
+          "type": "workflow-field-name",
           "text": "result",
           "start": 30,
           "length": 6,
