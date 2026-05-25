@@ -65,7 +65,7 @@
     "apg-lite": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "=7.28.6",
+    "@babel/cli": "=7.29.7",
     "@babel/core": "=7.29.0",
     "@babel/preset-env": "=7.29.5",
     "@commitlint/cli": "=20.5.3",
