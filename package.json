@@ -67,7 +67,7 @@
   "devDependencies": {
     "@babel/cli": "=7.29.7",
     "@babel/core": "=7.29.7",
-    "@babel/preset-env": "=7.29.7",
+    "@babel/preset-env": "=8.0.0",
     "@commitlint/cli": "=20.5.3",
     "@commitlint/config-conventional": "=20.5.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
