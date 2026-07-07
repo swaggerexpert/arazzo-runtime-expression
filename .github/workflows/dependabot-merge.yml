@@ -18,7 +18,7 @@ jobs:
         id: meta
         uses: dependabot/fetch-metadata@v3
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          github-token: "${{ secrets.DEPENDABOT_TOKEN }}"
 
       - name: Check if auto-merge applicable
         id: check
@@ -35,18 +35,18 @@ jobs:
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
 
       - name: Wait for checks to pass
         if: steps.check.outputs.should_merge == 'true'
         run: gh pr checks "$PR_URL" --watch --required --fail-fast
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
 
       - name: Squash and merge
         if: steps.check.outputs.should_merge == 'true'
         run: gh pr merge --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
