@@ -3,6 +3,7 @@ const validExpressions = [
   '$url',
   '$method',
   '$statusCode',
+  '$self',
 
   // Request expressions - header
   '$request.header.accept',
@@ -40,11 +41,24 @@ const validExpressions = [
   '$inputs.username',
   '$inputs.password',
   '$inputs.apiKey',
+  '$inputs.a',
+  '$inputs.my-input',
+  '$inputs.my_input',
+  '$inputs.my.nested.name',
+  '$inputs.customer#/firstName',
+  '$inputs.customer#/address/city',
 
   // Outputs expression
   '$outputs.result',
   '$outputs.token',
   '$outputs.data',
+  '$outputs.a',
+  '$outputs.my-output',
+  '$outputs.my_output',
+  '$outputs.my.nested.name',
+  '$outputs.response#/name',
+  '$outputs.mappedResponse#/data/id',
+  '$outputs.result#/items/0/name',
 
   // Steps expression
   '$steps.stepId.outputs.value',

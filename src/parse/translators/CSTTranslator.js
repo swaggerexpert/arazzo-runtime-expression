@@ -19,26 +19,24 @@ class CSTTranslator extends AST {
     this.callbacks['body-reference'] = cstCallback('body-reference');
     this.callbacks['json-pointer'] = cstCallback('json-pointer');
     this.callbacks['reference-token'] = cstCallback('reference-token');
+    this.callbacks['inputs-reference'] = cstCallback('inputs-reference');
+    this.callbacks['input-name'] = cstCallback('input-name');
+    this.callbacks['outputs-reference'] = cstCallback('outputs-reference');
+    this.callbacks['output-name'] = cstCallback('output-name');
+    this.callbacks['steps-reference'] = cstCallback('steps-reference');
+    this.callbacks['workflows-reference'] = cstCallback('workflows-reference');
+    this.callbacks['workflow-id'] = cstCallback('workflow-id');
+    this.callbacks['workflow-field'] = cstCallback('workflow-field');
+    this.callbacks['workflow-field-name'] = cstCallback('workflow-field-name');
+    this.callbacks['source-reference'] = cstCallback('source-reference');
+    this.callbacks['source-name'] = cstCallback('source-name');
+    this.callbacks['source-reference-id'] = cstCallback('source-reference-id');
+    this.callbacks['components-reference'] = cstCallback('components-reference');
+    this.callbacks['component-type'] = cstCallback('component-type');
+    this.callbacks['component-name'] = cstCallback('component-name');
     this.callbacks['name'] = cstCallback('name');
     this.callbacks['token'] = cstCallback('token');
-    // steps-name secondary grammar rules
-    this.callbacks['steps-name'] = cstCallback('steps-name');
-    this.callbacks['steps-id'] = cstCallback('steps-id');
-    this.callbacks['steps-field'] = cstCallback('steps-field');
-    this.callbacks['steps-sub-field'] = cstCallback('steps-sub-field');
-    // workflows-name secondary grammar rules
-    this.callbacks['workflows-name'] = cstCallback('workflows-name');
-    this.callbacks['workflows-id'] = cstCallback('workflows-id');
-    this.callbacks['workflows-field'] = cstCallback('workflows-field');
-    this.callbacks['workflows-sub-field'] = cstCallback('workflows-sub-field');
-    // source-descriptions-name secondary grammar rules
-    this.callbacks['source-descriptions-name'] = cstCallback('source-descriptions-name');
-    this.callbacks['source-descriptions-source-name'] = cstCallback('source-descriptions-source-name');
-    this.callbacks['source-descriptions-reference'] = cstCallback('source-descriptions-reference');
-    // components-name secondary grammar rules
-    this.callbacks['components-name'] = cstCallback('components-name');
-    this.callbacks['components-field'] = cstCallback('components-field');
-    this.callbacks['components-sub-field'] = cstCallback('components-sub-field');
+    this.callbacks['step-id'] = cstCallback('step-id');
   }
 
   getTree() {

@@ -73,17 +73,13 @@ describe('extract', function () {
    * Workaround: Use parse() directly on the raw expression (without {} delimiters)
    * for $request.body and $response.body expressions containing JSON pointers.
    */
-  it('should return empty array for body expressions with JSON pointers (known limitation)', function () {
-    // RFC 6901 allows } in JSON pointer paths, so extract() cannot determine
-    // where the expression ends for body-reference expressions
-    assert.deepEqual(extract('{$request.body#/url}'), []);
-    assert.deepEqual(extract('{$response.body#/status}'), []);
-    assert.deepEqual(extract('{$request.body#/user/uuid}'), []);
+  it('should handle body expressions with JSON pointers', function () {
+    assert.deepEqual(extract('{$request.body#/url}'), ['$request.body#/url']);
+    assert.deepEqual(extract('{$response.body#/status}'), ['$response.body#/status']);
+    assert.deepEqual(extract('{$request.body#/user/uuid}'), ['$request.body#/user/uuid']);
   });
 
   it('should handle expressions with JSON pointers in name part', function () {
-    // $steps., $inputs., $outputs., etc. use the `name` rule which excludes }
-    // so they work correctly even with JSON pointer-like paths
     const result = extract('pet={$steps.someStepId.outputs.pets#/0/id}');
     assert.deepEqual(result, ['$steps.someStepId.outputs.pets#/0/id']);
   });
