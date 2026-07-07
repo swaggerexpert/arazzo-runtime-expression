@@ -10,7 +10,6 @@ module.exports = {
           {
             debug: false,
             modules: "commonjs",
-            loose: true,
             useBuiltIns: false,
             forceAllTransforms: false,
             ignoreBrowserslistConfig: false,
