@@ -16,6 +16,7 @@ It supports Runtime Expressions defined in following Arazzo specification versio
 
 - [Arazzo 1.0.0](https://spec.openapis.org/arazzo/v1.0.0.html)
 - [Arazzo 1.0.1](https://spec.openapis.org/arazzo/v1.0.1.html)
+- [Arazzo 1.1.0](https://spec.openapis.org/arazzo/v1.1.0.html)
 
 <table>
   <tr>
