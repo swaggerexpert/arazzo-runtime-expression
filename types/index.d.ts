@@ -124,12 +124,25 @@ export interface BodyReference {
 }
 
 /**
- * Union of all reference types
+ * Payload reference - $message.payload with optional JSON pointer
  */
-export type Reference = HeaderReference | QueryReference | PathReference | BodyReference;
+export interface PayloadReference {
+  readonly type: 'PayloadReference';
+  readonly jsonPointer?: JsonPointer;
+}
 
 /**
- * Source - wrapper for reference in request/response expressions
+ * Union of all reference types
+ */
+export type Reference =
+  | HeaderReference
+  | QueryReference
+  | PathReference
+  | BodyReference
+  | PayloadReference;
+
+/**
+ * Source - wrapper for reference in request/response/message expressions
  */
 export interface Source {
   readonly type: 'Source';
@@ -151,6 +164,15 @@ export interface RequestExpression {
  */
 export interface ResponseExpression {
   readonly type: 'ResponseExpression';
+  readonly source: Source;
+}
+
+/**
+ * $message.{source} - Message expression
+ * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
+ */
+export interface MessageExpression {
+  readonly type: 'MessageExpression';
   readonly source: Source;
 }
 
@@ -228,6 +250,7 @@ export type ASTNode =
   | SelfExpression
   | RequestExpression
   | ResponseExpression
+  | MessageExpression
   | InputsExpression
   | OutputsExpression
   | StepsExpression

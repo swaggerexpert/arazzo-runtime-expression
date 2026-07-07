@@ -5,6 +5,7 @@ expression = (
     "$statusCode" /
     "$request." source /
     "$response." source /
+    "$message." source /
     "$inputs." inputs-reference /
     "$outputs." outputs-reference /
     "$steps." steps-reference /
@@ -13,12 +14,13 @@ expression = (
     "$components." components-reference /
     "$self"
   )
-; Request/Response sources
-source                  = ( header-reference / query-reference / path-reference / body-reference )
+; Request/Response/Message sources
+source                  = ( header-reference / query-reference / path-reference / body-reference / payload-reference )
 header-reference        = "header." token
 query-reference         = "query." name
 path-reference          = "path." name
 body-reference          = "body" ["#" json-pointer ]
+payload-reference       = "payload" ["#" json-pointer ]
 
 ; Input/Output references
 inputs-reference        = input-name ["#" json-pointer]

@@ -268,6 +268,7 @@ expression = (
     "$statusCode" /
     "$request." source /
     "$response." source /
+    "$message." source /
     "$inputs." inputs-reference /
     "$outputs." outputs-reference /
     "$steps." steps-reference /
@@ -276,12 +277,13 @@ expression = (
     "$components." components-reference /
     "$self"
   )
-; Request/Response sources
-source                  = ( header-reference / query-reference / path-reference / body-reference )
+; Request/Response/Message sources
+source                  = ( header-reference / query-reference / path-reference / body-reference / payload-reference )
 header-reference        = "header." token
 query-reference         = "query." name
 path-reference          = "path." name
 body-reference          = "body" ["#" json-pointer ]
+payload-reference       = "payload" ["#" json-pointer ]
 
 ; Input/Output references
 inputs-reference        = input-name ["#" json-pointer]
@@ -376,6 +378,7 @@ Request body property   | `$request.body#/user/uuid`   | In operations which acc
 Request URL            | `$url`            |
 Response value         | `$response.body#/status`       |  In operations which return payloads, references may be made to portions of the response body or the entire body.
 Response header        | `$response.header.Server` |  Single header values only are available.
+Message payload value  | `$message.payload#/user/id` |  For event-driven (AsyncAPI) operations, references may be made to portions of the message payload or the entire payload.
 Self URI               | `$self`           |  References the canonical URI of the current Arazzo Description.
 Workflow input         | `$inputs.username` |  Single input values only are available.
 Workflow input property | `$inputs.customer#/firstName` | To access nested properties within an input object, use JSON Pointer syntax.

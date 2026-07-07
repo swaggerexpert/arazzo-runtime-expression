@@ -30,6 +30,11 @@ describe('test', function () {
     assert.isTrue(test('$outputs.bar'));
     assert.isTrue(test('$workflows.foo.outputs.bar'));
     assert.isTrue(test('$components.parameters.foo'));
+    assert.isTrue(test('$self'));
+    assert.isTrue(test('$message.header.content-type'));
+    assert.isTrue(test('$message.body#/status'));
+    assert.isTrue(test('$message.payload'));
+    assert.isTrue(test('$message.payload#/user/id'));
   });
 
   it('should not detect expression', function () {

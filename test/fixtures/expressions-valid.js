@@ -37,6 +37,16 @@ const validExpressions = [
   '$response.body#/data/id',
   '$response.body#/results/0/name',
 
+  // Message expressions
+  '$message.header.content-type',
+  '$message.query.page',
+  '$message.path.id',
+  '$message.body',
+  '$message.body#/status',
+  '$message.payload',
+  '$message.payload#/user/id',
+  '$message.payload#/data/items/0',
+
   // Inputs expression
   '$inputs.username',
   '$inputs.password',

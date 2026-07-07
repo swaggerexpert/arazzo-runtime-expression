@@ -111,6 +111,147 @@ exports[`parse ast-corpus $inputs.username 1`] = `
 }
 `;
 
+exports[`parse ast-corpus $message.body 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $message.body#/status 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "BodyReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/status",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "status",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $message.header.content-type 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "HeaderReference",
+      "token": "content-type",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $message.path.id 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "PathReference",
+      "name": "id",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $message.payload 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "PayloadReference",
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $message.payload#/data/items/0 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "PayloadReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/data/items/0",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "data",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "items",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "0",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $message.payload#/user/id 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "PayloadReference",
+      "jsonPointer": {
+        "type": "JsonPointer",
+        "value": "/user/id",
+        "referenceTokens": [
+          {
+            "type": "ReferenceToken",
+            "value": "user",
+          },
+          {
+            "type": "ReferenceToken",
+            "value": "id",
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`parse ast-corpus $message.query.page 1`] = `
+{
+  "type": "MessageExpression",
+  "source": {
+    "type": "Source",
+    "reference": {
+      "type": "QueryReference",
+      "name": "page",
+    },
+  },
+}
+`;
+
 exports[`parse ast-corpus $method 1`] = `
 {
   "type": "MethodExpression",
