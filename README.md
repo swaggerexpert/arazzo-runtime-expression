@@ -262,12 +262,16 @@ The runtime expression is defined by the following [ABNF](https://tools.ietf.org
 
 ```abnf
 ; Arazzo runtime expression ABNF syntax
+; Rule order mirrors the Arazzo 1.1.0 specification (Runtime Expressions section).
+
+; Top-level expression
 expression = (
     "$url" /
     "$method" /
     "$statusCode" /
     "$request." source /
     "$response." source /
+    "$message." source /
     "$inputs." inputs-reference /
     "$outputs." outputs-reference /
     "$steps." steps-reference /
@@ -276,25 +280,27 @@ expression = (
     "$components." components-reference /
     "$self"
   )
-; Request/Response sources
-source                  = ( header-reference / query-reference / path-reference / body-reference )
+
+; Request/Response/Message sources
+source                  = ( header-reference / query-reference / path-reference / body-reference / payload-reference )
 header-reference        = "header." token
 query-reference         = "query." name
 path-reference          = "path." name
 body-reference          = "body" ["#" json-pointer ]
+payload-reference       = "payload" ["#" json-pointer ]
 
 ; Input/Output references
-inputs-reference        = input-name ["#" json-pointer]
+inputs-reference        = input-name [ "#" json-pointer ]
+outputs-reference       = output-name [ "#" json-pointer ]
 input-name              = identifier
-outputs-reference       = output-name ["#" json-pointer]
 output-name             = identifier
 
 ; Steps expressions
-steps-reference         = step-id ".outputs." output-name ["#" json-pointer]
+steps-reference         = step-id ".outputs." output-name [ "#" json-pointer ]
 step-id                 = identifier-strict
 
 ; Workflows expressions
-workflows-reference     = workflow-id "." workflow-field "." workflow-field-name ["#" json-pointer]
+workflows-reference     = workflow-id "." workflow-field "." workflow-field-name [ "#" json-pointer ]
 workflow-id             = identifier-strict
 workflow-field          = "inputs" / "outputs"
 workflow-field-name     = identifier
@@ -303,19 +309,21 @@ workflow-field-name     = identifier
 source-reference        = source-name "." source-reference-id
 source-name             = identifier-strict
 source-reference-id     = 1*CHAR
+                        ; operationIds have no character restrictions in OpenAPI/AsyncAPI
 
 ; Components expressions
 components-reference    = component-type "." component-name
 component-type          = "parameters" / "successActions" / "failureActions"
 component-name          = identifier
 
+; Identifier rules
+identifier-strict = 1*( ALPHA / DIGIT / "-" / "_" )
+                  ; Alphanumeric with hyphens, underscores (no dots)
+identifier        = 1*( ALPHA / DIGIT / "." / "-" / "_" )
+                  ; Alphanumeric with dots, hyphens, underscores
+
 ; Unconstrained name rule for query/path references
 name                    = *( CHAR )
-
-; Grammar for parsing template strings with embedded expressions
-expression-string    = *( literal-char / embedded-expression )
-embedded-expression  = "{" expression "}"
-literal-char         = %x00-7A / %x7C / %x7E-10FFFF  ; anything except { (%x7B) and } (%x7D)
 
 ; JSON Pointer (RFC 6901, adapted)
 ; { (%x7B) and } (%x7D) are excluded from 'unescaped' for unambiguous embedded expression parsing
@@ -349,16 +357,15 @@ escape         = %x5C   ; \
 unescape       = %x20-21 / %x23-5B / %x5D-7A / %x7C / %x7E-10FFFF
                ; %x7B ('{') and %x7D ('}') are excluded from 'unescape'
 
-; Identifier rules
-identifier        = 1*(ALPHA / DIGIT / "." / "-" / "_")
-                  ; Alphanumeric with dots, hyphens, underscores
-identifier-strict = 1*(ALPHA / DIGIT / "_" / "-")
-                  ; Alphanumeric with hyphens, underscores (no dots)
+; Grammar for parsing template strings with embedded expressions
+expression-string    = *( literal-char / embedded-expression )
+embedded-expression  = "{" expression "}"
+literal-char         = %x00-7A / %x7C / %x7E-10FFFF  ; anything except { (%x7B) and } (%x7D)
 
 ; https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1
-HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
-DIGIT          =  %x30-39   ; 0-9
 ALPHA          =  %x41-5A / %x61-7A   ; A-Z / a-z
+DIGIT          =  %x30-39   ; 0-9
+HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
 ```
 
 The `name` identifier is case-sensitive, whereas `token` is not.
@@ -376,6 +383,7 @@ Request body property   | `$request.body#/user/uuid`   | In operations which acc
 Request URL            | `$url`            |
 Response value         | `$response.body#/status`       |  In operations which return payloads, references may be made to portions of the response body or the entire body.
 Response header        | `$response.header.Server` |  Single header values only are available.
+Message payload value  | `$message.payload#/user/id` |  For event-driven (AsyncAPI) operations, references may be made to portions of the message payload or the entire payload.
 Self URI               | `$self`           |  References the canonical URI of the current Arazzo Description.
 Workflow input         | `$inputs.username` |  Single input values only are available.
 Workflow input property | `$inputs.customer#/firstName` | To access nested properties within an input object, use JSON Pointer syntax.

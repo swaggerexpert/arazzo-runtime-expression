@@ -370,6 +370,307 @@ exports[`parse cst-corpus $inputs.username 1`] = `
 }
 `;
 
+exports[`parse cst-corpus $message.body 1`] = `
+{
+  "type": "expression",
+  "text": "$message.body",
+  "start": 0,
+  "length": 13,
+  "children": [
+    {
+      "type": "source",
+      "text": "body",
+      "start": 9,
+      "length": 4,
+      "children": [
+        {
+          "type": "body-reference",
+          "text": "body",
+          "start": 9,
+          "length": 4,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $message.body#/status 1`] = `
+{
+  "type": "expression",
+  "text": "$message.body#/status",
+  "start": 0,
+  "length": 21,
+  "children": [
+    {
+      "type": "source",
+      "text": "body#/status",
+      "start": 9,
+      "length": 12,
+      "children": [
+        {
+          "type": "body-reference",
+          "text": "body#/status",
+          "start": 9,
+          "length": 12,
+          "children": [
+            {
+              "type": "json-pointer",
+              "text": "/status",
+              "start": 14,
+              "length": 7,
+              "children": [
+                {
+                  "type": "reference-token",
+                  "text": "status",
+                  "start": 15,
+                  "length": 6,
+                  "children": [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $message.header.content-type 1`] = `
+{
+  "type": "expression",
+  "text": "$message.header.content-type",
+  "start": 0,
+  "length": 28,
+  "children": [
+    {
+      "type": "source",
+      "text": "header.content-type",
+      "start": 9,
+      "length": 19,
+      "children": [
+        {
+          "type": "header-reference",
+          "text": "header.content-type",
+          "start": 9,
+          "length": 19,
+          "children": [
+            {
+              "type": "token",
+              "text": "content-type",
+              "start": 16,
+              "length": 12,
+              "children": [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $message.path.id 1`] = `
+{
+  "type": "expression",
+  "text": "$message.path.id",
+  "start": 0,
+  "length": 16,
+  "children": [
+    {
+      "type": "source",
+      "text": "path.id",
+      "start": 9,
+      "length": 7,
+      "children": [
+        {
+          "type": "path-reference",
+          "text": "path.id",
+          "start": 9,
+          "length": 7,
+          "children": [
+            {
+              "type": "name",
+              "text": "id",
+              "start": 14,
+              "length": 2,
+              "children": [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $message.payload 1`] = `
+{
+  "type": "expression",
+  "text": "$message.payload",
+  "start": 0,
+  "length": 16,
+  "children": [
+    {
+      "type": "source",
+      "text": "payload",
+      "start": 9,
+      "length": 7,
+      "children": [
+        {
+          "type": "payload-reference",
+          "text": "payload",
+          "start": 9,
+          "length": 7,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $message.payload#/data/items/0 1`] = `
+{
+  "type": "expression",
+  "text": "$message.payload#/data/items/0",
+  "start": 0,
+  "length": 30,
+  "children": [
+    {
+      "type": "source",
+      "text": "payload#/data/items/0",
+      "start": 9,
+      "length": 21,
+      "children": [
+        {
+          "type": "payload-reference",
+          "text": "payload#/data/items/0",
+          "start": 9,
+          "length": 21,
+          "children": [
+            {
+              "type": "json-pointer",
+              "text": "/data/items/0",
+              "start": 17,
+              "length": 13,
+              "children": [
+                {
+                  "type": "reference-token",
+                  "text": "data",
+                  "start": 18,
+                  "length": 4,
+                  "children": [],
+                },
+                {
+                  "type": "reference-token",
+                  "text": "items",
+                  "start": 23,
+                  "length": 5,
+                  "children": [],
+                },
+                {
+                  "type": "reference-token",
+                  "text": "0",
+                  "start": 29,
+                  "length": 1,
+                  "children": [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $message.payload#/user/id 1`] = `
+{
+  "type": "expression",
+  "text": "$message.payload#/user/id",
+  "start": 0,
+  "length": 25,
+  "children": [
+    {
+      "type": "source",
+      "text": "payload#/user/id",
+      "start": 9,
+      "length": 16,
+      "children": [
+        {
+          "type": "payload-reference",
+          "text": "payload#/user/id",
+          "start": 9,
+          "length": 16,
+          "children": [
+            {
+              "type": "json-pointer",
+              "text": "/user/id",
+              "start": 17,
+              "length": 8,
+              "children": [
+                {
+                  "type": "reference-token",
+                  "text": "user",
+                  "start": 18,
+                  "length": 4,
+                  "children": [],
+                },
+                {
+                  "type": "reference-token",
+                  "text": "id",
+                  "start": 23,
+                  "length": 2,
+                  "children": [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $message.query.page 1`] = `
+{
+  "type": "expression",
+  "text": "$message.query.page",
+  "start": 0,
+  "length": 19,
+  "children": [
+    {
+      "type": "source",
+      "text": "query.page",
+      "start": 9,
+      "length": 10,
+      "children": [
+        {
+          "type": "query-reference",
+          "text": "query.page",
+          "start": 9,
+          "length": 10,
+          "children": [
+            {
+              "type": "name",
+              "text": "page",
+              "start": 15,
+              "length": 4,
+              "children": [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`parse cst-corpus $method 1`] = `
 {
   "type": "expression",

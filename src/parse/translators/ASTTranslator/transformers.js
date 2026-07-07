@@ -16,7 +16,7 @@ const transformers = {
     if (text === '$statusCode') return { type: 'StatusCodeExpression' };
     if (text === '$self') return { type: 'SelfExpression' };
 
-    // Source expressions (request/response)
+    // Source expressions (request/response/message)
     if (text.startsWith('$request.')) {
       const sourceNode = node.children.find((c) => c.type === 'source');
       return {
@@ -28,6 +28,13 @@ const transformers = {
       const sourceNode = node.children.find((c) => c.type === 'source');
       return {
         type: 'ResponseExpression',
+        source: transformCSTtoAST(sourceNode, transformers),
+      };
+    }
+    if (text.startsWith('$message.')) {
+      const sourceNode = node.children.find((c) => c.type === 'source');
+      return {
+        type: 'MessageExpression',
         source: transformCSTtoAST(sourceNode, transformers),
       };
     }
@@ -89,6 +96,17 @@ const transformers = {
     }
     return {
       type: 'BodyReference',
+      jsonPointer: transformCSTtoAST(jsonPointerNode, transformers),
+    };
+  },
+
+  ['payload-reference'](node) {
+    const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
+    if (!jsonPointerNode) {
+      return { type: 'PayloadReference' };
+    }
+    return {
+      type: 'PayloadReference',
       jsonPointer: transformCSTtoAST(jsonPointerNode, transformers),
     };
   },

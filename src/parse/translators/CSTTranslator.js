@@ -17,6 +17,7 @@ class CSTTranslator extends AST {
     this.callbacks['query-reference'] = cstCallback('query-reference');
     this.callbacks['path-reference'] = cstCallback('path-reference');
     this.callbacks['body-reference'] = cstCallback('body-reference');
+    this.callbacks['payload-reference'] = cstCallback('payload-reference');
     this.callbacks['json-pointer'] = cstCallback('json-pointer');
     this.callbacks['reference-token'] = cstCallback('reference-token');
     this.callbacks['inputs-reference'] = cstCallback('inputs-reference');
