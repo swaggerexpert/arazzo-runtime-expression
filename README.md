@@ -10,7 +10,7 @@
 [Arazzo Runtime Expressions](https://spec.openapis.org/arazzo/latest.html#runtime-expressions) allows values to be defined based on information that will be available within the HTTP message in an actual API call,
 or within objects serialized from the Arazzo document such as [workflows](https://spec.openapis.org/arazzo/latest.html#workflow-object) or [steps](https://spec.openapis.org/arazzo/latest.html#step-object).
 
-`@swaggerexpert/arazzo-runtime-expression` is a **parser**, **validator** and **extractor** for Arazzo Runtime Expressions.
+`@swaggerexpert/arazzo-runtime-expression` is a **parser**, **validator**, **extractor** and **interpolator** for Arazzo Runtime Expressions.
 
 It supports Runtime Expressions defined in following Arazzo specification versions:
 
@@ -37,6 +37,7 @@ It supports Runtime Expressions defined in following Arazzo specification versio
   - [Installation](#installation)
   - [Usage](#usage)
     - [Extraction](#extraction)
+    - [Interpolation](#interpolation)
     - [Parsing](#parsing)
       - [Translators](#translators)
       - [Statistics](#statistics)
@@ -60,7 +61,7 @@ You can install `@swaggerexpert/arazzo-runtime-expression` using `npm`:
 
 ### Usage
 
-`@swaggerexpert/arazzo-runtime-expression` currently supports **extraction**, **parsing** and **validation**.
+`@swaggerexpert/arazzo-runtime-expression` currently supports **extraction**, **interpolation**, **parsing** and **validation**.
 Both parser and validator are based on a superset of [ABNF](https://www.rfc-editor.org/rfc/rfc5234) ([SABNF](https://cs.github.com/ldthomas/apg-js2/blob/master/SABNF.md))
 and use [apg-lite](https://github.com/ldthomas/apg-lite) parser generator.
 
@@ -87,6 +88,45 @@ extract('no expressions here'); // => []
 const expressions = extract('{$url}');
 test(expressions[0]); // => true
 parse(expressions[0]); // => { result, tree }
+```
+
+#### Interpolation
+
+Arazzo embeds Runtime Expressions into string values surrounded with `{}` curly braces.
+To render such a template string, use the **interpolate** function. It replaces every `{expression}`
+occurrence with a value produced by a **resolver** callback, while preserving all literal content.
+
+Because this package is a parser and has no knowledge of the runtime context (HTTP messages, workflow
+inputs/outputs, etc.), you supply the resolution logic through the `resolver` callback. The callback
+receives the raw expression (e.g. `$inputs.name`) and returns its value.
+
+```js
+import { interpolate } from '@swaggerexpert/arazzo-runtime-expression';
+
+// Single expression
+interpolate('Hello {$inputs.name}!', () => 'world'); // => 'Hello world!'
+
+// Multiple expressions resolved from a lookup table
+const values = { '$inputs.clientId': 'abc', '$inputs.grantType': 'authorization_code' };
+interpolate('client_id={$inputs.clientId}&grant_type={$inputs.grantType}', (expression) => values[expression]);
+// => 'client_id=abc&grant_type=authorization_code'
+
+// Strings without expressions are returned unchanged
+interpolate('no expressions here', () => 'X'); // => 'no expressions here'
+```
+
+Resolved values are stringified before being spliced into the template. The default stringification
+renders `undefined` and `null` as an empty string, uses strings as-is, serializes objects with
+`JSON.stringify` and coerces everything else via `String()`. This can be customized via the
+`stringify` option.
+
+```js
+import { interpolate } from '@swaggerexpert/arazzo-runtime-expression';
+
+interpolate('{$request.body}', () => ({ id: 1 }), {
+  stringify: (value) => JSON.stringify(value, null, 2),
+});
+// => '{\n  "id": 1\n}'
 ```
 
 #### Parsing

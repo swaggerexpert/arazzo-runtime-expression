@@ -366,6 +366,33 @@ export function test(runtimeExpression: string): boolean;
 export function extract(str: string): string[];
 
 /**
+ * Resolves a single runtime expression to its value during interpolation.
+ */
+export type InterpolateResolver = (expression: string) => unknown;
+
+/**
+ * Interpolation options
+ */
+export interface InterpolateOptions {
+  /**
+   * Converts a resolved value into the string spliced into the template.
+   * Defaults to: '' for undefined/null, strings as-is, JSON.stringify for
+   * objects and String() for everything else.
+   */
+  readonly stringify?: (value: unknown) => string;
+}
+
+/**
+ * Interpolate (transclude) runtime expressions embedded in a template string,
+ * replacing each {expression} with the value produced by the resolver.
+ */
+export function interpolate(
+  template: string,
+  resolver: InterpolateResolver,
+  options?: InterpolateOptions,
+): string;
+
+/**
  * Grammar - ABNF grammar for runtime expressions
  */
 export class Grammar {
