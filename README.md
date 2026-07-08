@@ -92,7 +92,7 @@ parse(expressions[0]); // => { result, tree }
 
 #### Interpolation
 
-Arazzo embeds Runtime Expressions into string values surrounded with `{}` curly braces (a mechanism known as [transclusion](https://en.wikipedia.org/wiki/Transclusion)).
+Arazzo embeds Runtime Expressions into string values surrounded with `{}` curly braces.
 To render such a template string, use the **interpolate** function. It replaces every `{expression}`
 occurrence with a value produced by a **resolver** callback, while preserving all literal content.
 
@@ -128,10 +128,6 @@ interpolate('{$request.body}', () => ({ id: 1 }), {
 });
 // => '{\n  "id": 1\n}'
 ```
-
-> **Note:** Just like [extraction](#extraction), `$request.body` and `$response.body` expressions
-> containing JSON Pointers with `}` characters cannot be reliably interpolated from the embedded
-> `{expression}` syntax. See the extraction notes for details.
 
 #### Parsing
 
