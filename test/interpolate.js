@@ -97,6 +97,12 @@ describe('interpolate', function () {
     it('should render arrays via JSON.stringify', function () {
       assert.strictEqual(interpolate('{$request.body}', () => [1, 2]), '[1,2]');
     });
+
+    it('should render an unserializable object as empty string', function () {
+      // JSON.stringify returns undefined when toJSON() returns undefined;
+      // it must not leak the literal string "undefined" into the output.
+      assert.strictEqual(interpolate('a{$request.body}b', () => ({ toJSON: () => undefined })), 'ab');
+    });
   });
 
   it('should support a custom stringify option', function () {

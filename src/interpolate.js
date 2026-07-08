@@ -14,7 +14,9 @@ const grammar = new Grammar();
 const defaultStringify = (value) => {
   if (value === undefined || value === null) return '';
   if (typeof value === 'string') return value;
-  if (typeof value === 'object') return JSON.stringify(value);
+  // JSON.stringify returns undefined for values it cannot serialize
+  // (e.g. an object whose toJSON() returns undefined); coalesce to ''.
+  if (typeof value === 'object') return JSON.stringify(value) ?? '';
   return String(value);
 };
 
@@ -57,10 +59,16 @@ const interpolate = (template, resolver, { stringify = defaultStringify } = {}) 
   // Rebuild the string from the CST, substituting embedded-expression nodes
   // with their resolved and stringified values.
   for (const node of cst.children || []) {
-    if (node.type === 'embedded-expression') {
-      const exprNode = node.children.find((child) => child.type === 'expression');
+    const exprNode =
+      node.type === 'embedded-expression'
+        ? node.children.find((child) => child.type === 'expression')
+        : undefined;
+
+    if (exprNode) {
       output += stringify(resolver(exprNode.text));
     } else {
+      // literal-char, or a defensive fallback should the CST ever lack the
+      // expected expression child - emit the node text verbatim.
       output += node.text;
     }
   }
