@@ -31,6 +31,26 @@ describe('interpolate', function () {
     assert.strictEqual(result, 'prefixXsuffix');
   });
 
+  it('should replace every occurrence of a repeated expression', function () {
+    const result = interpolate('{$outputs.token}-{$outputs.token}', () => 'abc');
+    assert.strictEqual(result, 'abc-abc');
+  });
+
+  it('should not interpret replacement patterns in a resolved value', function () {
+    // A naive String.prototype.replace would interpret `$&`, `$1`, etc. in the
+    // replacement. The CST walk splices the value verbatim, so it must not.
+    const result = interpolate('x={$inputs.v}', () => 'A$&B');
+    assert.strictEqual(result, 'x=A$&B');
+  });
+
+  it('should not re-interpolate a resolved value that looks like an expression', function () {
+    // A resolved value that itself looks like an embedded expression must never
+    // be re-scanned - the single CST pass guarantees this.
+    const values = { '$inputs.a': '{$inputs.b}', '$inputs.b': 'X' };
+    const result = interpolate('{$inputs.a}{$inputs.b}', (expression) => values[expression]);
+    assert.strictEqual(result, '{$inputs.b}X');
+  });
+
   it('should return string with no expressions unchanged', function () {
     assert.strictEqual(interpolate('no expressions here', () => 'X'), 'no expressions here');
   });
@@ -90,6 +110,16 @@ describe('interpolate', function () {
     assert.strictEqual(interpolate('text with } in it', () => 'X'), 'text with } in it');
     assert.strictEqual(interpolate('{invalid}', () => 'X'), '{invalid}');
     assert.strictEqual(interpolate('{{$url}}', () => 'X'), '{{$url}}');
+  });
+
+  it('should leave a braced literal that is not an expression unchanged', function () {
+    // A JSON-object-looking brace segment makes the whole expression-string fail
+    // to parse, so the template is returned as-is.
+    assert.strictEqual(interpolate('{"a":1}', () => 'X'), '{"a":1}');
+    assert.strictEqual(
+      interpolate('{"x":1}-{$inputs.username}', () => 'X'),
+      '{"x":1}-{$inputs.username}',
+    );
   });
 
   it('should throw for non-string template', function () {
