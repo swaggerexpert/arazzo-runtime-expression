@@ -729,6 +729,19 @@ exports[`parse ast-corpus $self 1`] = `
 }
 `;
 
+exports[`parse ast-corpus $sourceDescriptions.externalArazzo.some-workflow.steps.some-step 1`] = `
+{
+  "type": "SourceDescriptionsExpression",
+  "sourceName": "externalArazzo",
+  "reference": "some-workflow.steps.some-step",
+  "stepsReference": {
+    "type": "WorkflowsStepsExpression",
+    "workflowId": "some-workflow",
+    "stepId": "some-step",
+  },
+}
+`;
+
 exports[`parse ast-corpus $sourceDescriptions.externalService.url 1`] = `
 {
   "type": "SourceDescriptionsExpression",
@@ -862,6 +875,14 @@ exports[`parse ast-corpus $workflows.authWorkflow.outputs.token#/accessToken 1`]
 }
 `;
 
+exports[`parse ast-corpus $workflows.checkoutWorkflow.steps.validatePayment 1`] = `
+{
+  "type": "WorkflowsStepsExpression",
+  "workflowId": "checkoutWorkflow",
+  "stepId": "validatePayment",
+}
+`;
+
 exports[`parse ast-corpus $workflows.mainProcess.outputs.data 1`] = `
 {
   "type": "WorkflowsExpression",
@@ -905,5 +926,13 @@ exports[`parse ast-corpus $workflows.myWorkflow.outputs.result#/value 1`] = `
       },
     ],
   },
+}
+`;
+
+exports[`parse ast-corpus $workflows.otherWorkflow.steps.otherStep 1`] = `
+{
+  "type": "WorkflowsStepsExpression",
+  "workflowId": "otherWorkflow",
+  "stepId": "otherStep",
 }
 `;

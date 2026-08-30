@@ -37,10 +37,12 @@ steps-reference         = step-id ".outputs." output-name [ "#" json-pointer ]
 step-id                 = identifier-strict
 
 ; Workflows expressions
-workflows-reference     = workflow-id "." workflow-field "." workflow-field-name [ "#" json-pointer ]
-workflow-id             = identifier-strict
-workflow-field          = "inputs" / "outputs"
-workflow-field-name     = identifier
+workflows-reference       = workflow-id "." ( workflows-value-reference / workflows-steps-reference )
+workflows-value-reference = workflow-field "." workflow-field-name [ "#" json-pointer ]
+workflows-steps-reference = "steps" "." step-id
+workflow-id               = identifier-strict
+workflow-field            = "inputs" / "outputs"
+workflow-field-name       = identifier
 
 ; Source descriptions expressions
 source-reference        = source-name "." source-reference-id

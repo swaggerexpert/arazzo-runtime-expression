@@ -340,10 +340,12 @@ steps-reference         = step-id ".outputs." output-name [ "#" json-pointer ]
 step-id                 = identifier-strict
 
 ; Workflows expressions
-workflows-reference     = workflow-id "." workflow-field "." workflow-field-name [ "#" json-pointer ]
-workflow-id             = identifier-strict
-workflow-field          = "inputs" / "outputs"
-workflow-field-name     = identifier
+workflows-reference       = workflow-id "." ( workflows-value-reference / workflows-steps-reference )
+workflows-value-reference = workflow-field "." workflow-field-name [ "#" json-pointer ]
+workflows-steps-reference = "steps" "." step-id
+workflow-id               = identifier-strict
+workflow-field            = "inputs" / "outputs"
+workflow-field-name       = identifier
 
 ; Source descriptions expressions
 source-reference        = source-name "." source-reference-id
@@ -429,6 +431,7 @@ Workflow input         | `$inputs.username` |  Single input values only are avai
 Workflow input property | `$inputs.customer#/firstName` | To access nested properties within an input object, use JSON Pointer syntax.
 Step output value        | `$steps.someStepId.outputs.pets` |  In situations where the output named property return payloads, references may be made to portions of the response body (e.g., `$steps.someStepId.outputs.pets#/0/id`) or the entire body.
 Workflow output value | `$outputs.bar` or `$workflows.foo.outputs.bar` |  In situations where the output named property return payloads, references may be made to portions of the response body (e.g., `$workflows.foo.outputs.mappedResponse#/name`) or the entire body.
+Step dependency (`dependsOn`) | `$workflows.foo.steps.bar` | References a step (`bar`) defined in a different workflow (`foo`) within the current Arazzo Document.
 Source description reference | `$sourceDescriptions.petstore.getPetById` | References an operationId or workflowId from the named source description.
 Components parameter | `$components.parameters.foo` | Accesses a foo parameter defined within the Components Object.
 Components action    | `$components.successActions.bar` | Accesses a success or failure action defined within the Components Object.

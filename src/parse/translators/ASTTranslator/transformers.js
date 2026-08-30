@@ -1,9 +1,48 @@
+import { Parser } from 'apg-lite';
+
+import Grammar from '../../../grammar.js';
+import CSTTranslator from '../CSTTranslator.js';
+
+const grammar = new Grammar();
+
 export const transformCSTtoAST = (node, transformerMap) => {
   const transformer = transformerMap[node.type];
   if (!transformer) {
     throw new Error(`No transformer for CST node type: ${node.type}`);
   }
   return transformer(node);
+};
+
+// Best-effort, non-committal detection of a `$workflows.<workflowId>.steps.<stepId>`-shaped
+// value nested inside an opaque `$sourceDescriptions.<name>.<reference>` reference (the
+// dependsOn cross-document step-reference syntax). This reuses the primary grammar's
+// `workflows-reference` rule as a secondary parse over just the `reference` substring — it
+// never affects whether the outer `$sourceDescriptions.` expression itself is valid, and only
+// enriches the AST when the opaque string happens to fully, unambiguously match the shape.
+const tryParseWorkflowsStepsReference = (referenceText) => {
+  const parser = new Parser();
+  parser.ast = new CSTTranslator();
+
+  let result;
+  try {
+    result = parser.parse(grammar, 'workflows-reference', referenceText);
+  } catch {
+    return undefined;
+  }
+  if (!result.success) return undefined;
+
+  const tree = parser.ast.getTree();
+  const stepsRefNode = tree.children.find((c) => c.type === 'workflows-steps-reference');
+  if (!stepsRefNode) return undefined; // matched, but as inputs/outputs, not steps
+
+  const workflowIdNode = tree.children.find((c) => c.type === 'workflow-id');
+  const stepIdNode = stepsRefNode.children.find((c) => c.type === 'step-id');
+
+  return {
+    type: 'WorkflowsStepsExpression',
+    workflowId: workflowIdNode.text,
+    stepId: stepIdNode.text,
+  };
 };
 
 const transformers = {
@@ -179,9 +218,21 @@ const transformers = {
 
   ['workflows-reference'](node) {
     const workflowIdNode = node.children.find((c) => c.type === 'workflow-id');
-    const fieldNode = node.children.find((c) => c.type === 'workflow-field');
-    const fieldNameNode = node.children.find((c) => c.type === 'workflow-field-name');
-    const jsonPointerNode = node.children.find((c) => c.type === 'json-pointer');
+    const stepsRefNode = node.children.find((c) => c.type === 'workflows-steps-reference');
+
+    if (stepsRefNode) {
+      const stepIdNode = stepsRefNode.children.find((c) => c.type === 'step-id');
+      return {
+        type: 'WorkflowsStepsExpression',
+        workflowId: workflowIdNode.text,
+        stepId: stepIdNode.text,
+      };
+    }
+
+    const valueRefNode = node.children.find((c) => c.type === 'workflows-value-reference');
+    const fieldNode = valueRefNode.children.find((c) => c.type === 'workflow-field');
+    const fieldNameNode = valueRefNode.children.find((c) => c.type === 'workflow-field-name');
+    const jsonPointerNode = valueRefNode.children.find((c) => c.type === 'json-pointer');
 
     const result = {
       type: 'WorkflowsExpression',
@@ -201,11 +252,18 @@ const transformers = {
     const sourceNameNode = node.children.find((c) => c.type === 'source-name');
     const referenceNode = node.children.find((c) => c.type === 'source-reference-id');
 
-    return {
+    const result = {
       type: 'SourceDescriptionsExpression',
       sourceName: sourceNameNode.text,
       reference: referenceNode.text,
     };
+
+    const stepsReference = tryParseWorkflowsStepsReference(referenceNode.text);
+    if (stepsReference) {
+      result.stepsReference = stepsReference;
+    }
+
+    return result;
   },
 
   ['components-reference'](node) {

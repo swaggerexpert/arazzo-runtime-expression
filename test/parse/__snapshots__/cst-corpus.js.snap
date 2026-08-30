@@ -1793,6 +1793,39 @@ exports[`parse cst-corpus $self 1`] = `
 }
 `;
 
+exports[`parse cst-corpus $sourceDescriptions.externalArazzo.some-workflow.steps.some-step 1`] = `
+{
+  "type": "expression",
+  "text": "$sourceDescriptions.externalArazzo.some-workflow.steps.some-step",
+  "start": 0,
+  "length": 64,
+  "children": [
+    {
+      "type": "source-reference",
+      "text": "externalArazzo.some-workflow.steps.some-step",
+      "start": 20,
+      "length": 44,
+      "children": [
+        {
+          "type": "source-name",
+          "text": "externalArazzo",
+          "start": 20,
+          "length": 14,
+          "children": [],
+        },
+        {
+          "type": "source-reference-id",
+          "text": "some-workflow.steps.some-step",
+          "start": 35,
+          "length": 29,
+          "children": [],
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`parse cst-corpus $sourceDescriptions.externalService.url 1`] = `
 {
   "type": "expression",
@@ -2135,18 +2168,26 @@ exports[`parse cst-corpus $workflows.authWorkflow.outputs.token 1`] = `
           "children": [],
         },
         {
-          "type": "workflow-field",
-          "text": "outputs",
+          "type": "workflows-value-reference",
+          "text": "outputs.token",
           "start": 24,
-          "length": 7,
-          "children": [],
-        },
-        {
-          "type": "workflow-field-name",
-          "text": "token",
-          "start": 32,
-          "length": 5,
-          "children": [],
+          "length": 13,
+          "children": [
+            {
+              "type": "workflow-field",
+              "text": "outputs",
+              "start": 24,
+              "length": 7,
+              "children": [],
+            },
+            {
+              "type": "workflow-field-name",
+              "text": "token",
+              "start": 32,
+              "length": 5,
+              "children": [],
+            },
+          ],
         },
       ],
     },
@@ -2175,30 +2216,79 @@ exports[`parse cst-corpus $workflows.authWorkflow.outputs.token#/accessToken 1`]
           "children": [],
         },
         {
-          "type": "workflow-field",
-          "text": "outputs",
+          "type": "workflows-value-reference",
+          "text": "outputs.token#/accessToken",
           "start": 24,
-          "length": 7,
-          "children": [],
-        },
-        {
-          "type": "workflow-field-name",
-          "text": "token",
-          "start": 32,
-          "length": 5,
-          "children": [],
-        },
-        {
-          "type": "json-pointer",
-          "text": "/accessToken",
-          "start": 38,
-          "length": 12,
+          "length": 26,
           "children": [
             {
-              "type": "reference-token",
-              "text": "accessToken",
-              "start": 39,
-              "length": 11,
+              "type": "workflow-field",
+              "text": "outputs",
+              "start": 24,
+              "length": 7,
+              "children": [],
+            },
+            {
+              "type": "workflow-field-name",
+              "text": "token",
+              "start": 32,
+              "length": 5,
+              "children": [],
+            },
+            {
+              "type": "json-pointer",
+              "text": "/accessToken",
+              "start": 38,
+              "length": 12,
+              "children": [
+                {
+                  "type": "reference-token",
+                  "text": "accessToken",
+                  "start": 39,
+                  "length": 11,
+                  "children": [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $workflows.checkoutWorkflow.steps.validatePayment 1`] = `
+{
+  "type": "expression",
+  "text": "$workflows.checkoutWorkflow.steps.validatePayment",
+  "start": 0,
+  "length": 49,
+  "children": [
+    {
+      "type": "workflows-reference",
+      "text": "checkoutWorkflow.steps.validatePayment",
+      "start": 11,
+      "length": 38,
+      "children": [
+        {
+          "type": "workflow-id",
+          "text": "checkoutWorkflow",
+          "start": 11,
+          "length": 16,
+          "children": [],
+        },
+        {
+          "type": "workflows-steps-reference",
+          "text": "steps.validatePayment",
+          "start": 28,
+          "length": 21,
+          "children": [
+            {
+              "type": "step-id",
+              "text": "validatePayment",
+              "start": 34,
+              "length": 15,
               "children": [],
             },
           ],
@@ -2230,18 +2320,26 @@ exports[`parse cst-corpus $workflows.mainProcess.outputs.data 1`] = `
           "children": [],
         },
         {
-          "type": "workflow-field",
-          "text": "outputs",
+          "type": "workflows-value-reference",
+          "text": "outputs.data",
           "start": 23,
-          "length": 7,
-          "children": [],
-        },
-        {
-          "type": "workflow-field-name",
-          "text": "data",
-          "start": 31,
-          "length": 4,
-          "children": [],
+          "length": 12,
+          "children": [
+            {
+              "type": "workflow-field",
+              "text": "outputs",
+              "start": 23,
+              "length": 7,
+              "children": [],
+            },
+            {
+              "type": "workflow-field-name",
+              "text": "data",
+              "start": 31,
+              "length": 4,
+              "children": [],
+            },
+          ],
         },
       ],
     },
@@ -2270,18 +2368,26 @@ exports[`parse cst-corpus $workflows.myWorkflow.inputs.username 1`] = `
           "children": [],
         },
         {
-          "type": "workflow-field",
-          "text": "inputs",
+          "type": "workflows-value-reference",
+          "text": "inputs.username",
           "start": 22,
-          "length": 6,
-          "children": [],
-        },
-        {
-          "type": "workflow-field-name",
-          "text": "username",
-          "start": 29,
-          "length": 8,
-          "children": [],
+          "length": 15,
+          "children": [
+            {
+              "type": "workflow-field",
+              "text": "inputs",
+              "start": 22,
+              "length": 6,
+              "children": [],
+            },
+            {
+              "type": "workflow-field-name",
+              "text": "username",
+              "start": 29,
+              "length": 8,
+              "children": [],
+            },
+          ],
         },
       ],
     },
@@ -2310,18 +2416,26 @@ exports[`parse cst-corpus $workflows.myWorkflow.outputs.result 1`] = `
           "children": [],
         },
         {
-          "type": "workflow-field",
-          "text": "outputs",
+          "type": "workflows-value-reference",
+          "text": "outputs.result",
           "start": 22,
-          "length": 7,
-          "children": [],
-        },
-        {
-          "type": "workflow-field-name",
-          "text": "result",
-          "start": 30,
-          "length": 6,
-          "children": [],
+          "length": 14,
+          "children": [
+            {
+              "type": "workflow-field",
+              "text": "outputs",
+              "start": 22,
+              "length": 7,
+              "children": [],
+            },
+            {
+              "type": "workflow-field-name",
+              "text": "result",
+              "start": 30,
+              "length": 6,
+              "children": [],
+            },
+          ],
         },
       ],
     },
@@ -2350,30 +2464,79 @@ exports[`parse cst-corpus $workflows.myWorkflow.outputs.result#/value 1`] = `
           "children": [],
         },
         {
-          "type": "workflow-field",
-          "text": "outputs",
+          "type": "workflows-value-reference",
+          "text": "outputs.result#/value",
           "start": 22,
-          "length": 7,
-          "children": [],
-        },
-        {
-          "type": "workflow-field-name",
-          "text": "result",
-          "start": 30,
-          "length": 6,
-          "children": [],
-        },
-        {
-          "type": "json-pointer",
-          "text": "/value",
-          "start": 37,
-          "length": 6,
+          "length": 21,
           "children": [
             {
-              "type": "reference-token",
-              "text": "value",
-              "start": 38,
-              "length": 5,
+              "type": "workflow-field",
+              "text": "outputs",
+              "start": 22,
+              "length": 7,
+              "children": [],
+            },
+            {
+              "type": "workflow-field-name",
+              "text": "result",
+              "start": 30,
+              "length": 6,
+              "children": [],
+            },
+            {
+              "type": "json-pointer",
+              "text": "/value",
+              "start": 37,
+              "length": 6,
+              "children": [
+                {
+                  "type": "reference-token",
+                  "text": "value",
+                  "start": 38,
+                  "length": 5,
+                  "children": [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse cst-corpus $workflows.otherWorkflow.steps.otherStep 1`] = `
+{
+  "type": "expression",
+  "text": "$workflows.otherWorkflow.steps.otherStep",
+  "start": 0,
+  "length": 40,
+  "children": [
+    {
+      "type": "workflows-reference",
+      "text": "otherWorkflow.steps.otherStep",
+      "start": 11,
+      "length": 29,
+      "children": [
+        {
+          "type": "workflow-id",
+          "text": "otherWorkflow",
+          "start": 11,
+          "length": 13,
+          "children": [],
+        },
+        {
+          "type": "workflows-steps-reference",
+          "text": "steps.otherStep",
+          "start": 25,
+          "length": 15,
+          "children": [
+            {
+              "type": "step-id",
+              "text": "otherStep",
+              "start": 31,
+              "length": 9,
               "children": [],
             },
           ],
