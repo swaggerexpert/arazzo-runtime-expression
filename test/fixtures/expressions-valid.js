@@ -85,10 +85,18 @@ const validExpressions = [
   '$workflows.myWorkflow.outputs.result#/value',
   '$workflows.authWorkflow.outputs.token#/accessToken',
 
+  // Workflows step reference expression (dependsOn: step in another workflow)
+  '$workflows.otherWorkflow.steps.otherStep',
+  '$workflows.checkoutWorkflow.steps.validatePayment',
+
   // Source descriptions expression
   '$sourceDescriptions.petStore.getPets',
   '$sourceDescriptions.mainApi.createUser',
   '$sourceDescriptions.externalService.url',
+
+  // Source descriptions expression, opaque reference that happens to structurally match
+  // {workflowId}.steps.{stepId} (dependsOn: step in a workflow from another Arazzo document)
+  '$sourceDescriptions.externalArazzo.some-workflow.steps.some-step',
 
   // Components expression
   '$components.parameters.petId',

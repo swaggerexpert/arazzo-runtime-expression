@@ -221,6 +221,17 @@ export interface WorkflowsExpression {
 }
 
 /**
+ * $workflows.{workflowId}.steps.{stepId} - Workflows step reference expression
+ * (dependsOn cross-workflow step reference syntax)
+ * https://spec.openapis.org/arazzo/latest.html#fixed-fields-for-step
+ */
+export interface WorkflowsStepsExpression {
+  readonly type: 'WorkflowsStepsExpression';
+  readonly workflowId: string;
+  readonly stepId: string;
+}
+
+/**
  * $sourceDescriptions.{sourceName}.{reference} - Source descriptions expression
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
@@ -228,6 +239,12 @@ export interface SourceDescriptionsExpression {
   readonly type: 'SourceDescriptionsExpression';
   readonly sourceName: string;
   readonly reference: string;
+  /**
+   * Present only when `reference` fully matches the `{workflowId}.steps.{stepId}` shape
+   * (the dependsOn cross-document step reference syntax). `reference` is unaffected either
+   * way — it always holds the raw, opaque reference string.
+   */
+  readonly stepsReference?: WorkflowsStepsExpression;
 }
 
 /**
@@ -255,6 +272,7 @@ export type ASTNode =
   | OutputsExpression
   | StepsExpression
   | WorkflowsExpression
+  | WorkflowsStepsExpression
   | SourceDescriptionsExpression
   | ComponentsExpression;
 

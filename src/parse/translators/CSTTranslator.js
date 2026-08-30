@@ -26,6 +26,8 @@ class CSTTranslator extends AST {
     this.callbacks['output-name'] = cstCallback('output-name');
     this.callbacks['steps-reference'] = cstCallback('steps-reference');
     this.callbacks['workflows-reference'] = cstCallback('workflows-reference');
+    this.callbacks['workflows-value-reference'] = cstCallback('workflows-value-reference');
+    this.callbacks['workflows-steps-reference'] = cstCallback('workflows-steps-reference');
     this.callbacks['workflow-id'] = cstCallback('workflow-id');
     this.callbacks['workflow-field'] = cstCallback('workflow-field');
     this.callbacks['workflow-field-name'] = cstCallback('workflow-field-name');
