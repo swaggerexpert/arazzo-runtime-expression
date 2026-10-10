@@ -2,7 +2,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { assert } from 'chai';
 
-import { Grammar } from '../src/index.js'
+import { Grammar } from '../src/index.js';
 
 describe('SABNF', function () {
   it('should export Grammar', function () {
@@ -15,5 +15,5 @@ describe('SABNF', function () {
     const grammar = new Grammar();
 
     assert.strictEqual(abnf, grammar.toString());
-  })
-})
+  });
+});

@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { extract, test } from '../src/index.js';
+import { test } from '../src/index.js';
 
 describe('test', function () {
   it('should detect expression', function () {
@@ -24,9 +24,7 @@ describe('test', function () {
     assert.isTrue(test('$response.body#/status'));
     assert.isTrue(test('$inputs.username'));
     assert.isTrue(test('$workflows.foo.inputs.username'));
-    assert.isTrue(
-      test('$steps.someStepId.outputs.pets'),
-    );
+    assert.isTrue(test('$steps.someStepId.outputs.pets'));
     assert.isTrue(test('$outputs.bar'));
     assert.isTrue(test('$workflows.foo.outputs.bar'));
     assert.isTrue(test('$components.parameters.foo'));

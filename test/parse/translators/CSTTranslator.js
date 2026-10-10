@@ -21,7 +21,9 @@ describe('parse', function () {
       });
 
       specify('should translate $steps.login.outputs.token to a CST', function () {
-        const parseResult = parse('$steps.login.outputs.token', { translator: new CSTTranslator() });
+        const parseResult = parse('$steps.login.outputs.token', {
+          translator: new CSTTranslator(),
+        });
 
         assert.isTrue(parseResult.result.success);
         expect(parseResult.tree).toMatchSnapshot();

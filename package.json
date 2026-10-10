@@ -19,6 +19,7 @@
     "test": "{src,test}/*.js"
   },
   "scripts": {
+    "prepare": "husky",
     "prepublishOnly": "npm run build",
     "grammar:compile": "node ./scripts/apg-js.js --lite --in=./src/grammar.bnf --out=./src/grammar.js && cd ./src",
     "build": "npm run grammar:compile && npm run build:es && npm run build:cjs && npm run build:cjs:apg-lite",
@@ -27,6 +28,8 @@
     "build:cjs:apg-lite": "cross-env BABEL_ENV=cjs babel node_modules/apg-lite/lib/parser.js --out-file ./cjs/apg-lite.cjs",
     "test": "cross-env UPDATE_SNAPSHOT=new mocha",
     "test:watch": "npm-watch test",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix",
     "watch": "npm-watch"
   },
   "engines": {
@@ -70,6 +73,7 @@
     "@babel/preset-env": "=8.0.6",
     "@commitlint/cli": "=21.2.3",
     "@commitlint/config-conventional": "=21.2.3",
+    "@eslint/js": "=10.0.1",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^11.0.1",
     "@semantic-release/github": "^12.0.2",
@@ -79,7 +83,12 @@
     "babel-plugin-module-resolver": "^5.0.2",
     "chai": "=6.3.0",
     "cross-env": "^10.0.0",
+    "eslint": "=10.11.0",
+    "eslint-config-prettier": "=10.1.8",
+    "eslint-plugin-prettier": "=5.5.6",
+    "globals": "=17.12.0",
     "husky": "=9.1.7",
+    "lint-staged": "=17.6.0",
     "mocha": "=11.8.0",
     "mocha-expect-snapshot": "^8.0.0",
     "npm-watch": "^0.13.0",

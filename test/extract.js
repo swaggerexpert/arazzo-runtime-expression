@@ -15,10 +15,18 @@ describe('extract', function () {
     assert.deepEqual(extract('{$response.header.content-type}'), ['$response.header.content-type']);
     assert.deepEqual(extract('{$inputs.username}'), ['$inputs.username']);
     assert.deepEqual(extract('{$outputs.result}'), ['$outputs.result']);
-    assert.deepEqual(extract('{$steps.loginStep.outputs.sessionToken}'), ['$steps.loginStep.outputs.sessionToken']);
-    assert.deepEqual(extract('{$workflows.myWorkflow.inputs.username}'), ['$workflows.myWorkflow.inputs.username']);
-    assert.deepEqual(extract('{$workflows.myWorkflow.outputs.result}'), ['$workflows.myWorkflow.outputs.result']);
-    assert.deepEqual(extract('{$sourceDescriptions.petStore.getPets}'), ['$sourceDescriptions.petStore.getPets']);
+    assert.deepEqual(extract('{$steps.loginStep.outputs.sessionToken}'), [
+      '$steps.loginStep.outputs.sessionToken',
+    ]);
+    assert.deepEqual(extract('{$workflows.myWorkflow.inputs.username}'), [
+      '$workflows.myWorkflow.inputs.username',
+    ]);
+    assert.deepEqual(extract('{$workflows.myWorkflow.outputs.result}'), [
+      '$workflows.myWorkflow.outputs.result',
+    ]);
+    assert.deepEqual(extract('{$sourceDescriptions.petStore.getPets}'), [
+      '$sourceDescriptions.petStore.getPets',
+    ]);
     assert.deepEqual(extract('{$components.parameters.petId}'), ['$components.parameters.petId']);
   });
 
@@ -44,7 +52,8 @@ describe('extract', function () {
   });
 
   it('should handle the full OAuth example', function () {
-    const input = 'client_id={$inputs.clientId}&grant_type={$inputs.grantType}&redirect_uri={$inputs.redirectUri}&client_secret={$inputs.clientSecret}&code={$steps.browser-authorize.outputs.code}';
+    const input =
+      'client_id={$inputs.clientId}&grant_type={$inputs.grantType}&redirect_uri={$inputs.redirectUri}&client_secret={$inputs.clientSecret}&code={$steps.browser-authorize.outputs.code}';
     const result = extract(input);
     assert.deepEqual(result, [
       '$inputs.clientId',
@@ -126,10 +135,10 @@ describe('extract', function () {
     const extractTolerant = (str) => extract(str, { strict: false });
 
     it('should treat braces not followed by $ as literal text', function () {
-      assert.deepEqual(
-        extractTolerant('{ "petId": "{$inputs.pet_id}", "c": "{$inputs.c}" }'),
-        ['$inputs.pet_id', '$inputs.c'],
-      );
+      assert.deepEqual(extractTolerant('{ "petId": "{$inputs.pet_id}", "c": "{$inputs.c}" }'), [
+        '$inputs.pet_id',
+        '$inputs.c',
+      ]);
       assert.deepEqual(extractTolerant('{"a": "{hello}"} {$inputs.ok}'), ['$inputs.ok']);
       assert.deepEqual(extractTolerant('{{$inputs.ok}}'), ['$inputs.ok']);
       assert.deepEqual(extractTolerant('{}'), []);
@@ -142,9 +151,7 @@ describe('extract', function () {
     });
 
     it('should skip invalid expression attempts', function () {
-      assert.deepEqual(extractTolerant('x={$inputs.}&y={$foo.bar}&z={$inputs.ok}'), [
-        '$inputs.ok',
-      ]);
+      assert.deepEqual(extractTolerant('x={$inputs.}&y={$foo.bar}&z={$inputs.ok}'), ['$inputs.ok']);
       assert.deepEqual(extractTolerant('{$}'), []);
     });
 
