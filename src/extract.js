@@ -25,7 +25,7 @@ const extract = (str, { strict = true } = {}) => {
     return [];
   }
 
-  if (!strict) {
+  if (strict === false) {
     return scan(str)
       .filter((token) => token.type === 'expression')
       .map((token) => token.expression);

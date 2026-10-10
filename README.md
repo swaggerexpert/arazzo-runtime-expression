@@ -103,12 +103,18 @@ extract('x={$inputs.}&y={$inputs.ok}'); // => []
 With `strict: false`, extraction is tolerant. An **expression attempt** is a span that starts with `{$`
 and ends at the first `}`. Everything else, including any `{` not followed by `$` and stray `}`, is
 literal text. Every valid expression is extracted; invalid attempts (e.g. `{$inputs.}`, `{$foo.bar}`)
-and unterminated attempts (e.g. `{$url` with no closing `}`) are skipped.
+are skipped.
+
+If another `{` or the end of the string comes before the closing `}`, the attempt is **unterminated**
+and is skipped as well. Scanning then resumes at that `{`, so it can start a new attempt:
+`{$a{$inputs.ok}` contains the unterminated attempt `{$a` followed by the valid `{$inputs.ok}`.
 
 ```js
 extract('{"petId": "{$inputs.petId}"}', { strict: false }); // => ['$inputs.petId']
 extract('x={$inputs.}&y={$inputs.ok}', { strict: false }); // => ['$inputs.ok']
 extract('{{$inputs.ok}}', { strict: false }); // => ['$inputs.ok']
+extract('{$a{$inputs.ok}', { strict: false }); // => ['$inputs.ok']
+extract('{$url', { strict: false }); // => []
 ```
 
 For every string that strict mode accepts, tolerant mode returns the same result.
@@ -160,9 +166,15 @@ With `strict: false`, interpolation is tolerant and follows the same rules as to
 every valid `{$...}` span is substituted and all other text is kept as it is. This makes it possible
 to interpolate templates that contain literal braces, such as JSON payloads.
 
-Every invalid expression attempt is passed to the `onError` callback, and its return value replaces
-the span in the output. By default, the span is left unchanged. Throw from `onError` to fail instead.
-`onError` is ignored in strict mode.
+Every invalid or unterminated expression attempt is passed to the `onError` callback, and its return
+value replaces the span in the output. By default, the span is left unchanged. Throw from `onError`
+to fail instead. `onError` is ignored in strict mode.
+
+The callback receives `{ text, start, length, error }`:
+
+- `text` - the raw span, including braces (e.g. `{$inputs.}`), or without the closing brace when unterminated (e.g. `{$url`)
+- `start`, `length` - position of the span in the template
+- `error` - an `ArazzoRuntimeExpressionParseError` describing the attempt; its `runtimeExpression` property is the span without braces (e.g. `$inputs.`)
 
 ```js
 import { interpolate } from '@swaggerexpert/arazzo-runtime-expression';
@@ -181,7 +193,7 @@ interpolate('a={$inputs.petId}&b={$inputs.}', resolver, { strict: false });
 // Throw to fail on invalid expression attempts
 interpolate('a={$inputs.petId}&b={$inputs.}', resolver, {
   strict: false,
-  onError: ({ expression, start, length, error }) => {
+  onError: ({ text, start, length, error }) => {
     throw error; // ArazzoRuntimeExpressionParseError: Invalid runtime expression "{$inputs.}" at position 20
   },
 });

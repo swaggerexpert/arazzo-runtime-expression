@@ -26,7 +26,7 @@ const defaultStringify = (value) => {
  * Default handling of an invalid expression attempt in non-strict mode:
  * the span is left in the output verbatim.
  */
-const defaultOnError = ({ expression }) => expression;
+const defaultOnError = ({ text }) => text;
 
 /**
  * Interpolate (transclude) runtime expressions embedded in a template string.
@@ -66,24 +66,39 @@ const interpolate = (
   if (typeof resolver !== 'function') {
     throw new TypeError('Resolver must be a function');
   }
+  if (typeof onError !== 'function') {
+    throw new TypeError('onError must be a function');
+  }
 
-  if (!strict) {
+  if (strict === false) {
     let output = '';
 
     for (const token of scan(template)) {
       if (token.type === 'expression') {
         output += stringify(resolver(token.expression));
       } else if (token.type === 'invalid') {
-        const { text: expression, start, length } = token;
-        const message = token.terminated
-          ? `Invalid runtime expression "${expression}" at position ${start}`
-          : `Unterminated runtime expression "${expression}" at position ${start}`;
-        const error = new ArazzoRuntimeExpressionParseError(message, {
-          runtimeExpression: expression,
+        const { text, expression, start, length, terminated } = token;
+        let error;
+
+        const replacement = onError({
+          text,
           start,
           length,
+          // created lazily - capturing a stack trace for every invalid attempt is costly
+          get error() {
+            if (error === undefined) {
+              const message = terminated
+                ? `Invalid runtime expression "${text}" at position ${start}`
+                : `Unterminated runtime expression "${text}" at position ${start}`;
+              error = new ArazzoRuntimeExpressionParseError(message, {
+                runtimeExpression: expression,
+                start,
+                length,
+              });
+            }
+            return error;
+          },
         });
-        const replacement = onError({ expression, start, length, error });
 
         if (typeof replacement !== 'string') {
           throw new TypeError('onError must return a string');

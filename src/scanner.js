@@ -12,7 +12,7 @@ import test from './test/index.js';
  * Returns a list of tokens covering the whole string:
  *  - { type: 'literal', text, start, length }
  *  - { type: 'expression', text, expression, start, length }
- *  - { type: 'invalid', text, terminated, start, length }
+ *  - { type: 'invalid', text, expression, terminated, start, length }
  *
  * `text` is always the raw span; `expression` is the span without the braces.
  *
@@ -56,14 +56,16 @@ const scan = (str) => {
       if (test(expression)) {
         tokens.push({ type: 'expression', text, expression, start, length });
       } else {
-        tokens.push({ type: 'invalid', text, terminated: true, start, length });
+        tokens.push({ type: 'invalid', text, expression, terminated: true, start, length });
       }
       position = end + 1;
     } else {
       // unterminated attempt - resume at the `{` (if any), it may start a new attempt
+      const text = str.slice(start, end);
       tokens.push({
         type: 'invalid',
-        text: str.slice(start, end),
+        text,
+        expression: text.slice(1),
         terminated: false,
         start,
         length: end - start,

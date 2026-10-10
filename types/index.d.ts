@@ -409,11 +409,15 @@ export interface InterpolateErrorInfo {
    * Raw span of the attempt, including braces (e.g. '{$inputs.}'),
    * or without the closing brace when unterminated (e.g. '{$url').
    */
-  readonly expression: string;
+  readonly text: string;
   /** Start offset of the span in the template */
   readonly start: number;
   /** Length of the span */
   readonly length: number;
+  /**
+   * Error describing the invalid attempt; its `runtimeExpression` is the span
+   * without braces (e.g. '$inputs.'). Created lazily on first access.
+   */
   readonly error: ArazzoRuntimeExpressionParseError;
 }
 
@@ -507,4 +511,8 @@ export class ArazzoRuntimeExpressionError extends Error {
  */
 export class ArazzoRuntimeExpressionParseError extends ArazzoRuntimeExpressionError {
   runtimeExpression?: string;
+  /** Start offset of an invalid expression attempt (tolerant interpolation only) */
+  start?: number;
+  /** Length of an invalid expression attempt (tolerant interpolation only) */
+  length?: number;
 }

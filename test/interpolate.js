@@ -180,24 +180,74 @@ describe('interpolate', function () {
       interpolateTolerant('x={$inputs.}&y={$foo.bar}&z={$inputs.ok}{$url', {
         onError: (info) => {
           calls.push(info);
-          return info.expression;
+          return info.text;
         },
       });
 
       assert.deepEqual(
-        calls.map(({ expression, start, length }) => ({ expression, start, length })),
+        calls.map(({ text, start, length }) => ({ text, start, length })),
         [
-          { expression: '{$inputs.}', start: 2, length: 10 },
-          { expression: '{$foo.bar}', start: 15, length: 10 },
-          { expression: '{$url', start: 40, length: 5 },
+          { text: '{$inputs.}', start: 2, length: 10 },
+          { text: '{$foo.bar}', start: 15, length: 10 },
+          { text: '{$url', start: 40, length: 5 },
         ],
       );
-      calls.forEach(({ error, expression }) => {
+      calls.forEach(({ error, start, length }) => {
         assert.instanceOf(error, ArazzoRuntimeExpressionParseError);
-        assert.strictEqual(error.runtimeExpression, expression);
+        assert.strictEqual(error.start, start);
+        assert.strictEqual(error.length, length);
       });
-      assert.include(calls[0].error.message, 'Invalid runtime expression');
-      assert.include(calls[2].error.message, 'Unterminated runtime expression');
+      assert.deepEqual(
+        calls.map(({ error }) => error.runtimeExpression),
+        ['$inputs.', '$foo.bar', '$url'],
+      );
+      assert.strictEqual(
+        calls[0].error.message,
+        'Invalid runtime expression "{$inputs.}" at position 2',
+      );
+      assert.strictEqual(
+        calls[2].error.message,
+        'Unterminated runtime expression "{$url" at position 40',
+      );
+    });
+
+    it('should create the error lazily and only once', function () {
+      interpolateTolerant('{$foo.bar}', {
+        onError: (info) => {
+          assert.strictEqual(info.error, info.error);
+          return info.text;
+        },
+      });
+    });
+
+    it('should report unterminated attempts', function () {
+      const calls = [];
+      const onError = (info) => {
+        calls.push([info.text, info.start, info.length]);
+        return info.text;
+      };
+
+      assert.strictEqual(interpolateTolerant('a{$', { onError }), 'a{$');
+      assert.strictEqual(interpolateTolerant('{${$url}', { onError }), '{$<$url>');
+      assert.strictEqual(interpolateTolerant('{$a{x}', { onError }), '{$a{x}');
+      assert.deepEqual(calls, [
+        ['{$', 1, 2],
+        ['{$', 0, 2],
+        ['{$a', 0, 3],
+      ]);
+    });
+
+    it('should report positions as UTF-16 code unit offsets', function () {
+      const calls = [];
+      const result = interpolateTolerant('😀{$foo}😀{$inputs.ok}', {
+        onError: (info) => {
+          calls.push([info.text, info.start, info.length]);
+          return info.text;
+        },
+      });
+
+      assert.strictEqual(result, '😀{$foo}😀<$inputs.ok>');
+      assert.deepEqual(calls, [['{$foo}', 2, 6]]);
     });
 
     it('should replace invalid expression attempts with onError return value', function () {
@@ -221,7 +271,24 @@ describe('interpolate', function () {
     });
 
     it('should throw when onError does not return a string', function () {
-      assert.throws(() => interpolateTolerant('{$foo.bar}', { onError: () => undefined }), TypeError);
+      assert.throws(
+        () => interpolateTolerant('{$foo.bar}', { onError: () => undefined }),
+        TypeError,
+        'onError must return a string',
+      );
+    });
+
+    it('should throw when onError is not a function', function () {
+      assert.throws(
+        () => interpolateTolerant('{$url}', { onError: null }),
+        TypeError,
+        'onError must be a function',
+      );
+      assert.throws(
+        () => interpolate('{$url}', resolver, { onError: 'nope' }),
+        TypeError,
+        'onError must be a function',
+      );
     });
 
     it('should not call onError in strict mode', function () {
@@ -234,6 +301,11 @@ describe('interpolate', function () {
       });
       assert.strictEqual(result, '{$foo.bar}');
       assert.isFalse(called);
+    });
+
+    it('should only enable tolerant mode for strict: false', function () {
+      assert.strictEqual(interpolate('{"a":{$url}}', resolver, { strict: 0 }), '{"a":{$url}}');
+      assert.strictEqual(interpolate('{"a":{$url}}', resolver, { strict: null }), '{"a":{$url}}');
     });
 
     it('should apply stringify to resolved values', function () {

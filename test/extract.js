@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { extract } from '../src/index.js';
+import { extract, test } from '../src/index.js';
 import validExpressions from './fixtures/expressions-valid.js';
 
 describe('extract', function () {
@@ -166,6 +166,35 @@ describe('extract', function () {
 
     it('should return empty array for non-string input', function () {
       assert.deepEqual(extract(null, { strict: false }), []);
+    });
+
+    it('should only enable tolerant mode for strict: false', function () {
+      assert.deepEqual(extract('{"a":{$url}}', { strict: 0 }), []);
+      assert.deepEqual(extract('{"a":{$url}}', { strict: null }), []);
+    });
+
+    it('should validate an attempt exactly like test() and strict mode', function () {
+      const candidates = [
+        ...validExpressions,
+        '$',
+        '$inputs.',
+        '$foo.bar',
+        '$request.',
+        '$request.body#',
+        '$request.body#/a~2',
+        '$request.query.a\\x',
+        '$steps.a.b.outputs.c',
+        '$url ',
+        '$URL',
+      ];
+
+      candidates.forEach((candidate) => {
+        const str = `{${candidate}}`;
+        const valid = test(candidate);
+
+        assert.strictEqual(extract(str).length === 1, valid, str);
+        assert.strictEqual(extractTolerant(str).length === 1, valid, str);
+      });
     });
 
     it('should match strict mode on every string strict mode accepts', function () {
