@@ -90,6 +90,35 @@ test(expressions[0]); // => true
 parse(expressions[0]); // => { result, tree }
 ```
 
+By default, extraction is **strict** and all-or-nothing: the whole string must consist of literal text
+and valid `{expression}` patterns. Literal `{` and `}` characters are not allowed, so if any part of the
+string doesn't fit (e.g. JSON braces, a stray `}` or an invalid expression), an empty array is returned,
+even when other parts contain valid expressions.
+
+```js
+extract('{"petId": "{$inputs.petId}"}'); // => []
+extract('x={$inputs.}&y={$inputs.ok}'); // => []
+```
+
+With `strict: false`, extraction is tolerant. An **expression attempt** is a span that starts with `{$`
+and ends at the first `}`. Everything else, including any `{` not followed by `$` and stray `}`, is
+literal text. Every valid expression is extracted; invalid attempts (e.g. `{$inputs.}`, `{$foo.bar}`)
+are skipped.
+
+If another `{` or the end of the string comes before the closing `}`, the attempt is **unterminated**
+and is skipped as well. Scanning then resumes at that `{`, so it can start a new attempt:
+`{$a{$inputs.ok}` contains the unterminated attempt `{$a` followed by the valid `{$inputs.ok}`.
+
+```js
+extract('{"petId": "{$inputs.petId}"}', { strict: false }); // => ['$inputs.petId']
+extract('x={$inputs.}&y={$inputs.ok}', { strict: false }); // => ['$inputs.ok']
+extract('{{$inputs.ok}}', { strict: false }); // => ['$inputs.ok']
+extract('{$a{$inputs.ok}', { strict: false }); // => ['$inputs.ok']
+extract('{$url', { strict: false }); // => []
+```
+
+For every string that strict mode accepts, tolerant mode returns the same result.
+
 #### Interpolation
 
 Arazzo embeds Runtime Expressions into string values surrounded with `{}` curly braces.
@@ -127,6 +156,47 @@ interpolate('{$request.body}', () => ({ id: 1 }), {
   stringify: (value) => JSON.stringify(value, null, 2),
 });
 // => '{\n  "id": 1\n}'
+```
+
+Like extraction, interpolation is **strict** by default: if the template doesn't parse as a whole
+(e.g. it contains JSON braces, a stray `}` or an invalid expression), it is returned unchanged
+and no expression is substituted.
+
+With `strict: false`, interpolation is tolerant and follows the same rules as tolerant extraction:
+every valid `{$...}` span is substituted and all other text is kept as it is. This makes it possible
+to interpolate templates that contain literal braces, such as JSON payloads.
+
+Every invalid or unterminated expression attempt is passed to the `onError` callback, and its return
+value replaces the span in the output. By default, the span is left unchanged. Throw from `onError`
+to fail instead. `onError` is ignored in strict mode.
+
+The callback receives `{ text, start, length, error }`:
+
+- `text` - the raw span, including braces (e.g. `{$inputs.}`), or without the closing brace when unterminated (e.g. `{$url`)
+- `start`, `length` - position of the span in the template
+- `error` - an `ArazzoRuntimeExpressionParseError` describing the attempt; its `runtimeExpression` property is the span without braces (e.g. `$inputs.`)
+
+```js
+import { interpolate } from '@swaggerexpert/arazzo-runtime-expression';
+
+const values = { '$inputs.petId': 42 };
+const resolver = (expression) => values[expression];
+
+// Literal braces are kept as they are
+interpolate('{"petId": {$inputs.petId}}', resolver, { strict: false });
+// => '{"petId": 42}'
+
+// Invalid expression attempts are left unchanged by default
+interpolate('a={$inputs.petId}&b={$inputs.}', resolver, { strict: false });
+// => 'a=42&b={$inputs.}'
+
+// Throw to fail on invalid expression attempts
+interpolate('a={$inputs.petId}&b={$inputs.}', resolver, {
+  strict: false,
+  onError: ({ text, start, length, error }) => {
+    throw error; // ArazzoRuntimeExpressionParseError: Invalid runtime expression "{$inputs.}" at position 20
+  },
+});
 ```
 
 #### Parsing

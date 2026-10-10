@@ -379,14 +379,53 @@ export function parse(runtimeExpression: string, options?: ParseOptions): ParseR
 export function test(runtimeExpression: string): boolean;
 
 /**
+ * Extraction options
+ */
+export interface ExtractOptions {
+  /**
+   * When true (default), the whole string must parse as an expression-string,
+   * otherwise an empty array is returned. When false, any `{` not followed by `$`
+   * is literal text, every valid `{$...}` span is extracted and invalid
+   * expression attempts are skipped.
+   */
+  readonly strict?: boolean;
+}
+
+/**
  * Extract runtime expressions from a string containing embedded {expression} patterns
  */
-export function extract(str: string): string[];
+export function extract(str: string, options?: ExtractOptions): string[];
 
 /**
  * Resolves a single runtime expression to its value during interpolation.
  */
 export type InterpolateResolver = (expression: string) => unknown;
+
+/**
+ * Information about an invalid expression attempt passed to `onError`.
+ */
+export interface InterpolateErrorInfo {
+  /**
+   * Raw span of the attempt, including braces (e.g. '{$inputs.}'),
+   * or without the closing brace when unterminated (e.g. '{$url').
+   */
+  readonly text: string;
+  /** Start offset of the span in the template */
+  readonly start: number;
+  /** Length of the span */
+  readonly length: number;
+  /**
+   * Error describing the invalid attempt; its `runtimeExpression` is the span
+   * without braces (e.g. '$inputs.'). Created lazily on first access.
+   */
+  readonly error: ArazzoRuntimeExpressionParseError;
+}
+
+/**
+ * Handles an invalid expression attempt in non-strict mode.
+ * The returned string replaces the span in the output.
+ */
+export type InterpolateOnError = (info: InterpolateErrorInfo) => string;
 
 /**
  * Interpolation options
@@ -398,6 +437,18 @@ export interface InterpolateOptions {
    * objects and String() for everything else.
    */
   readonly stringify?: (value: unknown) => string;
+  /**
+   * When true (default), the whole template must parse as an expression-string,
+   * otherwise it is returned unchanged. When false, any `{` not followed by `$`
+   * is literal text and every valid `{$...}` span is substituted.
+   */
+  readonly strict?: boolean;
+  /**
+   * Called for every invalid expression attempt in non-strict mode; the returned
+   * string replaces the span. Defaults to returning the span verbatim.
+   * Throw to fail instead. Ignored in strict mode.
+   */
+  readonly onError?: InterpolateOnError;
 }
 
 /**
@@ -460,4 +511,8 @@ export class ArazzoRuntimeExpressionError extends Error {
  */
 export class ArazzoRuntimeExpressionParseError extends ArazzoRuntimeExpressionError {
   runtimeExpression?: string;
+  /** Start offset of an invalid expression attempt (tolerant interpolation only) */
+  start?: number;
+  /** Length of an invalid expression attempt (tolerant interpolation only) */
+  length?: number;
 }
