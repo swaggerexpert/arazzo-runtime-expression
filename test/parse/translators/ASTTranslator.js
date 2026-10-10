@@ -21,7 +21,9 @@ describe('parse', function () {
       });
 
       specify('should translate $steps.login.outputs.token to an AST', function () {
-        const parseResult = parse('$steps.login.outputs.token', { translator: new ASTTranslator() });
+        const parseResult = parse('$steps.login.outputs.token', {
+          translator: new ASTTranslator(),
+        });
 
         assert.isTrue(parseResult.result.success);
         expect(parseResult.tree).toMatchSnapshot();

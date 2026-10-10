@@ -52,11 +52,17 @@ describe('interpolate', function () {
   });
 
   it('should return string with no expressions unchanged', function () {
-    assert.strictEqual(interpolate('no expressions here', () => 'X'), 'no expressions here');
+    assert.strictEqual(
+      interpolate('no expressions here', () => 'X'),
+      'no expressions here',
+    );
   });
 
   it('should return empty string unchanged', function () {
-    assert.strictEqual(interpolate('', () => 'X'), '');
+    assert.strictEqual(
+      interpolate('', () => 'X'),
+      '',
+    );
   });
 
   it('should interpolate body expressions with JSON pointers', function () {
@@ -71,37 +77,61 @@ describe('interpolate', function () {
 
   describe('default stringification', function () {
     it('should render undefined as empty string', function () {
-      assert.strictEqual(interpolate('a{$url}b', () => undefined), 'ab');
+      assert.strictEqual(
+        interpolate('a{$url}b', () => undefined),
+        'ab',
+      );
     });
 
     it('should render null as empty string', function () {
-      assert.strictEqual(interpolate('a{$url}b', () => null), 'ab');
+      assert.strictEqual(
+        interpolate('a{$url}b', () => null),
+        'ab',
+      );
     });
 
     it('should render strings as-is', function () {
-      assert.strictEqual(interpolate('{$url}', () => 'https://example.com'), 'https://example.com');
+      assert.strictEqual(
+        interpolate('{$url}', () => 'https://example.com'),
+        'https://example.com',
+      );
     });
 
     it('should render numbers via String()', function () {
-      assert.strictEqual(interpolate('{$statusCode}', () => 200), '200');
+      assert.strictEqual(
+        interpolate('{$statusCode}', () => 200),
+        '200',
+      );
     });
 
     it('should render booleans via String()', function () {
-      assert.strictEqual(interpolate('{$url}', () => true), 'true');
+      assert.strictEqual(
+        interpolate('{$url}', () => true),
+        'true',
+      );
     });
 
     it('should render objects via JSON.stringify', function () {
-      assert.strictEqual(interpolate('{$request.body}', () => ({ a: 1 })), '{"a":1}');
+      assert.strictEqual(
+        interpolate('{$request.body}', () => ({ a: 1 })),
+        '{"a":1}',
+      );
     });
 
     it('should render arrays via JSON.stringify', function () {
-      assert.strictEqual(interpolate('{$request.body}', () => [1, 2]), '[1,2]');
+      assert.strictEqual(
+        interpolate('{$request.body}', () => [1, 2]),
+        '[1,2]',
+      );
     });
 
     it('should render an unserializable object as empty string', function () {
       // JSON.stringify returns undefined when toJSON() returns undefined;
       // it must not leak the literal string "undefined" into the output.
-      assert.strictEqual(interpolate('a{$request.body}b', () => ({ toJSON: () => undefined })), 'ab');
+      assert.strictEqual(
+        interpolate('a{$request.body}b', () => ({ toJSON: () => undefined })),
+        'ab',
+      );
     });
   });
 
@@ -113,15 +143,27 @@ describe('interpolate', function () {
   });
 
   it('should return template unchanged when it cannot be parsed', function () {
-    assert.strictEqual(interpolate('text with } in it', () => 'X'), 'text with } in it');
-    assert.strictEqual(interpolate('{invalid}', () => 'X'), '{invalid}');
-    assert.strictEqual(interpolate('{{$url}}', () => 'X'), '{{$url}}');
+    assert.strictEqual(
+      interpolate('text with } in it', () => 'X'),
+      'text with } in it',
+    );
+    assert.strictEqual(
+      interpolate('{invalid}', () => 'X'),
+      '{invalid}',
+    );
+    assert.strictEqual(
+      interpolate('{{$url}}', () => 'X'),
+      '{{$url}}',
+    );
   });
 
   it('should leave a braced literal that is not an expression unchanged', function () {
     // A JSON-object-looking brace segment makes the whole expression-string fail
     // to parse, so the template is returned as-is.
-    assert.strictEqual(interpolate('{"a":1}', () => 'X'), '{"a":1}');
+    assert.strictEqual(
+      interpolate('{"a":1}', () => 'X'),
+      '{"a":1}',
+    );
     assert.strictEqual(
       interpolate('{"x":1}-{$inputs.username}', () => 'X'),
       '{"x":1}-{$inputs.username}',

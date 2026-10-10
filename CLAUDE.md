@@ -12,6 +12,8 @@ npm run build:es         # Build ES modules only (to es/ directory)
 npm run build:cjs        # Build CommonJS modules only (to cjs/ directory)
 npm test                 # Run all tests with Mocha
 npm run test:watch       # Run tests in watch mode
+npm run lint             # Lint (ESLint + Prettier)
+npm run lint:fix         # Lint and fix (ESLint + Prettier)
 ```
 
 ## Architecture
