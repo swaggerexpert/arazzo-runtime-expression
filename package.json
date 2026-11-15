@@ -16,7 +16,7 @@
     "./package.json": "./package.json"
   },
   "watch": {
-    "test": "{src,test}/*.js"
+    "test": "{src,test}/**/*.js"
   },
   "scripts": {
     "prepare": "husky",
