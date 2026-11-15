@@ -19,6 +19,24 @@ describe('parse', function () {
         assert.isTrue(parseResult.result.success);
         expect(parseResult.tree).toMatchSnapshot();
       });
+
+      specify('should escape XML special characters', function () {
+        const { tree } = parse('$request.body#/</node><x>&"\'', {
+          translator: new XMLTranslator(),
+        });
+
+        assert.include(tree, '&lt;/node&gt;&lt;x&gt;&amp;&quot;&apos;');
+        assert.notInclude(tree, '</node><x>');
+        // outside of comments, every & starts one of the predefined entities
+        assert.notMatch(tree.replace(/<!--[\s\S]*?-->/g, ''), /&(?!amp;|lt;|gt;|quot;|apos;)/);
+      });
+
+      specify('should replace characters that are invalid in XML', function () {
+        const { tree } = parse('$request.query.a\uFFFEb', { translator: new XMLTranslator() });
+
+        assert.include(tree, 'a\uFFFDb');
+        assert.notInclude(tree, '\uFFFE');
+      });
     });
   });
 });

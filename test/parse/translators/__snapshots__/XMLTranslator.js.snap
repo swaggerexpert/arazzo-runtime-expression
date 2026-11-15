@@ -3,6 +3,11 @@
 exports[`parse translators XMLTranslator should translate $request.body#/user/id to XML 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <root nodes="6" characters="22">
+<!--
+  Caveat: AST node phrases may not be faithfully represented.
+          Invalid XML characters are replaced with 0xFFFD.
+          Special characters &<>"' are escaped with XML entities.
+-->
 <!-- input string -->
   $request.body#/user/id
  <node name="expression" index="0" length="22">
@@ -30,6 +35,11 @@ exports[`parse translators XMLTranslator should translate $request.body#/user/id
 exports[`parse translators XMLTranslator should translate $url to XML 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <root nodes="1" characters="4">
+<!--
+  Caveat: AST node phrases may not be faithfully represented.
+          Invalid XML characters are replaced with 0xFFFD.
+          Special characters &<>"' are escaped with XML entities.
+-->
 <!-- input string -->
   $url
  <node name="expression" index="0" length="4">
