@@ -291,6 +291,10 @@ export class ASTTranslator implements Translator {
 export class Trace {
   constructor();
   displayTrace(): string;
+  /**
+   * Terminals the grammar could accept at the offset where parsing stopped (`result.maxMatched`),
+   * unabbreviated, in the order they were tried. Character ranges use ABNF notation (e.g. `%x30-39`).
+   */
   inferExpectations(): Expectations;
 }
 

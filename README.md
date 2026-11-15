@@ -306,11 +306,15 @@ Tracing also allows you to infer expected tokens at a failure point. This is use
 ```js
 import { parse } from '@swaggerexpert/arazzo-runtime-expression';
 
-const { trace } = parse('$invalid', { trace: true });
+const { result, trace } = parse('$steps.find-pet.output.petId', { trace: true });
 
-const expectations = trace.inferExpectations();
-console.log(expectations.toString()); // e.g., "expected '$url', '$method', '$statusCode', '$request.', ..."
+result.maxMatched; // => 15 (the "." where ".outputs." was expected)
+trace.inferExpectations(); // => ['%x41-5A', '%x61-7A', '%x30-39', '-', '_', '.outputs.']
+trace.inferExpectations().toString(); // => '"%x41-5A", "%x61-7A", "%x30-39", "-", "_", ".outputs."'
 ```
+
+`inferExpectations()` returns the terminals the grammar could accept at `result.maxMatched`;
+character ranges are given in ABNF notation (e.g. `%x30-39` for a digit).
 
 #### Validation
 

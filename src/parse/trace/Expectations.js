@@ -1,6 +1,7 @@
 class Expectations extends Array {
   toString() {
-    return this.map((c) => `"${String(c)}"`).join(', ');
+    // JSON string syntax, so that entries such as '"' and '\\' stay unambiguous
+    return this.map((c) => JSON.stringify(String(c))).join(', ');
   }
 }
 
