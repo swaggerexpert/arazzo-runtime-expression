@@ -1,4 +1,5 @@
 import test from './test/index.js';
+import ArazzoRuntimeExpressionParseError from './errors/ArazzoRuntimeExpressionParseError.js';
 
 /**
  * Tolerantly scan a string containing embedded {expression} patterns.
@@ -75,6 +76,36 @@ const scan = (str) => {
   }
 
   return tokens;
+};
+
+/**
+ * Information about an invalid expression attempt, as passed to `onError`
+ * of `interpolate` and `extract`: { text, start, length, error }.
+ *
+ * @private
+ */
+export const invalidAttemptInfo = ({ text, expression, start, length, terminated }) => {
+  let error;
+
+  return {
+    text,
+    start,
+    length,
+    // created lazily - capturing a stack trace for every invalid attempt is costly
+    get error() {
+      if (error === undefined) {
+        const message = terminated
+          ? `Invalid runtime expression "${text}" at position ${start}`
+          : `Unterminated runtime expression "${text}" at position ${start}`;
+        error = new ArazzoRuntimeExpressionParseError(message, {
+          runtimeExpression: expression,
+          start,
+          length,
+        });
+      }
+      return error;
+    },
+  };
 };
 
 export default scan;

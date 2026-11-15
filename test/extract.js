@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { extract, test } from '../src/index.js';
+import { extract, interpolate, test, ArazzoRuntimeExpressionParseError } from '../src/index.js';
 import validExpressions from './fixtures/expressions-valid.js';
 
 describe('extract', function () {
@@ -215,6 +215,103 @@ describe('extract', function () {
 
       const all = validExpressions.map((expression) => `{${expression}}`).join('&');
       assert.deepEqual(extractTolerant(all), extract(all));
+    });
+
+    describe('given onError', function () {
+      const collect = (str) => {
+        const infos = [];
+        const expressions = extract(str, { strict: false, onError: (info) => infos.push(info) });
+        return { expressions, infos };
+      };
+
+      it('should report every invalid expression attempt', function () {
+        const { expressions, infos } = collect('x={$inputs.}&y={$foo.bar}&z={$inputs.ok}&w={$url');
+
+        assert.deepEqual(expressions, ['$inputs.ok']);
+        assert.deepEqual(
+          infos.map(({ text, start, length }) => ({ text, start, length })),
+          [
+            { text: '{$inputs.}', start: 2, length: 10 },
+            { text: '{$foo.bar}', start: 15, length: 10 },
+            { text: '{$url', start: 43, length: 5 },
+          ],
+        );
+      });
+
+      it('should describe each attempt with a parse error', function () {
+        const { infos } = collect('x={$inputs.}&w={$url');
+
+        assert.instanceOf(infos[0].error, ArazzoRuntimeExpressionParseError);
+        assert.strictEqual(
+          infos[0].error.message,
+          'Invalid runtime expression "{$inputs.}" at position 2',
+        );
+        assert.strictEqual(infos[0].error.runtimeExpression, '$inputs.');
+        assert.strictEqual(
+          infos[1].error.message,
+          'Unterminated runtime expression "{$url" at position 15',
+        );
+        assert.strictEqual(infos[1].error.runtimeExpression, '$url');
+      });
+
+      it('should pass the same information as interpolate', function () {
+        const str = 'x={$inputs.}&y={$a{$inputs.ok}&z={$}';
+        const fromExtract = collect(str).infos;
+        const fromInterpolate = [];
+        interpolate(str, () => '', {
+          strict: false,
+          onError: (info) => {
+            fromInterpolate.push(info);
+            return info.text;
+          },
+        });
+
+        const describe = ({ text, start, length, error }) => ({
+          text,
+          start,
+          length,
+          message: error.message,
+          runtimeExpression: error.runtimeExpression,
+        });
+        assert.deepEqual(fromExtract.map(describe), fromInterpolate.map(describe));
+      });
+
+      it('should ignore the return value of onError', function () {
+        assert.deepEqual(extract('{$inputs.}{$url}', { strict: false, onError: () => 'x' }), [
+          '$url',
+        ]);
+      });
+
+      it('should not call onError for valid expressions and literal text', function () {
+        assert.deepEqual(collect('{"a": "{$url}", "b": "}"}').infos, []);
+      });
+
+      it('should propagate an error thrown from onError', function () {
+        const onError = ({ error }) => {
+          throw error;
+        };
+
+        assert.throws(
+          () => extract('{$inputs.}', { strict: false, onError }),
+          ArazzoRuntimeExpressionParseError,
+        );
+      });
+
+      it('should ignore onError that is not a function', function () {
+        assert.deepEqual(extract('{$inputs.}{$url}', { strict: false, onError: 'x' }), ['$url']);
+        assert.deepEqual(extract('{$inputs.}{$url}', { strict: false, onError: null }), ['$url']);
+      });
+
+      it('should ignore onError in strict mode', function () {
+        let called = false;
+        const onError = () => {
+          called = true;
+        };
+
+        assert.deepEqual(extract('x={$inputs.}', { onError }), []);
+        assert.deepEqual(extract('{$url}', { onError: 'not a function' }), ['$url']);
+        assert.isFalse(called);
+      });
     });
   });
 });
