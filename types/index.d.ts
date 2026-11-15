@@ -135,11 +135,7 @@ export interface PayloadReference {
  * Union of all reference types
  */
 export type Reference =
-  | HeaderReference
-  | QueryReference
-  | PathReference
-  | BodyReference
-  | PayloadReference;
+  HeaderReference | QueryReference | PathReference | BodyReference | PayloadReference;
 
 /**
  * Source - wrapper for reference in request/response/message expressions
@@ -350,25 +346,37 @@ export interface ParseResult<T = CSTNode | ASTNode | string | undefined> {
  * Parse a runtime expression with ASTTranslator
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
-export function parse(runtimeExpression: string, options: ParseOptions<ASTTranslator>): ParseResult<ASTNode>;
+export function parse(
+  runtimeExpression: string,
+  options: ParseOptions<ASTTranslator>,
+): ParseResult<ASTNode>;
 
 /**
  * Parse a runtime expression with XMLTranslator
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
-export function parse(runtimeExpression: string, options: ParseOptions<XMLTranslator>): ParseResult<string>;
+export function parse(
+  runtimeExpression: string,
+  options: ParseOptions<XMLTranslator>,
+): ParseResult<string>;
 
 /**
  * Parse a runtime expression with CSTTranslator
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
-export function parse(runtimeExpression: string, options: ParseOptions<CSTTranslator>): ParseResult<CSTNode>;
+export function parse(
+  runtimeExpression: string,
+  options: ParseOptions<CSTTranslator>,
+): ParseResult<CSTNode>;
 
 /**
  * Parse a runtime expression with null translator (validation only)
  * https://spec.openapis.org/arazzo/latest.html#runtime-expressions
  */
-export function parse(runtimeExpression: string, options: ParseOptions<null>): ParseResult<undefined>;
+export function parse(
+  runtimeExpression: string,
+  options: ParseOptions<null>,
+): ParseResult<undefined>;
 
 /**
  * Parse a runtime expression with default ASTTranslator
@@ -393,7 +401,19 @@ export interface ExtractOptions {
    * expression attempts are skipped.
    */
   readonly strict?: boolean;
+  /**
+   * Called for every invalid expression attempt in non-strict mode, with the same
+   * information `interpolate` passes to its `onError`. The return value is ignored,
+   * as extraction has nothing to replace. Throw to fail instead. Ignored in strict mode,
+   * and when it is not a function.
+   */
+  readonly onError?: ExtractOnError;
 }
+
+/**
+ * Reports an invalid expression attempt found by `extract` in non-strict mode.
+ */
+export type ExtractOnError = (info: InterpolateErrorInfo) => unknown;
 
 /**
  * Extract runtime expressions from a string containing embedded {expression} patterns

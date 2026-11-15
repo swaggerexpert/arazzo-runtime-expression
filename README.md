@@ -122,6 +122,23 @@ extract('{$url', { strict: false }); // => []
 
 For every string that strict mode accepts, tolerant mode returns the same result.
 
+Invalid attempts can be reported through the `onError` option, without resolving any values (e.g. to lint
+expression strings). It receives the same information as `onError` of [interpolate](#interpolation) (`text`, `start`,
+`length` and a lazily created `error`); its return value is ignored, as there is nothing to replace.
+`onError` is ignored in strict mode. Unlike `interpolate`, which throws a `TypeError`, `extract` also ignores
+an `onError` that is not a function, so that existing calls keep working.
+
+```js
+const errors = [];
+
+extract('x={$inputs.}&y={$inputs.ok}&z={$url', { strict: false, onError: (info) => errors.push(info) });
+// => ['$inputs.ok']
+
+errors.map(({ text, start, length }) => ({ text, start, length }));
+// => [{ text: '{$inputs.}', start: 2, length: 10 }, { text: '{$url', start: 30, length: 5 }]
+errors[0].error.message; // => 'Invalid runtime expression "{$inputs.}" at position 2'
+```
+
 #### Interpolation
 
 Arazzo embeds Runtime Expressions into string values surrounded with `{}` curly braces.

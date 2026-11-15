@@ -2,8 +2,7 @@ import { Parser } from 'apg-lite';
 
 import Grammar from './grammar.js';
 import CSTTranslator from './parse/translators/CSTTranslator.js';
-import scan from './scanner.js';
-import ArazzoRuntimeExpressionParseError from './errors/ArazzoRuntimeExpressionParseError.js';
+import scan, { invalidAttemptInfo } from './scanner.js';
 
 const grammar = new Grammar();
 
@@ -77,28 +76,7 @@ const interpolate = (
       if (token.type === 'expression') {
         output += stringify(resolver(token.expression));
       } else if (token.type === 'invalid') {
-        const { text, expression, start, length, terminated } = token;
-        let error;
-
-        const replacement = onError({
-          text,
-          start,
-          length,
-          // created lazily - capturing a stack trace for every invalid attempt is costly
-          get error() {
-            if (error === undefined) {
-              const message = terminated
-                ? `Invalid runtime expression "${text}" at position ${start}`
-                : `Unterminated runtime expression "${text}" at position ${start}`;
-              error = new ArazzoRuntimeExpressionParseError(message, {
-                runtimeExpression: expression,
-                start,
-                length,
-              });
-            }
-            return error;
-          },
-        });
+        const replacement = onError(invalidAttemptInfo(token));
 
         if (typeof replacement !== 'string') {
           throw new TypeError('onError must return a string');
