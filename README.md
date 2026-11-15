@@ -59,6 +59,9 @@ You can install `@swaggerexpert/arazzo-runtime-expression` using `npm`:
  $ npm install @swaggerexpert/arazzo-runtime-expression
 ```
 
+[TypeScript typings](https://github.com/swaggerexpert/arazzo-runtime-expression/blob/main/types/index.d.ts) are included
+for both ES module and CommonJS consumers and require TypeScript 4.8 or later.
+
 ### Usage
 
 `@swaggerexpert/arazzo-runtime-expression` currently supports **extraction**, **interpolation**, **parsing** and **validation**.

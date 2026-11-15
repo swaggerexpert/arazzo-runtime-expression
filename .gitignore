@@ -5,3 +5,4 @@ node_modules/
 /cjs
 /es
 /swaggerexpert-arazzo-runtime-expression-*.tgz
+/types/index.d.cts

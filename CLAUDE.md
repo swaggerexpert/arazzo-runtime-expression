@@ -6,10 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm install              # Install dependencies
-npm run build            # Full build: compile grammar + ES modules + CommonJS
+npm run build            # Full build: compile grammar + ES modules + CommonJS + bundled apg-lite + types/index.d.cts
 npm run grammar:compile  # Compile ABNF grammar to JavaScript parser
 npm run build:es         # Build ES modules only (to es/ directory)
 npm run build:cjs        # Build CommonJS modules only (to cjs/ directory)
+npm run build:types      # Copy types/index.d.ts to types/index.d.cts (also runs on npm pack)
 npm test                 # Run all tests with Mocha
 npm run test:watch       # Run tests in watch mode
 npm run lint             # Lint (ESLint + Prettier)
@@ -80,7 +81,9 @@ This allows proper parsing of embedded expressions in template strings.
 The library produces dual module formats:
 - `es/` - ES modules (`.mjs` files)
 - `cjs/` - CommonJS modules (`.cjs` files)
-- `types/` - TypeScript declarations
+- `types/` - TypeScript declarations: `types/index.d.ts` (ESM); `npm run build:types` copies it to `types/index.d.cts`
+  (generated, gitignored), which the `require` export condition points to, so that CommonJS consumers with
+  `node16`/`nodenext` resolution get types
 
 Babel handles the transformation with custom plugins for import extension rewriting.
 
