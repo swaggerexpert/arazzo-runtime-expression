@@ -493,7 +493,8 @@ export type UDT = Record<string, never>;
 /**
  * Error options
  */
-export interface ArazzoRuntimeExpressionErrorOptions extends ErrorOptions {
+export interface ArazzoRuntimeExpressionErrorOptions {
+  cause?: unknown;
   [key: string]: unknown;
 }
 
@@ -502,8 +503,8 @@ export interface ArazzoRuntimeExpressionErrorOptions extends ErrorOptions {
  */
 export class ArazzoRuntimeExpressionError extends Error {
   constructor(message?: string, options?: ArazzoRuntimeExpressionErrorOptions);
-  override name: string;
-  override cause?: unknown;
+  name: string;
+  cause?: unknown;
 }
 
 /**
