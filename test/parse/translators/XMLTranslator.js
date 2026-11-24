@@ -27,8 +27,14 @@ describe('parse', function () {
 
         assert.include(tree, '&lt;/node&gt;&lt;x&gt;&amp;&quot;&apos;');
         assert.notInclude(tree, '</node><x>');
-        // outside of comments, every & starts one of the predefined entities
-        assert.notMatch(tree.replace(/<!--[\s\S]*?-->/g, ''), /&(?!amp;|lt;|gt;|quot;|apos;)/);
+        // the input string and every node text follow their opening line; in each of them,
+        // every & starts one of the predefined entities
+        const lines = tree.split('\n');
+        const texts = lines.filter(
+          (line, index) => index > 0 && /^\s*(<node |<!-- input string -->)/.test(lines[index - 1]),
+        );
+        assert.lengthOf(texts, 7);
+        texts.forEach((text) => assert.notMatch(text, /&(?!amp;|lt;|gt;|quot;|apos;)/));
       });
 
       specify('should replace characters that are invalid in XML', function () {
