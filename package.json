@@ -100,6 +100,6 @@
     "mocha-expect-snapshot": "^8.0.0",
     "npm-watch": "^0.13.0",
     "prettier": "^3.1.1",
-    "semantic-release": "^25.0.2"
+    "semantic-release": "^26.0.1"
   }
 }
